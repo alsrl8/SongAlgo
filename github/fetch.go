@@ -17,7 +17,11 @@ type Schedule struct {
 	Problems []Problem `json:"problems"`
 }
 
-func FetchScheduleFromGitHub() (*Schedule, error) {
+type ScheduleList struct {
+	List []Schedule `json:"list"`
+}
+
+func FetchScheduleListFromGitHub() (*ScheduleList, error) {
 	// URL to the raw version of the file in the GitHub repository
 	url := "https://raw.githubusercontent.com/alsrl8/SongAlgo/schedule/Schedule.json"
 
@@ -35,11 +39,11 @@ func FetchScheduleFromGitHub() (*Schedule, error) {
 	}
 
 	// Parse the JSON into the Schedule struct
-	var schedule Schedule
-	err = json.Unmarshal(body, &schedule)
+	var scheduleList ScheduleList
+	err = json.Unmarshal(body, &scheduleList)
 	if err != nil {
 		return nil, err
 	}
 
-	return &schedule, nil
+	return &scheduleList, nil
 }

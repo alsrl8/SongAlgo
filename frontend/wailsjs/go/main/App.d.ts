@@ -4,4 +4,4 @@ import {github} from '../models';
 
 export function GetMenu():Promise<any>;
 
-export function GetSchedule():Promise<github.Schedule>;
+export function GetSchedule():Promise<github.ScheduleList>;

@@ -37,9 +37,9 @@ function App() {
                         setSelectedMenuItem(item)
                     }}>{item}</div>
                 ))}
-            </div>) : (
+            </div>) :
                 <Schedule selectedMenuItem={selectedMenuItem} setSelectedMenuItem={setSelectedMenuItem}/>
-            )}
+            }
         </div>
     )
 }

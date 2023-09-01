@@ -25,10 +25,10 @@ func (app *App) GetMenu() [2]string {
 	return [2]string{"1. 오늘의 문제 확인", "2. 종료"}
 }
 
-func (app *App) GetSchedule() *github.Schedule {
-	schedule, err := github.FetchScheduleFromGitHub()
+func (app *App) GetSchedule() *github.ScheduleList {
+	scheduleList, err := github.FetchScheduleListFromGitHub()
 	if err != nil {
 		return nil
 	}
-	return schedule
+	return scheduleList
 }
