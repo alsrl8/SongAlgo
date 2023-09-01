@@ -1,10 +1,14 @@
 {
-  "date": "2023-09-01",
-  "problems": [
+  "list": [
     {
-      "name": "A+B",
-      "platform": "baekjoon",
-      "url": "https://www.acmicpc.net/problem/1000"
+      "date": "2023-09-01",
+      "problems": [
+        {
+          "name": "A+B",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/1000"
+        }
+      ]
     }
   ]
 }
