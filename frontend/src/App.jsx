@@ -1,26 +1,45 @@
-import {useState} from 'react';
-import logo from './assets/images/logo-universal.png';
 import './App.css';
-import {Greet} from "../wailsjs/go/main/App";
+import logo from '../src/assets/images/song_algo_logo_white.png'
+import {GetMenu} from '../wailsjs/go/main/App'
+import {useEffect, useState} from "react";
+import Schedule from "./Schedule.jsx";
 
 function App() {
-    const [resultText, setResultText] = useState("Please enter your name below 👇");
-    const [name, setName] = useState('');
-    const updateName = (e) => setName(e.target.value);
-    const updateResultText = (result) => setResultText(result);
+    const [menu, setMenu] = useState([]);
+    const [selectedMenuItem, setSelectedMenuItem] = useState(null);
 
-    function greet() {
-        Greet(name).then(updateResultText);
-    }
+    // useEffect(() => {
+    //     // Async function to handle async operations inside useEffect
+    //     const fetchMenu = async () => {
+    //         try {
+    //             const fetchedMenu = await GetMenu();
+    //             setMenu(fetchedMenu);
+    //         } catch (error) {
+    //             console.error('Failed to fetch menu:', error);
+    //         }
+    //     };
+    //
+    //     fetchMenu();
+    // }, []);
+
+    useEffect(() => {
+        GetMenu().then((menu) => {
+            setMenu(menu);
+        });
+    }, []);
 
     return (
         <div id="App">
             <img src={logo} id="logo" alt="logo"/>
-            <div id="result" className="result">{resultText}</div>
-            <div id="input" className="input-box">
-                <input id="name" className="input" onChange={updateName} autoComplete="off" name="input" type="text"/>
-                <button className="btn" onClick={greet}>Greet</button>
-            </div>
+            {selectedMenuItem === null ? (<div>
+                {menu.map((item, index) => (
+                    <div className="interactive-text" key={index} onClick={(e) => {
+                        setSelectedMenuItem(item)
+                    }}>{item}</div>
+                ))}
+            </div>) : (
+                <Schedule selectedMenuItem={selectedMenuItem} setSelectedMenuItem={setSelectedMenuItem}/>
+            )}
         </div>
     )
 }

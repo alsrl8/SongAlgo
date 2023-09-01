@@ -6,14 +6,20 @@ import (
 	"net/http"
 )
 
+type Problem struct {
+	Name     string `json:"name"`
+	Platform string `json:"platform"`
+	Url      string `json:"url"`
+}
+
 type Schedule struct {
-	Date     string   `json:"date"`
-	Problems []string `json:"problems"`
+	Date     string    `json:"date"`
+	Problems []Problem `json:"problems"`
 }
 
 func FetchScheduleFromGitHub() (*Schedule, error) {
 	// URL to the raw version of the file in the GitHub repository
-	url := "https://raw.githubusercontent.com/alsrl8/SongAlgo/main/schedule.json"
+	url := "https://raw.githubusercontent.com/alsrl8/SongAlgo/schedule/Schedule.json"
 
 	// Fetch the file from GitHub
 	resp, err := http.Get(url)

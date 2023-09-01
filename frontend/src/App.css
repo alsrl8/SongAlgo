@@ -57,3 +57,14 @@
     border: none;
     background-color: rgba(255, 255, 255, 1);
 }
+
+.interactive-text {
+    /* Initial settings */
+    font-size: 20px;
+}
+
+.interactive-text:hover {
+    /* Simulated text border on hover */
+    cursor: default;
+    text-shadow: -1px 0 darkred, 0 1px darkred, 1px 0 darkred, 0 -1px darkred;
+}
