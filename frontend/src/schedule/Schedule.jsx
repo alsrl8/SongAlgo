@@ -24,13 +24,13 @@ function Schedule(props) {
                             {pi + 1 !== item.problems.length ? (
                                 <div className='problem'>
                                     <span className='problemDetail title'>{pi + 1}. {problem.name}</span>
-                                    <span className='problemDetail title'>{problem.algorithmType}</span>
-                                    <span className='problemDetail title'>{problem.platform} - {problem.difficulty}</span>
+                                    <span className='problemDetail platform'>{problem.algorithmType}</span>
+                                    <span className='problemDetail platform'>{problem.platform} - {problem.difficulty}</span>
                                 </div>) : (
                                 <div className='problem problemLast'>
                                     <span className='problemDetail title'>{pi + 1}. {problem.name}</span>
-                                    <span className='problemDetail title'>{problem.algorithmType}</span>
-                                    <span className='problemDetail title'>{problem.platform} - {problem.difficulty}</span>
+                                    <span className='problemDetail platform'>{problem.algorithmType}</span>
+                                    <span className='problemDetail platform'>{problem.platform} - {problem.difficulty}</span>
                                 </div>)
                             }
                         </div>

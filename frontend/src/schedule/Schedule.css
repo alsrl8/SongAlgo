@@ -43,6 +43,11 @@
 
     }
     &.platform{
+        padding-left: 18px;
+        font-size: 14px;
+    }
+    &.algorithmType{
+        padding-left: 18px;
         font-size: 14px;
     }
 }
