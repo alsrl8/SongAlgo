@@ -20,7 +20,7 @@ func CrawlBJ() {
 	defer func(rm *resourceManager) {
 		err := rm.Cleanup()
 		if err != nil {
-			log.Fatalf("Failed to clean up resources in selenium: %s", err)
+			log.Fatalf("Failed cleaning up resources in selenium: %s", err)
 		}
 	}(rm)
 

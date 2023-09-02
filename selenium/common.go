@@ -39,12 +39,12 @@ func newResourceManager() (*resourceManager, error) {
 }
 
 func (rm *resourceManager) Cleanup() error {
-	err := rm.service.Stop()
+	err := (*rm.wd).Quit()
 	if err != nil {
 		return err
 	}
 
-	err = (*rm.wd).Quit()
+	err = rm.service.Stop()
 	if err != nil {
 		return err
 	}
