@@ -7,6 +7,26 @@
           "name": "A+B",
           "platform": "baekjoon",
           "url": "https://www.acmicpc.net/problem/1000"
+        },
+        {
+          "name": "문자열 출력하기",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/181952"
+        }
+      ]
+    },
+    {
+      "date": "2023-09-02",
+      "problems": [
+        {
+          "name": "Hello World",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/2557"
+        },
+        {
+          "name": "A와 B 출력하기",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/181951"
         }
       ]
     }
