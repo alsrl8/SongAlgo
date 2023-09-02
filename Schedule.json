@@ -5,11 +5,15 @@
       "problems": [
         {
           "name": "A+B",
+          "algorithmType": "구현",
+          "difficulty": "B5"
           "platform": "baekjoon",
           "url": "https://www.acmicpc.net/problem/1000"
         },
         {
           "name": "문자열 출력하기",
+          "algorithmType": "구현",
+          "difficulty": "B5"
           "platform": "programmers",
           "url": "https://school.programmers.co.kr/learn/courses/30/lessons/181952"
         }
@@ -20,11 +24,15 @@
       "problems": [
         {
           "name": "Hello World",
+          "algorithmType": "구현",
+          "difficulty": "B5"
           "platform": "baekjoon",
           "url": "https://www.acmicpc.net/problem/2557"
         },
         {
           "name": "A와 B 출력하기",
+          "algorithmType": "구현",
+          "difficulty": "Lv.0"
           "platform": "programmers",
           "url": "https://school.programmers.co.kr/learn/courses/30/lessons/181951"
         }
@@ -35,11 +43,15 @@
       "problems": [
         {
           "name": "Hello World",
+          "algorithmType": "구현",
+          "difficulty": "B5"
           "platform": "baekjoon",
           "url": "https://www.acmicpc.net/problem/2557"
         },
         {
           "name": "A와 B 출력하기",
+          "algorithmType": "구현",
+          "difficulty": "Lv.0"
           "platform": "programmers",
           "url": "https://school.programmers.co.kr/learn/courses/30/lessons/181951"
         }
@@ -50,11 +62,22 @@
       "problems": [
         {
           "name": "쉽게 푸는 문제",
+          "algorithmType": "구현",
+          "difficulty": "B1"
           "platform": "baekjoon",
           "url": "https://www.acmicpc.net/problem/1292"
         },
         {
+          "name": "n^2 배열 자르기",
+          "algorithmType": "구현",
+          "difficulty": "Lv.2"
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/87390"
+        },
+        {
           "name": "치킨 배달",
+          "algorithmType": "구현",
+          "difficulty": "G5"
           "platform": "baekjoon",
           "url": "https://www.acmicpc.net/problem/15686"
         }
