@@ -7,9 +7,11 @@ import (
 )
 
 type Problem struct {
-	Name     string `json:"name"`
-	Platform string `json:"platform"`
-	Url      string `json:"url"`
+	Name          string `json:"name"`
+	AlgorithmType string `json:"algorithmType"`
+	Difficulty    string `json:"difficulty"`
+	Platform      string `json:"platform"`
+	Url           string `json:"url"`
 }
 
 type Schedule struct {

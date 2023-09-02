@@ -2,6 +2,8 @@ export namespace github {
 	
 	export class Problem {
 	    name: string;
+	    algorithmType: string;
+	    difficulty: string;
 	    platform: string;
 	    url: string;
 	
@@ -12,6 +14,8 @@ export namespace github {
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.name = source["name"];
+	        this.algorithmType = source["algorithmType"];
+	        this.difficulty = source["difficulty"];
 	        this.platform = source["platform"];
 	        this.url = source["url"];
 	    }
