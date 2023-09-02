@@ -1,1 +1,42 @@
-[{"name":"bojautologin","value":"d8fc5d8f84ba30fed2b7d39f43df29d5afd471f8","path":"/","domain":".acmicpc.net","secure":true,"expiry":1694261003},{"name":"_fbp","value":"fb.1.1693656185277.2112103473","path":"/","domain":".acmicpc.net","secure":false,"expiry":1701432204},{"name":"_ga","value":"GA1.1.1984294612.1693656185","path":"/","domain":".acmicpc.net","secure":false,"expiry":1728216204},{"name":"_ga_C81GGQEMJZ","value":"GS1.1.1693656184.1.1.1693656204.0.0.0","path":"/","domain":".acmicpc.net","secure":false,"expiry":1728216204},{"name":"OnlineJudge","value":"apt2be9lhii2r5n6vbm307dguf","path":"/","domain":".acmicpc.net","secure":true,"expiry":0}]
+[
+	{
+		"name": "bojautologin",
+		"value": "02b96e0719bc8db2811a474ca7112e84e820a51c",
+		"path": "/",
+		"domain": ".acmicpc.net",
+		"secure": true,
+		"expiry": 1694264525
+	},
+	{
+		"name": "_fbp",
+		"value": "fb.1.1693659682771.1734237824",
+		"path": "/",
+		"domain": ".acmicpc.net",
+		"secure": false,
+		"expiry": 1701435726
+	},
+	{
+		"name": "_ga",
+		"value": "GA1.1.711691773.1693659682",
+		"path": "/",
+		"domain": ".acmicpc.net",
+		"secure": false,
+		"expiry": 1728219725
+	},
+	{
+		"name": "_ga_C81GGQEMJZ",
+		"value": "GS1.1.1693659682.1.1.1693659725.0.0.0",
+		"path": "/",
+		"domain": ".acmicpc.net",
+		"secure": false,
+		"expiry": 1728219725
+	},
+	{
+		"name": "OnlineJudge",
+		"value": "llfhovf8q2ttrkuumfaqp407og",
+		"path": "/",
+		"domain": ".acmicpc.net",
+		"secure": true,
+		"expiry": 0
+	}
+]

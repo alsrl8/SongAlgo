@@ -12,26 +12,17 @@ import (
 	"github.com/tebeka/selenium"
 )
 
-func CrawlBJ() {
-	rm, err := newResourceManager()
+func navigateToLoginPage(wd *selenium.WebDriver) error {
+	loginPageUrl := "https://www.acmicpc.net/login?next=%2F"
+
+	err := (*wd).Get(loginPageUrl)
 	if err != nil {
-		fmt.Println(err)
+		return err
 	}
-	defer func(rm *resourceManager) {
-		err := rm.Cleanup()
-		if err != nil {
-			log.Fatalf("Failed cleaning up resources in selenium: %s", err)
-		}
-	}(rm)
+	return nil
+}
 
-	wd := *rm.wd
-
-	// Navigate to the login page
-	err = wd.Get("https://www.acmicpc.net/login?next=%2F")
-	if err != nil {
-		log.Fatalf("Failed to navigate: %s", err)
-	}
-
+func monitorLoginStatus(wd *selenium.WebDriver) {
 	ctx, cancel := context.WithTimeout(context.Background(), 300*time.Second)
 	defer cancel()
 
@@ -40,40 +31,69 @@ func CrawlBJ() {
 		case <-ctx.Done():
 			return
 		default:
-			// Check login status
-			el, err := wd.FindElement(selenium.ByCSSSelector, "ul.loginbar.pull-right")
+			el, err := (*wd).FindElement(selenium.ByCSSSelector, "ul.loginbar.pull-right")
 			if err == nil {
 				text, err := el.Text()
 				if err != nil {
-					fmt.Println("Error getting text:", err)
 					continue
 				}
-				fmt.Println(text)
 				if strings.HasSuffix(text, "로그아웃") {
-					goto Done
+					return
 				}
-			} else {
-				fmt.Println("Couldn't find ul...")
 			}
 			time.Sleep(1 * time.Second)
 		}
 	}
-Done:
-	// Get cookies
-	cookies, err := wd.GetCookies()
+}
+
+func getCookies(wd *selenium.WebDriver) ([]selenium.Cookie, error) {
+	cookies, err := (*wd).GetCookies()
 	if err != nil {
-		log.Fatalf("Failed to get cookies: %s", err)
+		return []selenium.Cookie{}, err
+	}
+	return cookies, nil
+}
+
+func saveCurrentCookiesAsJson(wd *selenium.WebDriver) error {
+	cookies, err := getCookies(wd)
+	if err != nil {
+		return err
 	}
 
-	// Save cookies to a JSON file
-	cookieData, err := json.Marshal(cookies)
+	cookieData, err := json.MarshalIndent(cookies, "", "\t")
 	if err != nil {
-		log.Fatalf("Failed to marshal cookies: %s", err)
+		return err
 	}
+
 	err = os.WriteFile("./selenium/cookie/cookies.json", cookieData, 0644)
 	if err != nil {
-		log.Fatalf("Failed to write to file: %s", err)
+		return err
 	}
 
-	log.Println("Cookies saved successfully.")
+	return nil
+}
+
+func CrawlBJ() {
+	rm, err := newResourceManager()
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer func(rm *resourceManager) {
+		err := rm.Cleanup()
+		if err != nil {
+			log.Fatalf("Failed to clean up resources in selenium: %s", err)
+		}
+	}(rm)
+
+	err = navigateToLoginPage(rm.wd)
+	if err != nil {
+		log.Fatalf("Failed to navigate to login page: %s", err)
+	}
+
+	monitorLoginStatus(rm.wd)
+
+	err = saveCurrentCookiesAsJson(rm.wd)
+	if err != nil {
+		log.Fatalf("Failed to save cookies: %s", err)
+	}
 }
