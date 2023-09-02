@@ -13,3 +13,11 @@ export function GetMenu() {
 export function GetSchedule() {
   return window['go']['main']['App']['GetSchedule']();
 }
+
+export function PrintSomething(arg1) {
+  return window['go']['main']['App']['PrintSomething'](arg1);
+}
+
+export function ReadCookieForBJ() {
+  return window['go']['main']['App']['ReadCookieForBJ']();
+}

@@ -194,3 +194,7 @@ func GetCookieForBJ() Cookie {
 	}
 	return Cookie{}
 }
+
+func OpenBjWithCookie() {
+	// TODO Cookie와 Selenium을 이용해서 Page 열기
+}

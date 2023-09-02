@@ -37,3 +37,11 @@ func (app *App) GetSchedule() *github.ScheduleList {
 func (app *App) GenerateCookieForBJ() selenium.Cookie {
 	return selenium.GetCookieForBJ()
 }
+
+func (app *App) ReadCookieForBJ() selenium.Cookie {
+	return selenium.ReadCookieForBJ()
+}
+
+func (app *App) OpenBjWithCookie(cookie string) {
+	// TODO 저장된 쿠키로 백준 사이트를 연다.
+}

@@ -8,3 +8,7 @@ export function GenerateCookieForBJ():Promise<selenium.Cookie>;
 export function GetMenu():Promise<any>;
 
 export function GetSchedule():Promise<github.ScheduleList>;
+
+export function PrintSomething(arg1:string):Promise<void>;
+
+export function ReadCookieForBJ():Promise<selenium.Cookie>;

@@ -1,12 +1,14 @@
 import './App.css';
 import songAlgoLogo from '../src/assets/images/song_algo_logo_white.png'
 import wailsLogo from '../src/assets/images/logo-universal.png'
-import {GetMenu} from '../wailsjs/go/main/App'
+import bjLogo from '../src/assets/images/bj_logo.png'
+import {GenerateCookieForBJ, GetMenu, } from '../wailsjs/go/main/App'
 import {useEffect, useState} from "react";
 import Schedule from "./schedule/Schedule";
 
 function App() {
-    const [cookie, setCookie] = useState("");
+    const [bjCookie, setBjCookie] = useState("");
+    const [isBJConnected, setIsBJConnected] = useState(false);
     const [menu, setMenu] = useState([]);
     const [selectedMenuItem, setSelectedMenuItem] = useState(null);
 
@@ -37,7 +39,13 @@ function App() {
                 <img src={wailsLogo} id="logo" alt="logo"/>
             </div>
             <div>
-                {cookie}
+                {isBJConnected ? <img src={bjLogo} className="cookieLogo activated" alt="logo"></img> :
+                    <img src={bjLogo} className="cookieLogo deactivated" alt="logo" onClick={() => {
+                        GenerateCookieForBJ().then((cookie) => {
+                            cookie.value !== "" ? setIsBJConnected(true) : setIsBJConnected(false)
+                            setBjCookie(cookie.value)
+                        })
+                    }}></img>}
             </div>
             {selectedMenuItem === null ? (<div>
                     {menu.map((item, index) => (
@@ -46,7 +54,7 @@ function App() {
                         }}>{item}</div>
                     ))}
                 </div>) :
-                <Schedule selectedMenuItem={selectedMenuItem} setSelectedMenuItem={setSelectedMenuItem}/>
+                <Schedule selectedMenuItem={selectedMenuItem} setSelectedMenuItem={setSelectedMenuItem} isBJConnected={isBJConnected} bjCookie={bjCookie}/>
             }
         </div>
     )

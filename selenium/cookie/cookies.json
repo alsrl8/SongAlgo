@@ -1,39 +1,39 @@
 [
 	{
 		"name": "bojautologin",
-		"value": "0a8e669ab66e26d644174b8a78e6db43a1362bd0",
+		"value": "c1efc5f2d91fded5eac04b7622bc3c3ee2327061",
 		"path": "/",
 		"domain": ".acmicpc.net",
 		"secure": true,
-		"expiry": 1694266810
+		"expiry": 1694272455
 	},
 	{
 		"name": "_fbp",
-		"value": "fb.1.1693661990353.1901559800",
+		"value": "fb.1.1693667644319.2130655546",
 		"path": "/",
 		"domain": ".acmicpc.net",
 		"secure": false,
-		"expiry": 1701438011
+		"expiry": 1701443656
 	},
 	{
 		"name": "_ga",
-		"value": "GA1.1.1700614477.1693661990",
+		"value": "GA1.1.874412370.1693667644",
 		"path": "/",
 		"domain": ".acmicpc.net",
 		"secure": false,
-		"expiry": 1728222011
+		"expiry": 1728227656
 	},
 	{
 		"name": "_ga_C81GGQEMJZ",
-		"value": "GS1.1.1693661989.1.1.1693662011.0.0.0",
+		"value": "GS1.1.1693667643.1.1.1693667656.0.0.0",
 		"path": "/",
 		"domain": ".acmicpc.net",
 		"secure": false,
-		"expiry": 1728222011
+		"expiry": 1728227656
 	},
 	{
 		"name": "OnlineJudge",
-		"value": "e9dco7vou06ftou01et0arj556",
+		"value": "4n79os4vefsjopo9r13t9huhfs",
 		"path": "/",
 		"domain": ".acmicpc.net",
 		"secure": true,
