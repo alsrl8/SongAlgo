@@ -1,5 +1,6 @@
 import './App.css';
-import logo from '../src/assets/images/song_algo_logo_white.png'
+import songAlgoLogo from '../src/assets/images/song_algo_logo_white.png'
+import wailsLogo from '../src/assets/images/logo-universal.png'
 import {GetMenu} from '../wailsjs/go/main/App'
 import {useEffect, useState} from "react";
 import Schedule from "./schedule/Schedule";
@@ -30,7 +31,10 @@ function App() {
 
     return (
         <div id="App">
-            <img src={logo} id="logo" alt="logo"/>
+            <div className='logos'>
+                <img src={songAlgoLogo} id="logo" alt="logo"/>
+                <img src={wailsLogo} id="logo" alt="logo"/>
+            </div>
             {selectedMenuItem === null ? (<div>
                     {menu.map((item, index) => (
                         <div className="interactive-text" key={index} onClick={(e) => {
