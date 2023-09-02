@@ -1,13 +1,11 @@
 package main
 
-import "SongAlgo/selenium"
+import "fmt"
 
 func main() {
-	//err := run()
-	//if err != nil {
-	//	fmt.Println("Error: ", err)
-	//	return
-	//}
-
-	selenium.CrawlBJ()
+	err := run()
+	if err != nil {
+		fmt.Println("Error: ", err)
+		return
+	}
 }

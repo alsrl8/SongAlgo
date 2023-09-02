@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"strings"
@@ -11,6 +12,93 @@ import (
 
 	"github.com/tebeka/selenium"
 )
+
+type Cookie struct {
+	Name   string `json:"name"`
+	Value  string `json:"value"`
+	Path   string `json:"path"`
+	Domain string `json:"domain"`
+	Secure bool   `json:"secure"`
+	Expiry int64  `json:"expiry"`
+}
+
+func getCookieDataPath() string {
+	return "./selenium/cookie/cookies.json"
+}
+
+func isFilePathValid(filePath string) bool {
+	if _, err := os.Stat(filePath); err == nil {
+		return true
+	} else if os.IsNotExist(err) {
+		return false
+	} else {
+		return false
+	}
+}
+
+func readLoginCookieJson() (loginCookie Cookie, ok bool) {
+	cookieDataPath := getCookieDataPath()
+	if !isFilePathValid(cookieDataPath) {
+		return
+	}
+
+	file, err := os.Open(cookieDataPath)
+	if err != nil {
+		return
+	}
+	defer func(file *os.File) {
+		err := file.Close()
+		if err != nil {
+
+		}
+	}(file)
+
+	// Read file contents
+	bytes, err := io.ReadAll(file)
+	if err != nil {
+		return
+	}
+
+	var cookie []Cookie
+
+	// Unmarshal JSON to our struct
+	err = json.Unmarshal(bytes, &cookie)
+	if err != nil {
+		return
+	}
+
+	for _, c := range cookie {
+		if c.Name != "bojautologin" {
+			continue
+		}
+		expiryTime := time.Unix(c.Expiry, 0)
+		currentTime := time.Now()
+		durationUntilExpiry := expiryTime.Sub(currentTime)
+		if durationUntilExpiry > 0 {
+			loginCookie = c
+			ok = true
+			break
+		}
+	}
+
+	return
+}
+
+func manualLogin(wd *selenium.WebDriver) error {
+	err := navigateToLoginPage(wd)
+	if err != nil {
+		return err
+	}
+
+	monitorLoginStatus(wd)
+
+	err = saveCurrentCookiesAsJson(wd)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
 
 func navigateToLoginPage(wd *selenium.WebDriver) error {
 	loginPageUrl := "https://www.acmicpc.net/login?next=%2F"
@@ -65,7 +153,7 @@ func saveCurrentCookiesAsJson(wd *selenium.WebDriver) error {
 		return err
 	}
 
-	err = os.WriteFile("./selenium/cookie/cookies.json", cookieData, 0644)
+	err = os.WriteFile(getCookieDataPath(), cookieData, 0644)
 	if err != nil {
 		return err
 	}
@@ -73,7 +161,18 @@ func saveCurrentCookiesAsJson(wd *selenium.WebDriver) error {
 	return nil
 }
 
-func CrawlBJ() {
+func ReadCookieForBJ() Cookie {
+	if cookie, result := readLoginCookieJson(); result {
+		return cookie
+	}
+	return Cookie{}
+}
+
+func GetCookieForBJ() Cookie {
+	if cookie, result := readLoginCookieJson(); result {
+		return cookie
+	}
+
 	rm, err := newResourceManager()
 	if err != nil {
 		fmt.Println(err)
@@ -85,15 +184,13 @@ func CrawlBJ() {
 		}
 	}(rm)
 
-	err = navigateToLoginPage(rm.wd)
+	err = manualLogin(rm.wd)
 	if err != nil {
-		log.Fatalf("Failed to navigate to login page: %s", err)
+		log.Fatalf("Failed to manual login process: %s", err)
 	}
 
-	monitorLoginStatus(rm.wd)
-
-	err = saveCurrentCookiesAsJson(rm.wd)
-	if err != nil {
-		log.Fatalf("Failed to save cookies: %s", err)
+	if cookie, result := readLoginCookieJson(); result {
+		return cookie
 	}
+	return Cookie{}
 }

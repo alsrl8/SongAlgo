@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import Schedule from "./schedule/Schedule";
 
 function App() {
+    const [cookie, setCookie] = useState("");
     const [menu, setMenu] = useState([]);
     const [selectedMenuItem, setSelectedMenuItem] = useState(null);
 
@@ -34,6 +35,9 @@ function App() {
             <div className='logos'>
                 <img src={songAlgoLogo} id="logo" alt="logo"/>
                 <img src={wailsLogo} id="logo" alt="logo"/>
+            </div>
+            <div>
+                {cookie}
             </div>
             {selectedMenuItem === null ? (<div>
                     {menu.map((item, index) => (

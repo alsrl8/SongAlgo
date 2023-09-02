@@ -2,6 +2,7 @@ package main
 
 import (
 	"SongAlgo/github"
+	"SongAlgo/selenium"
 	"context"
 )
 
@@ -31,4 +32,8 @@ func (app *App) GetSchedule() *github.ScheduleList {
 		return nil
 	}
 	return scheduleList
+}
+
+func (app *App) GenerateCookieForBJ() selenium.Cookie {
+	return selenium.GetCookieForBJ()
 }
