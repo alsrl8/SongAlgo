@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { GetSchedule } from '../../wailsjs/go/main/App';
+import React, {useEffect, useState} from 'react';
+import {GetSchedule} from '../../wailsjs/go/main/App';
 import './Schedule.css'
 
 function Schedule(props) {
@@ -16,15 +16,29 @@ function Schedule(props) {
             <h2>{props.selectedMenuItem}</h2>
             {scheduleList.map((item, index) => (
                 <div key={index} className='scheduleCard'>
-                    <div className='date'>{item.date}</div>
-                    <div className='problemDetails'>
-                        <h4>{item.problems[0].name}</h4>
-                        <p>Platform: {item.problems[0].platform}</p>
-                        <p>URL: <a href={item.problems[0].url} target="_blank" rel="noopener noreferrer">{item.problems[0].url}</a></p>
-                    </div>
+                    <span className='date'>{item.date}</span>
+                    {item.problems.map((problem, pi) => (
+                        <div onClick={() => {
+                            window.open(problem.url, '_blank');
+                        }}>
+                            {pi + 1 !== item.problems.length ? (
+                                <div className='problem'>
+                                    <span className='problemDetail title'>{pi + 1}. {problem.name}</span>
+                                    <span className='problemDetail platform'>{problem.platform}</span>
+                                </div>) : (
+                                <div className='problem problemLast'>
+                                    <span className='problemDetail title'>{pi + 1}. {problem.name}</span>
+                                    <span className='problemDetail platform'>{problem.platform}</span>
+                                </div>)
+                            }
+                        </div>
+                    ))}
                 </div>
             ))}
-            <button className='goBackButton' onClick={() => { props.setSelectedMenuItem(null) }}>Go Back</button>
+            <button className='goBackButton' onClick={() => {
+                props.setSelectedMenuItem(null)
+            }}>Go Back
+            </button>
         </div>
     );
 }
