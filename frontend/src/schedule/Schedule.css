@@ -1,0 +1,35 @@
+.scheduleContainer {
+    /*margin: 20px;*/
+    /*padding: 20px;*/
+}
+
+.scheduleCard {
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    background-color: rgba(32, 49, 172, 0.3);
+}
+
+.date {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.problemDetails {
+    margin-left: 15px;
+    font-size: 14px;
+}
+
+.goBackButton {
+    padding: 10px 20px;
+    border-radius: 4px;
+    background-color: rgba(47,85,151,0.5);
+    color: white;
+    cursor: pointer;
+}

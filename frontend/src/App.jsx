@@ -2,7 +2,7 @@ import './App.css';
 import logo from '../src/assets/images/song_algo_logo_white.png'
 import {GetMenu} from '../wailsjs/go/main/App'
 import {useEffect, useState} from "react";
-import Schedule from "./Schedule.jsx";
+import Schedule from "./schedule/Schedule";
 
 function App() {
     const [menu, setMenu] = useState([]);
@@ -32,12 +32,12 @@ function App() {
         <div id="App">
             <img src={logo} id="logo" alt="logo"/>
             {selectedMenuItem === null ? (<div>
-                {menu.map((item, index) => (
-                    <div className="interactive-text" key={index} onClick={(e) => {
-                        setSelectedMenuItem(item)
-                    }}>{item}</div>
-                ))}
-            </div>) :
+                    {menu.map((item, index) => (
+                        <div className="interactive-text" key={index} onClick={(e) => {
+                            setSelectedMenuItem(item)
+                        }}>{item}</div>
+                    ))}
+                </div>) :
                 <Schedule selectedMenuItem={selectedMenuItem} setSelectedMenuItem={setSelectedMenuItem}/>
             }
         </div>
