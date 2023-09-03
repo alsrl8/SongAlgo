@@ -2,7 +2,9 @@ package main
 
 import (
 	"SongAlgo/github"
+	"SongAlgo/selenium"
 	"context"
+	Selenium "github.com/tebeka/selenium"
 )
 
 // App struct
@@ -31,4 +33,16 @@ func (app *App) GetSchedule() *github.ScheduleList {
 		return nil
 	}
 	return scheduleList
+}
+
+func (app *App) GenerateCookieForBJ() []Selenium.Cookie {
+	return selenium.GetCookieForBJ()
+}
+
+func (app *App) ReadCookieForBJ() []Selenium.Cookie {
+	return selenium.ReadCookieForBJ()
+}
+
+func (app *App) OpenBjWithCookie(url string) {
+	selenium.OpenBjWithCookie(url)
 }

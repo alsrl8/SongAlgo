@@ -9,6 +9,24 @@
     object-fit: contain;
 }
 
+.cookieLogo {
+    width: 10vw;
+    height: auto;
+    border-radius: 5px;
+
+    &.activated {
+        background-color: whitesmoke;
+    }
+
+    &.deactivated {
+        background-color: #cccccc;
+    }
+}
+
+.cookieLogo:hover {
+    box-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red;
+}
+
 
 .logos {
     display: flex;
