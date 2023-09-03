@@ -3,7 +3,6 @@ package selenium
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -12,15 +11,6 @@ import (
 
 	"github.com/tebeka/selenium"
 )
-
-type Cookie struct {
-	Name   string `json:"name"`
-	Value  string `json:"value"`
-	Path   string `json:"path"`
-	Domain string `json:"domain"`
-	Secure bool   `json:"secure"`
-	Expiry int64  `json:"expiry"`
-}
 
 func getCookieDataPath() string {
 	return "./selenium/cookie/cookies.json"
@@ -36,55 +26,43 @@ func isFilePathValid(filePath string) bool {
 	}
 }
 
-func readLoginCookieJson() (loginCookie Cookie, ok bool) {
+func readLoginCookiesJson() []selenium.Cookie {
 	cookieDataPath := getCookieDataPath()
 	if !isFilePathValid(cookieDataPath) {
-		return
+		log.Println("Invalid cookie data path.")
+		return []selenium.Cookie{}
 	}
 
 	file, err := os.Open(cookieDataPath)
 	if err != nil {
-		return
+		log.Printf("Error opening file: %v", err)
+		return []selenium.Cookie{}
 	}
-	defer func(file *os.File) {
-		err := file.Close()
-		if err != nil {
-
+	defer func() {
+		if err := file.Close(); err != nil {
+			log.Printf("Error closing file: %v", err)
 		}
-	}(file)
+	}()
 
 	// Read file contents
 	bytes, err := io.ReadAll(file)
 	if err != nil {
-		return
+		log.Printf("Error reading file: %v", err)
+		return []selenium.Cookie{}
 	}
 
-	var cookie []Cookie
-
+	var jsonCookies []selenium.Cookie
 	// Unmarshal JSON to our struct
-	err = json.Unmarshal(bytes, &cookie)
-	if err != nil {
-		return
+	if err := json.Unmarshal(bytes, &jsonCookies); err != nil {
+		log.Printf("Error unmarshalling JSON: %v", err)
+		return []selenium.Cookie{}
 	}
 
-	for _, c := range cookie {
-		if c.Name != "bojautologin" {
-			continue
-		}
-		expiryTime := time.Unix(c.Expiry, 0)
-		currentTime := time.Now()
-		durationUntilExpiry := expiryTime.Sub(currentTime)
-		if durationUntilExpiry > 0 {
-			loginCookie = c
-			ok = true
-			break
-		}
-	}
-
-	return
+	return jsonCookies
 }
 
-func manualLogin(wd *selenium.WebDriver) error {
+// TODO Manul Login 부분과 Json 저장 부분을 분리할 것
+func performManulLogin(wd *selenium.WebDriver) error {
 	err := navigateToLoginPage(wd)
 	if err != nil {
 		return err
@@ -102,8 +80,7 @@ func manualLogin(wd *selenium.WebDriver) error {
 
 func navigateToLoginPage(wd *selenium.WebDriver) error {
 	loginPageUrl := "https://www.acmicpc.net/login?next=%2F"
-
-	err := (*wd).Get(loginPageUrl)
+	err := navigateToPage(wd, loginPageUrl)
 	if err != nil {
 		return err
 	}
@@ -161,40 +138,92 @@ func saveCurrentCookiesAsJson(wd *selenium.WebDriver) error {
 	return nil
 }
 
-func ReadCookieForBJ() Cookie {
-	if cookie, result := readLoginCookieJson(); result {
-		return cookie
-	}
-	return Cookie{}
+func ReadCookieForBJ() []selenium.Cookie {
+	return readLoginCookiesJson()
 }
 
-func GetCookieForBJ() Cookie {
-	if cookie, result := readLoginCookieJson(); result {
-		return cookie
+func cleanupResourceManager(rm *resourceManager) {
+	if rm == nil {
+		return
+	}
+	if err := rm.Cleanup(); err != nil {
+		log.Printf("Failed to clean up resource manager: %v", err)
+	}
+}
+
+func GetCookieForBJ() []selenium.Cookie {
+	bjLoginCookies := ReadCookieForBJ()
+	if len(bjLoginCookies) > 0 {
+		return bjLoginCookies
 	}
 
 	rm, err := newResourceManager()
 	if err != nil {
-		fmt.Println(err)
+		log.Printf("Failed to create new resource manager: %v", err)
+		return []selenium.Cookie{}
 	}
-	defer func(rm *resourceManager) {
-		err := rm.Cleanup()
-		if err != nil {
-			log.Fatalf("Failed to clean up resources in selenium: %s", err)
-		}
-	}(rm)
+	defer cleanupResourceManager(rm)
 
-	err = manualLogin(rm.wd)
+	err = performManulLogin(rm.wd)
 	if err != nil {
-		log.Fatalf("Failed to manual login process: %s", err)
+		log.Printf("Manual login failed: %v", err)
+		return []selenium.Cookie{}
 	}
 
-	if cookie, result := readLoginCookieJson(); result {
-		return cookie
+	// TODO performManulLogin 이후 Cookie를 바로 쓸 수 있도록 수정할 것
+	bjLoginCookies = ReadCookieForBJ()
+	if len(bjLoginCookies) > 0 {
+		return bjLoginCookies
 	}
-	return Cookie{}
+	return []selenium.Cookie{}
 }
 
-func OpenBjWithCookie() {
-	// TODO Cookie와 Selenium을 이용해서 Page 열기
+func monitorBrowserClose(wd *selenium.WebDriver, c chan bool) {
+	for {
+		time.Sleep(1 * time.Second) // Poll every second
+		_, err := (*wd).Title()
+		if err != nil {
+			c <- true
+			break
+		}
+	}
+	log.Printf("Browser was closed by the user.")
+}
+
+func OpenBjWithCookie(url string) {
+	bjLoginCookies := ReadCookieForBJ()
+	if len(bjLoginCookies) == 0 {
+		return
+	}
+
+	rm, err := newResourceManager()
+	if err != nil {
+		log.Printf("Failed to create new resource manager: %v", err)
+		return
+	}
+	defer cleanupResourceManager(rm)
+
+	err = navigateToPage(rm.wd, url)
+	if err != nil {
+		log.Printf("Failed to access to url(%s): %v", url, err)
+		return
+	}
+
+	for _, c := range bjLoginCookies {
+		err := (*rm.wd).AddCookie(&c)
+		if err != nil {
+			log.Printf("Failed to add cookie for bj: %v", c)
+			continue
+		}
+	}
+
+	err = (*rm.wd).Refresh()
+	if err != nil {
+		log.Printf("Failed to refreshing page")
+	}
+
+	// Wait until the browser is closed by the user
+	c := make(chan bool)
+	go monitorBrowserClose(rm.wd, c)
+	<-c
 }

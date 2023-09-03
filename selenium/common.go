@@ -6,12 +6,15 @@ import (
 	"github.com/tebeka/selenium/chrome"
 )
 
+// resourceManager Manges resources for chrome selenium
 type resourceManager struct {
 	service *selenium.Service
 	caps    selenium.Capabilities
 	wd      *selenium.WebDriver
 }
 
+// newResourceManager Generate new resource manager
+// It requires to call CleanUp function after using it
 func newResourceManager() (*resourceManager, error) {
 	rm := &resourceManager{}
 
@@ -38,6 +41,8 @@ func newResourceManager() (*resourceManager, error) {
 	return rm, nil
 }
 
+// Cleanup Clear resource manager.
+// It must be called after using it
 func (rm *resourceManager) Cleanup() error {
 	err := (*rm.wd).Quit()
 	if err != nil {
@@ -52,11 +57,14 @@ func (rm *resourceManager) Cleanup() error {
 	return nil
 }
 
+// getChromeDriverPath Get Chrome web driver path
+// It is only tested on Windows environment
 func getChromeDriverPath() (chromeDriverPath string) {
 	chromeDriverPath = "./selenium/driver/chromedriver"
 	return
 }
 
+// getChromeDriverService Get Chrome web driver service from chrome selenium
 func getChromeDriverService() (*selenium.Service, error) {
 	var opts []selenium.ServiceOption
 	chromeDriverPath := getChromeDriverPath()
@@ -67,13 +75,11 @@ func getChromeDriverService() (*selenium.Service, error) {
 	return service, nil
 }
 
-func getChromeCapabilities() *selenium.Capabilities {
-	caps := selenium.Capabilities{"browserName": "chrome"}
-	chromeCaps := chrome.Capabilities{
-		Prefs: map[string]interface{}{
-			"profile.default_content_settings.popups": 0,
-		},
+// navigateToPage Open the page with given url and web driver
+func navigateToPage(wd *selenium.WebDriver, url string) error {
+	err := (*wd).Get(url)
+	if err != nil {
+		return err
 	}
-	caps.AddChrome(chromeCaps)
-	return &caps
+	return nil
 }

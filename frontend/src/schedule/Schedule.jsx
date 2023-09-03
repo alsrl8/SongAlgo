@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {GetSchedule, PrintSomething} from '../../wailsjs/go/main/App';
+import {GetSchedule, OpenBjWithCookie} from '../../wailsjs/go/main/App';
 import './Schedule.css'
 
 function Schedule({selectedMenuItem, setSelectedMenuItem, isBJConnected, bjCookie}) {
@@ -21,8 +21,8 @@ function Schedule({selectedMenuItem, setSelectedMenuItem, isBJConnected, bjCooki
                     {item.problems.map((problem, pi) => (
                         <div onClick={() => {
                             if (isBJConnected === true) {
-                                window.open(problem.url, '_blank');
-                                Open("hihi"); // Assuming PrintSomething is a function you've defined elsewhere
+                                OpenBjWithCookie(problem.url).then(() => {})
+                                console.log("isBJConnected")
                             } else {
                                 window.open(problem.url, '_blank');
                             }

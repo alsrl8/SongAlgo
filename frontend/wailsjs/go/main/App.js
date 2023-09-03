@@ -14,8 +14,8 @@ export function GetSchedule() {
   return window['go']['main']['App']['GetSchedule']();
 }
 
-export function PrintSomething(arg1) {
-  return window['go']['main']['App']['PrintSomething'](arg1);
+export function OpenBjWithCookie(arg1) {
+  return window['go']['main']['App']['OpenBjWithCookie'](arg1);
 }
 
 export function ReadCookieForBJ() {

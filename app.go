@@ -4,6 +4,7 @@ import (
 	"SongAlgo/github"
 	"SongAlgo/selenium"
 	"context"
+	Selenium "github.com/tebeka/selenium"
 )
 
 // App struct
@@ -34,14 +35,14 @@ func (app *App) GetSchedule() *github.ScheduleList {
 	return scheduleList
 }
 
-func (app *App) GenerateCookieForBJ() selenium.Cookie {
+func (app *App) GenerateCookieForBJ() []Selenium.Cookie {
 	return selenium.GetCookieForBJ()
 }
 
-func (app *App) ReadCookieForBJ() selenium.Cookie {
+func (app *App) ReadCookieForBJ() []Selenium.Cookie {
 	return selenium.ReadCookieForBJ()
 }
 
-func (app *App) OpenBjWithCookie(cookie string) {
-	// TODO 저장된 쿠키로 백준 사이트를 연다.
+func (app *App) OpenBjWithCookie(url string) {
+	selenium.OpenBjWithCookie(url)
 }
