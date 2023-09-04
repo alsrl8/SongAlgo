@@ -46,7 +46,3 @@ func readPgLoginCookiesJson() []selenium.Cookie {
 
 	return jsonCookies
 }
-
-func ReadCookieForPg() []selenium.Cookie {
-	return readPgLoginCookiesJson()
-}
