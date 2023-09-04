@@ -39,14 +39,16 @@
 }
 
 .problemDetail {
-    &.title{
+    &.title {
 
     }
-    &.platform{
+
+    &.platform {
         padding-left: 18px;
         font-size: 14px;
     }
-    &.algorithmType{
+
+    &.algorithmType {
         padding-left: 18px;
         font-size: 14px;
     }

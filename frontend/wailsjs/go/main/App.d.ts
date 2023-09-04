@@ -3,12 +3,12 @@
 import {selenium} from '../models';
 import {github} from '../models';
 
-export function GenerateCookieForBJ():Promise<Array<selenium.Cookie>>;
+export function GenerateCookieForBj():Promise<Array<selenium.Cookie>>;
+
+export function GenerateCookieForPg():Promise<Array<selenium.Cookie>>;
 
 export function GetMenu():Promise<any>;
 
 export function GetSchedule():Promise<github.ScheduleList>;
 
 export function OpenBjWithCookie(arg1:string):Promise<void>;
-
-export function ReadCookieForBJ():Promise<Array<selenium.Cookie>>;

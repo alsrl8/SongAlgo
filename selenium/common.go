@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/tebeka/selenium"
 	"github.com/tebeka/selenium/chrome"
+	"log"
 )
 
 // resourceManager Manges resources for chrome selenium
@@ -39,6 +40,15 @@ func newResourceManager() (*resourceManager, error) {
 	rm.wd = &webDriver
 
 	return rm, nil
+}
+
+func cleanupResourceManager(rm *resourceManager) {
+	if rm == nil {
+		return
+	}
+	if err := rm.Cleanup(); err != nil {
+		log.Printf("Failed to clean up resource manager: %v", err)
+	}
 }
 
 // Cleanup Clear resource manager.

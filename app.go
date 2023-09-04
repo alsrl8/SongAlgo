@@ -35,14 +35,14 @@ func (app *App) GetSchedule() *github.ScheduleList {
 	return scheduleList
 }
 
-func (app *App) GenerateCookieForBJ() []Selenium.Cookie {
-	return selenium.GetCookieForBJ()
-}
-
-func (app *App) ReadCookieForBJ() []Selenium.Cookie {
-	return selenium.ReadCookieForBJ()
+func (app *App) GenerateCookieForBj() []Selenium.Cookie {
+	return selenium.GetCookieForBj()
 }
 
 func (app *App) OpenBjWithCookie(url string) {
 	selenium.OpenBjWithCookie(url)
+}
+
+func (app *App) GenerateCookieForPg() []Selenium.Cookie {
+	return selenium.ReadCookieForPg()
 }
