@@ -74,6 +74,11 @@ func getChromeDriverPath() (chromeDriverPath string) {
 	return
 }
 
+// getCookieDataPath Get Cookie data json file path.
+func getCookieDataPath() string {
+	return "./selenium/cookie/cookies.json"
+}
+
 // getChromeDriverService Get Chrome web driver service from chrome selenium
 func getChromeDriverService() (*selenium.Service, error) {
 	var opts []selenium.ServiceOption

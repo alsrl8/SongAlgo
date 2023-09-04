@@ -13,7 +13,7 @@ import (
 )
 
 func getBjCookieDataPath() string {
-	return "./selenium/cookie/cookies.json"
+	return getCookieDataPath()
 }
 
 func isFilePathValid(filePath string) bool {
