@@ -85,30 +85,3 @@ export namespace github {
 
 }
 
-export namespace selenium {
-	
-	export class Cookie {
-	    name: string;
-	    value: string;
-	    path: string;
-	    domain: string;
-	    secure: boolean;
-	    expiry: number;
-	
-	    static createFrom(source: any = {}) {
-	        return new Cookie(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.name = source["name"];
-	        this.value = source["value"];
-	        this.path = source["path"];
-	        this.domain = source["domain"];
-	        this.secure = source["secure"];
-	        this.expiry = source["expiry"];
-	    }
-	}
-
-}
-

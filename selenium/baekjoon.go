@@ -13,7 +13,7 @@ import (
 )
 
 func getBjCookieDataPath() string {
-	return "./selenium/cookie/cookies.json"
+	return getCookieDataPath()
 }
 
 func isFilePathValid(filePath string) bool {
@@ -59,23 +59,6 @@ func readBjLoginCookiesJson() []selenium.Cookie {
 	}
 
 	return jsonCookies
-}
-
-// TODO Manul Login 부분과 Json 저장 부분을 분리할 것
-func performManualLogin(wd *selenium.WebDriver) error {
-	err := navigateToLoginPage(wd)
-	if err != nil {
-		return err
-	}
-
-	monitorLoginStatus(wd)
-
-	err = saveCurrentCookiesAsJson(wd)
-	if err != nil {
-		return err
-	}
-
-	return nil
 }
 
 func navigateToLoginPage(wd *selenium.WebDriver) error {
@@ -140,33 +123,6 @@ func saveCurrentCookiesAsJson(wd *selenium.WebDriver) error {
 
 func ReadCookieForBj() []selenium.Cookie {
 	return readBjLoginCookiesJson()
-}
-
-func GetCookieForBj() []selenium.Cookie {
-	bjLoginCookies := ReadCookieForBj()
-	if len(bjLoginCookies) > 0 {
-		return bjLoginCookies
-	}
-
-	rm, err := newResourceManager()
-	if err != nil {
-		log.Printf("Failed to create new resource manager: %v", err)
-		return []selenium.Cookie{}
-	}
-	defer cleanupResourceManager(rm)
-
-	err = performManualLogin(rm.wd)
-	if err != nil {
-		log.Printf("Manual login failed: %v", err)
-		return []selenium.Cookie{}
-	}
-
-	// TODO performManualLogin 이후 Cookie를 바로 쓸 수 있도록 수정할 것
-	bjLoginCookies = ReadCookieForBj()
-	if len(bjLoginCookies) > 0 {
-		return bjLoginCookies
-	}
-	return []selenium.Cookie{}
 }
 
 func monitorBrowserClose(wd *selenium.WebDriver, c chan bool) {

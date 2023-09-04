@@ -13,17 +13,9 @@
     width: 10vw;
     height: auto;
     border-radius: 5px;
-
-    &.activated {
-        background-color: rgba(255, 255, 255, 1);
-        box-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-        opacity: 100%;
-    }
-
-    &.deactivated {
-        background-color: rgba(255, 255, 255, 0.25);
-        opacity: 25%;
-    }
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+    opacity: 100%;
 }
 
 .cookieLogo:hover {

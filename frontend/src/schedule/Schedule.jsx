@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { GetSchedule, OpenBjWithCookie } from "../../wailsjs/go/main/App";
 import "./Schedule.css";
 
-function Schedule({ selectedMenuItem, setSelectedMenuItem, isBjConnected }) {
+function Schedule({ selectedMenuItem, setSelectedMenuItem }) {
   const [scheduleList, setScheduleList] = useState([]);
 
   useEffect(() => {
@@ -20,38 +20,24 @@ function Schedule({ selectedMenuItem, setSelectedMenuItem, isBjConnected }) {
           {item.problems.map((problem, pi) => (
             <div
               onClick={() => {
-                if (isBjConnected === true) {
-                  OpenBjWithCookie(problem.url).then(() => {});
-                } else {
-                  window.open(problem.url, "_blank");
-                }
+                window.open(problem.url, "_blank");
               }}
             >
-              {pi + 1 !== item.problems.length ? (
-                <div className="problem">
-                  <span className="problemDetail title">
-                    {pi + 1}. {problem.name}
-                  </span>
-                  <span className="problemDetail platform">
-                    {problem.algorithmType}
-                  </span>
-                  <span className="problemDetail platform">
-                    {problem.platform} - {problem.difficulty}
-                  </span>
-                </div>
-              ) : (
-                <div className="problem problemLast">
-                  <span className="problemDetail title">
-                    {pi + 1}. {problem.name}
-                  </span>
-                  <span className="problemDetail platform">
-                    {problem.algorithmType}
-                  </span>
-                  <span className="problemDetail platform">
-                    {problem.platform} - {problem.difficulty}
-                  </span>
-                </div>
-              )}
+              <div
+                className={`problem ${
+                  pi + 1 === item.problems.length ? "problemLast" : ""
+                }`}
+              >
+                <span className="problemDetail title">
+                  {pi + 1}. {problem.name}
+                </span>
+                <span className="problemDetail platform">
+                  {problem.algorithmType}
+                </span>
+                <span className="problemDetail platform">
+                  {problem.platform} - {problem.difficulty}
+                </span>
+              </div>
             </div>
           ))}
         </div>

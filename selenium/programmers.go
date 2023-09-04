@@ -9,7 +9,7 @@ import (
 )
 
 func getPgCookieDataPath() string {
-	return "./selenium/cookie/pg_cookies.json"
+	return getCookieDataPath()
 }
 
 func readPgLoginCookiesJson() []selenium.Cookie {
@@ -45,8 +45,4 @@ func readPgLoginCookiesJson() []selenium.Cookie {
 	}
 
 	return jsonCookies
-}
-
-func ReadCookieForPg() []selenium.Cookie {
-	return readPgLoginCookiesJson()
 }

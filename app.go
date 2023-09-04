@@ -4,7 +4,6 @@ import (
 	"SongAlgo/github"
 	"SongAlgo/selenium"
 	"context"
-	Selenium "github.com/tebeka/selenium"
 )
 
 // App struct
@@ -35,14 +34,6 @@ func (app *App) GetSchedule() *github.ScheduleList {
 	return scheduleList
 }
 
-func (app *App) GenerateCookieForBj() []Selenium.Cookie {
-	return selenium.GetCookieForBj()
-}
-
 func (app *App) OpenBjWithCookie(url string) {
 	selenium.OpenBjWithCookie(url)
-}
-
-func (app *App) GenerateCookieForPg() []Selenium.Cookie {
-	return selenium.ReadCookieForPg()
 }
