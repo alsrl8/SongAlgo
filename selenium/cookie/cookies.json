@@ -1,39 +1,31 @@
 [
 	{
-		"name": "bojautologin",
-		"value": "ff2b2a355c893fb18bd88bcc22260193256752ed",
-		"path": "/",
-		"domain": ".acmicpc.net",
-		"secure": true,
-		"expiry": 1694318022
-	},
-	{
 		"name": "_fbp",
-		"value": "fb.1.1693713202582.472706054",
+		"value": "fb.1.1693829676710.1318193298",
 		"path": "/",
 		"domain": ".acmicpc.net",
 		"secure": false,
-		"expiry": 1701489223
+		"expiry": 1701605692
 	},
 	{
 		"name": "_ga",
-		"value": "GA1.1.1631566383.1693713202",
+		"value": "GA1.1.241248921.1693829676",
 		"path": "/",
 		"domain": ".acmicpc.net",
 		"secure": false,
-		"expiry": 1728273222
+		"expiry": 1728389691
 	},
 	{
 		"name": "_ga_C81GGQEMJZ",
-		"value": "GS1.1.1693713202.1.1.1693713222.0.0.0",
+		"value": "GS1.1.1693829676.1.1.1693829691.0.0.0",
 		"path": "/",
 		"domain": ".acmicpc.net",
 		"secure": false,
-		"expiry": 1728273222
+		"expiry": 1728389691
 	},
 	{
 		"name": "OnlineJudge",
-		"value": "1ih70pte7gpm60jcns6snk6h48",
+		"value": "ovqctk9q0kek71mfn2iiddc8m6",
 		"path": "/",
 		"domain": ".acmicpc.net",
 		"secure": true,

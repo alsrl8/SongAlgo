@@ -18,7 +18,7 @@ func Test_isFilePathValid(t *testing.T) {
 		},
 		{
 			desc:     "Valid file path",
-			path:     "./cookie/cookies.json",
+			path:     "./../go.mod",
 			expected: true,
 		},
 	}
