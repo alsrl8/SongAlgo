@@ -10,6 +10,10 @@ export function GetSchedule() {
   return window['go']['main']['App']['GetSchedule']();
 }
 
-export function OpenBjWithCookie(arg1) {
-  return window['go']['main']['App']['OpenBjWithCookie'](arg1);
+export function IsChromeRunning() {
+  return window['go']['main']['App']['IsChromeRunning']();
+}
+
+export function NavigateToPageWithCookie(arg1) {
+  return window['go']['main']['App']['NavigateToPageWithCookie'](arg1);
 }

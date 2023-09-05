@@ -6,4 +6,6 @@ export function GetMenu():Promise<any>;
 
 export function GetSchedule():Promise<github.ScheduleList>;
 
-export function OpenBjWithCookie(arg1:string):Promise<void>;
+export function IsChromeRunning():Promise<boolean>;
+
+export function NavigateToPageWithCookie(arg1:string):Promise<void>;
