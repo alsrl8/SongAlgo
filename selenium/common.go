@@ -5,17 +5,19 @@ import (
 	"github.com/tebeka/selenium"
 	"github.com/tebeka/selenium/chrome"
 	"log"
+	"time"
 )
 
-// resourceManager Manges resources for chrome selenium
+// resourceManager Manges resources for chrome selenium.
 type resourceManager struct {
 	service *selenium.Service
 	caps    selenium.Capabilities
 	wd      *selenium.WebDriver
 }
 
-// newResourceManager Generate new resource manager
-// It requires to call CleanUp function after using it
+// newResourceManager Generate new resource manager.
+// It refers to user data directory of Chrome browser.
+// It requires to call CleanUp function after using it.
 func newResourceManager() (*resourceManager, error) {
 	rm := &resourceManager{}
 
@@ -26,9 +28,13 @@ func newResourceManager() (*resourceManager, error) {
 	rm.service = service
 
 	rm.caps = selenium.Capabilities{"browserName": "chrome"}
+	userDataDir := "C:/Users/alsrl/AppData/Local/Google/Chrome/User Data"
 	chromeCaps := chrome.Capabilities{
 		Prefs: map[string]interface{}{
 			"profile.default_content_settings.popups": 0,
+		},
+		Args: []string{
+			"--user-data-dir=" + userDataDir,
 		},
 	}
 	rm.caps.AddChrome(chromeCaps)
@@ -42,6 +48,7 @@ func newResourceManager() (*resourceManager, error) {
 	return rm, nil
 }
 
+// cleanupResourceManager Clean resource manager and print error if it exists.
 func cleanupResourceManager(rm *resourceManager) {
 	if rm == nil {
 		return
@@ -52,7 +59,7 @@ func cleanupResourceManager(rm *resourceManager) {
 }
 
 // Cleanup Clear resource manager.
-// It must be called after using it
+// It must be called after using it.
 func (rm *resourceManager) Cleanup() error {
 	err := (*rm.wd).Quit()
 	if err != nil {
@@ -67,8 +74,8 @@ func (rm *resourceManager) Cleanup() error {
 	return nil
 }
 
-// getChromeDriverPath Get Chrome web driver path
-// It is only tested on Windows environment
+// getChromeDriverPath Get Chrome web driver path.
+// It is only tested on Windows environment.
 func getChromeDriverPath() (chromeDriverPath string) {
 	chromeDriverPath = "./selenium/driver/chromedriver"
 	return
@@ -79,7 +86,7 @@ func getCookieDataPath() string {
 	return "./selenium/cookie/cookies.json"
 }
 
-// getChromeDriverService Get Chrome web driver service from chrome selenium
+// getChromeDriverService Get Chrome web driver service from chrome selenium.
 func getChromeDriverService() (*selenium.Service, error) {
 	var opts []selenium.ServiceOption
 	chromeDriverPath := getChromeDriverPath()
@@ -90,11 +97,61 @@ func getChromeDriverService() (*selenium.Service, error) {
 	return service, nil
 }
 
-// navigateToPage Open the page with given url and web driver
-func navigateToPage(wd *selenium.WebDriver, url string) error {
+// OpenPageWithWebDriver Open web page with given url and web driver
+func OpenPageWithWebDriver(wd *selenium.WebDriver, url string) error {
 	err := (*wd).Get(url)
 	if err != nil {
 		return err
 	}
 	return nil
+}
+
+// NavigateToPageWithCookieAndWait Navigate to page with given url and chrome cookie data.
+func NavigateToPageWithCookieAndWait(url string) {
+
+	rm, err := newResourceManager()
+	if err != nil {
+		log.Printf("Failed to create new resource manager: %v", err)
+		return
+	}
+	defer cleanupResourceManager(rm)
+
+	err = OpenPageWithWebDriver(rm.wd, url)
+	if err != nil {
+		log.Printf("Failed to access to url(%s): %v", url, err)
+		return
+	}
+
+	err = OpenPageWithWebDriver(rm.wd, url)
+	if err != nil {
+		log.Printf("Failed to access to url(%s): %v", url, err)
+		return
+	}
+
+	err = (*rm.wd).Refresh()
+	if err != nil {
+		log.Printf("Failed to refreshing page")
+	}
+
+	waitUntilUserCloseBrowser(rm.wd)
+}
+
+// waitUntilUserCloseBrowser Keep selenium browser awake until user closes the browser.
+func waitUntilUserCloseBrowser(wd *selenium.WebDriver) {
+	c := make(chan bool)
+	go monitorBrowserClose(wd, c)
+	<-c
+}
+
+// monitorBrowserClose Keep looking at if browser is alive.
+func monitorBrowserClose(wd *selenium.WebDriver, c chan bool) {
+	for {
+		time.Sleep(1 * time.Second) // Poll every second
+		_, err := (*wd).Title()
+		if err != nil {
+			c <- true
+			break
+		}
+	}
+	log.Printf("Browser was closed by the user.")
 }

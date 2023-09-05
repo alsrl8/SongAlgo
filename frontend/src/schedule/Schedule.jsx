@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { GetSchedule, OpenBjWithCookie } from "../../wailsjs/go/main/App";
+import {
+  GetSchedule,
+  NavigateToPageWithCookie,
+  IsChromeRunning,
+} from "../../wailsjs/go/main/App";
 import "./Schedule.css";
 
 function Schedule({ selectedMenuItem, setSelectedMenuItem }) {
@@ -20,7 +24,11 @@ function Schedule({ selectedMenuItem, setSelectedMenuItem }) {
           {item.problems.map((problem, pi) => (
             <div
               onClick={() => {
-                window.open(problem.url, "_blank");
+                // window.open(problem.url, "_blank");
+                IsChromeRunning().then((chromeRunning) => {
+                  console.log("chromeRunning:", chromeRunning);
+                });
+                NavigateToPageWithCookie(problem.url).then(() => {});
               }}
             >
               <div

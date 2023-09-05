@@ -3,6 +3,7 @@ package main
 import (
 	"SongAlgo/github"
 	"SongAlgo/selenium"
+	"SongAlgo/util"
 	"context"
 )
 
@@ -34,6 +35,10 @@ func (app *App) GetSchedule() *github.ScheduleList {
 	return scheduleList
 }
 
-func (app *App) OpenBjWithCookie(url string) {
-	selenium.OpenBjWithCookie(url)
+func (app *App) IsChromeRunning() bool {
+	return util.IsChromeRunning()
+}
+
+func (app *App) NavigateToPageWithCookie(url string) {
+	selenium.NavigateToPageWithCookieAndWait(url)
 }
