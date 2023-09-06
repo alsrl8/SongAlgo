@@ -1,9 +1,7 @@
 package github
 
 import (
-	"encoding/json"
-	"io/ioutil"
-	"net/http"
+	"errors"
 )
 
 type Problem struct {
@@ -24,27 +22,21 @@ type ScheduleList struct {
 }
 
 func FetchScheduleListFromGitHub() (*ScheduleList, error) {
-	// URL to the raw version of the file in the GitHub repository
-	url := "https://raw.githubusercontent.com/alsrl8/SongAlgo/schedule/Schedule.json"
-
-	// Fetch the file from GitHub
-	resp, err := http.Get(url)
-	if err != nil {
-		return nil, err
+	fetchParams := FetchParams{
+		Owner:  "alsrl8",
+		Repo:   "SongAlgo",
+		Branch: "schedule",
+		Path:   "Schedule.json",
 	}
-	defer resp.Body.Close()
-
-	// Read the response body
-	body, err := ioutil.ReadAll(resp.Body)
+	fetchData, err := FetchFromGithub(fetchParams)
 	if err != nil {
 		return nil, err
 	}
 
-	// Parse the JSON into the Schedule struct
 	var scheduleList ScheduleList
-	err = json.Unmarshal(body, &scheduleList)
-	if err != nil {
-		return nil, err
+	scheduleList, ok := fetchData.(ScheduleList)
+	if !ok {
+		return nil, errors.New("fetched data from GitHub does not match expected ScheduleList structure")
 	}
 
 	return &scheduleList, nil
