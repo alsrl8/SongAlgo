@@ -72,7 +72,7 @@ func UploadFileToGithub(params UploadParams) error {
 	return nil
 }
 
-func FetchFromGithub(params FetchParams) (interface{}, error) {
+func FetchFromGithub(params FetchParams) ([]byte, error) {
 	url := fmt.Sprintf(
 		"https://raw.githubusercontent.com/%s/%s/%s/%s",
 		params.Owner,
@@ -92,11 +92,5 @@ func FetchFromGithub(params FetchParams) (interface{}, error) {
 		return nil, err
 	}
 
-	var ret interface{}
-	err = json.Unmarshal(body, &ret)
-	if err != nil {
-		return nil, err
-	}
-
-	return &ret, nil
+	return body, nil
 }

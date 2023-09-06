@@ -23,12 +23,15 @@ function Schedule({ selectedMenuItem, setSelectedMenuItem }) {
           <span className="date">{item.date}</span>
           {item.problems.map((problem, pi) => (
             <div
-              onClick={() => {
-                // window.open(problem.url, "_blank");
-                IsChromeRunning().then((chromeRunning) => {
-                  console.log("chromeRunning:", chromeRunning);
-                });
-                NavigateToPageWithCookie(problem.url).then(() => {});
+              onClick={async () => {
+                const chromeRunning = await IsChromeRunning();
+                if (chromeRunning) {
+                  alert(
+                    "Please close Chrome browser before using this feature.",
+                  );
+                  return;
+                }
+                await NavigateToPageWithCookie(problem.url);
               }}
             >
               <div
