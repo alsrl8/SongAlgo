@@ -5,6 +5,8 @@ import {
   IsChromeRunning,
 } from "../../wailsjs/go/main/App";
 import "./Schedule.css";
+import cdLogo from "../../src/assets/images/code_logo.png";
+import githubLogo from "../../src/assets/images/github-logo.png";
 
 function Schedule({ selectedMenuItem, setSelectedMenuItem }) {
   const [scheduleList, setScheduleList] = useState([]);
@@ -22,32 +24,44 @@ function Schedule({ selectedMenuItem, setSelectedMenuItem }) {
         <div key={index} className="scheduleCard">
           <span className="date">{item.date}</span>
           {item.problems.map((problem, pi) => (
-            <div
-              onClick={async () => {
-                const chromeRunning = await IsChromeRunning();
-                if (chromeRunning) {
-                  alert(
-                    "Please close Chrome browser before using this feature.",
-                  );
-                  return;
-                }
-                await NavigateToPageWithCookie(problem.url);
-              }}
-            >
+            <div className="problem">
               <div
-                className={`problem ${
-                  pi + 1 === item.problems.length ? "problemLast" : ""
+                className={`problemContents ${
+                  pi + 1 === item.problems.length ? "last" : ""
                 }`}
+                onClick={async () => {
+                  window.open(problem.url, "_blank");
+                }}
               >
-                <span className="problemDetail title">
-                  {pi + 1}. {problem.name}
-                </span>
-                <span className="problemDetail platform">
-                  {problem.algorithmType}
-                </span>
-                <span className="problemDetail platform">
-                  {problem.platform} - {problem.difficulty}
-                </span>
+                <div className="problemContent">
+                  <span className="problemContent title">
+                    {pi + 1}. {problem.name}
+                  </span>
+                  <span className="problemContent platform">
+                    {problem.algorithmType}
+                  </span>
+                  <span className="problemContent platform">
+                    {problem.platform} - {problem.difficulty}
+                  </span>
+                </div>
+              </div>
+              <div className="problemFeatures">
+                <img
+                  src={cdLogo}
+                  alt="logo"
+                  className="logo"
+                  onClick={async () => {
+                    const chromeRunning = await IsChromeRunning();
+                    if (chromeRunning) {
+                      alert(
+                        "Please close Chrome browser before using this feature.",
+                      );
+                      return;
+                    }
+                    await NavigateToPageWithCookie(problem.url);
+                  }}
+                />
+                <img src={githubLogo} alt="logo" className="logo" />
               </div>
             </div>
           ))}

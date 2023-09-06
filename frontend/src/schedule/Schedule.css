@@ -1,10 +1,8 @@
 .scheduleContainer {
-    /*margin: 20px;*/
-    /*padding: 20px;*/
 }
 
 .scheduleCard {
-    display: block;
+    display: flex;
     flex-direction: column;
     padding-top: 15px;
     padding-left: 20px;
@@ -13,18 +11,27 @@
     box-shadow: 0 1px 3px whitesmoke;
     border-radius: 20px;
     background-color: rgba(32, 49, 172, 0.3);
+    justify-content: space-between;
 }
 
 .date {
     display: flex;
     font-size: 20px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    padding-top: 0.5vh;
 }
 
 .problem {
     display: flex;
+    flex-direction: row;
+}
+
+.problemContents {
+    flex: 9;
+    display: flex;
     flex-direction: column;
+    justify-content: center;
     margin-right: 35px;
     font-size: 18px;
     margin-top: 10px;
@@ -32,13 +39,14 @@
     border-top: 1px solid rgba(204, 204, 204, 0.2);
     cursor: default;
 
-
-    &.problemLast {
+    &.last {
         padding-bottom: 12px;
     }
 }
 
-.problemDetail {
+.problemContent {
+    display: flex;
+    flex-direction: column;
     &.title {
 
     }
@@ -54,9 +62,23 @@
     }
 }
 
-.problem:hover {
+.problemContents:hover {
     cursor: default;
     text-shadow: -1px 0 blue, 0 1px blue, 1px 0 blue, 0 -1px blue;
+}
+
+.problemFeatures {
+    margin-top: 20px;
+    padding-right: 1vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.logo {
+    width: 45px;
+    height: 45px;
+    padding-right: 10px;
 }
 
 .goBackButton {
