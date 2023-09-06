@@ -1,7 +1,7 @@
 package github
 
 import (
-	"errors"
+	"encoding/json"
 )
 
 type Problem struct {
@@ -34,9 +34,9 @@ func FetchScheduleListFromGitHub() (*ScheduleList, error) {
 	}
 
 	var scheduleList ScheduleList
-	scheduleList, ok := fetchData.(ScheduleList)
-	if !ok {
-		return nil, errors.New("fetched data from GitHub does not match expected ScheduleList structure")
+	err = json.Unmarshal(fetchData, &scheduleList)
+	if err != nil {
+		return nil, err
 	}
 
 	return &scheduleList, nil
