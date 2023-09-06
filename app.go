@@ -42,3 +42,7 @@ func (app *App) IsChromeRunning() bool {
 func (app *App) NavigateToPageWithCookie(url string) {
 	selenium.NavigateToPageWithCookieAndWait(url)
 }
+
+func (app *App) NavigateToBjProblemWithCookie(url string) []selenium.SubmitHistory {
+	return selenium.NavigateToBjProblemWithCookie(url)
+}

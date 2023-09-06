@@ -1,9 +1,9 @@
 import "./App.css";
-import songAlgoLogo from "../src/assets/images/song_algo_logo_white.png";
-import wailsLogo from "../src/assets/images/logo-universal.png";
-import bjLogo from "../src/assets/images/bj_logo.png";
-import pgLogo from "../src/assets/images/programers_logo.png";
-import { GetMenu } from "../wailsjs/go/main/App";
+import songAlgoLogo from "./../src/assets/images/song_algo_logo_white.png";
+import wailsLogo from "./../src/assets/images/logo-universal.png";
+import bjLogo from "./../src/assets/images/bj_logo.png";
+import pgLogo from "./../src/assets/images/programers_logo.png";
+import { GetMenu } from "./../wailsjs/go/main/App";
 import { useEffect, useState } from "react";
 import Schedule from "./schedule/Schedule";
 

@@ -81,11 +81,6 @@ func getChromeDriverPath() (chromeDriverPath string) {
 	return
 }
 
-// getCookieDataPath Get Cookie data json file path.
-func getCookieDataPath() string {
-	return "./selenium/cookie/cookies.json"
-}
-
 // getChromeDriverService Get Chrome web driver service from chrome selenium.
 func getChromeDriverService() (*selenium.Service, error) {
 	var opts []selenium.ServiceOption
@@ -115,12 +110,6 @@ func NavigateToPageWithCookieAndWait(url string) {
 		return
 	}
 	defer cleanupResourceManager(rm)
-
-	err = OpenPageWithWebDriver(rm.wd, url)
-	if err != nil {
-		log.Printf("Failed to access to url(%s): %v", url, err)
-		return
-	}
 
 	err = OpenPageWithWebDriver(rm.wd, url)
 	if err != nil {
