@@ -85,36 +85,3 @@ export namespace github {
 
 }
 
-export namespace selenium {
-	
-	export class SubmitHistory {
-	    "제출 번호": string;
-	    "아이디": string;
-	    "문제": string;
-	    "결과": string;
-	    "메모리": string;
-	    "시간": string;
-	    "언어": string;
-	    "코드 길이": string;
-	    "제출한 시간": string;
-	
-	    static createFrom(source: any = {}) {
-	        return new SubmitHistory(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this["제출 번호"] = source["제출 번호"];
-	        this["아이디"] = source["아이디"];
-	        this["문제"] = source["문제"];
-	        this["결과"] = source["결과"];
-	        this["메모리"] = source["메모리"];
-	        this["시간"] = source["시간"];
-	        this["언어"] = source["언어"];
-	        this["코드 길이"] = source["코드 길이"];
-	        this["제출한 시간"] = source["제출한 시간"];
-	    }
-	}
-
-}
-

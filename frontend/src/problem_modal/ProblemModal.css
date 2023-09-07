@@ -12,9 +12,93 @@
 }
 
 .modal {
-    background-color: #fff;
+    position: relative;
+    background-color: rgba(27, 38, 54);
     padding: 20px;
     border-radius: 5px;
     width: 80%;
-    max-width: 500px;
+    height: auto;
+    max-height: 90%;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.modal .close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border-radius: 8px;
+    background-color: rgba(47, 85, 151, 0.5);
+    color: white;
+    cursor: pointer;
+}
+
+.submissionTable {
+    width: 90%;
+    border-collapse: collapse;
+}
+
+.submissionTable th {
+    align-items: center;
+    text-align: center;
+    cursor: default;
+}
+
+.submissionTable td {
+    align-items: center;
+    text-align: center;
+}
+
+.submissionHistory {
+    align-items: center;
+    text-align: center;
+    cursor: default;
+
+    &.correct{
+
+    }
+
+    &.correct:hover{
+        text-shadow: -1px 0 blue, 0 1px blue, 1px 0 blue, 0 -1px blue;
+    }
+
+    &.wrong {
+        cursor: not-allowed;
+    }
+}
+
+/* Define widths for specific columns. Adjust these as required */
+.submissionTable td:nth-child(1),
+.submissionTable th:nth-child(1) {
+    width: 12vh;
+}
+
+.submissionTable td:nth-child(2),
+.submissionTable th:nth-child(2) {
+    width: 14vh;
+}
+
+.submissionTable td:nth-child(3),
+.submissionTable th:nth-child(3) {
+    width: 10vh;
+}
+
+.submissionTable td:nth-child(4),
+.submissionTable th:nth-child(4) {
+    width: 10vh;
+}
+
+.submissionTable td:nth-child(5),
+.submissionTable th:nth-child(5) {
+    width: 10vh;
+}
+
+.submissionTable td:nth-child(6),
+.submissionTable th:nth-child(6) {
+    width: 10vh;
+}
+
+.submissionTable td:nth-child(7),
+.submissionTable th:nth-child(7) {
+    width: 10vh;
 }

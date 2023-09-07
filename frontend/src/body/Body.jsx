@@ -1,9 +1,10 @@
 import "./Body.css";
 import React, { useEffect, useState } from "react";
-import Schedule from "../schedule/Schedule.jsx";
+import Menu from "./menu/Menu.jsx";
+import Schedule from "./schedule/Schedule.jsx";
 import { GetMenu } from "../../wailsjs/go/main/App.js";
 
-function Body() {
+function Body({ setIsModalOpen, setSubmitHistories }) {
   const [menu, setMenu] = useState([]);
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
 
@@ -16,23 +17,13 @@ function Body() {
   return (
     <>
       {selectedMenuItem === null ? (
-        <div>
-          {menu.map((item, index) => (
-            <div
-              className="interactive-text"
-              key={index}
-              onClick={() => {
-                setSelectedMenuItem(item);
-              }}
-            >
-              {item}
-            </div>
-          ))}
-        </div>
+        <Menu menu={menu} setSelectedMenuItem={setSelectedMenuItem} />
       ) : (
         <Schedule
           selectedMenuItem={selectedMenuItem}
           setSelectedMenuItem={setSelectedMenuItem}
+          setIsModalOpen={setIsModalOpen}
+          setSubmitHistories={setSubmitHistories}
         />
       )}
     </>

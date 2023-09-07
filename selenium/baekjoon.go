@@ -3,18 +3,19 @@ package selenium
 import (
 	"github.com/tebeka/selenium"
 	"log"
+	"strings"
 )
 
 type SubmitHistory struct {
-	SubmissionNumber string `json:"제출 번호"`
-	ID               string `json:"아이디"`
-	Problem          string `json:"문제"`
-	Result           string `json:"결과"`
-	Memory           string `json:"메모리"`
-	Time             string `json:"시간"`
-	Language         string `json:"언어"`
-	CodeLength       string `json:"코드 길이"`
-	SubmissionTime   string `json:"제출한 시간"`
+	SubmissionNumber string
+	ID               string
+	Problem          string
+	Result           string
+	Memory           string
+	Time             string
+	Language         string
+	CodeLength       string
+	SubmissionTime   string
 }
 
 func navigateToBjSubmitHistoryPage(wd *selenium.WebDriver) {
@@ -90,10 +91,12 @@ func bindSubmitHistories(trElements []selenium.WebElement) []SubmitHistory {
 					continue
 				}
 			case 6:
-				submitHistory.Language, err = tdElement.Text()
+				elementLanguage, err := tdElement.Text()
 				if err != nil {
 					continue
 				}
+				elementLanguage = strings.Replace(elementLanguage, " / 수정", "", 1)
+				submitHistory.Language = elementLanguage
 			case 7:
 				submitHistory.CodeLength, err = tdElement.Text()
 				if err != nil {

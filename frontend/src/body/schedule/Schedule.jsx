@@ -3,14 +3,18 @@ import {
   GetSchedule,
   NavigateToBjProblemWithCookie,
   IsChromeRunning,
-} from "./../../wailsjs/go/main/App";
+} from "../../../wailsjs/go/main/App.js";
 import "./Schedule.css";
-import cdLogo from "./../../src/assets/images/code_logo.png";
-import githubLogo from "./../../src/assets/images/github-logo.png";
+import cdLogo from "../../assets/images/code_logo.png";
+import githubLogo from "../../assets/images/github-logo.png";
 
-function Schedule({ selectedMenuItem, setSelectedMenuItem }) {
+function Schedule({
+  selectedMenuItem,
+  setSelectedMenuItem,
+  setIsModalOpen,
+  setSubmitHistories,
+}) {
   const [scheduleList, setScheduleList] = useState([]);
-  const [submitHistories, setSubmitHistories] = useState([]);
 
   useEffect(() => {
     GetSchedule().then((_scheduleList) => {
@@ -22,10 +26,10 @@ function Schedule({ selectedMenuItem, setSelectedMenuItem }) {
     <div className="scheduleContainer">
       <h2>{selectedMenuItem}</h2>
       {scheduleList.map((item, index) => (
-        <div key={index} className="scheduleCard">
+        <div key={"schedule" + index} className="scheduleCard">
           <span className="date">{item.date}</span>
           {item.problems.map((problem, pi) => (
-            <div className="problem" key={pi}>
+            <div className="problem" key={"schedule" + index + "problem" + pi}>
               <div
                 className={`problemContents ${
                   pi + 1 === item.problems.length ? "last" : ""
@@ -67,6 +71,7 @@ function Schedule({ selectedMenuItem, setSelectedMenuItem }) {
                             return;
                           }
                           setSubmitHistories(_submitHistories);
+                          setIsModalOpen(true);
                         },
                       );
                     }
