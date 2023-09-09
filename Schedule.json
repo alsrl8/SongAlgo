@@ -1,63 +1,6 @@
 {
   "list": [
     {
-      "date": "2023-09-01",
-      "problems": [
-        {
-          "name": "A+B",
-          "algorithmType": "구현",
-          "difficulty": "B5",
-          "platform": "baekjoon",
-          "url": "https://www.acmicpc.net/problem/1000"
-        },
-        {
-          "name": "문자열 출력하기",
-          "algorithmType": "구현",
-          "difficulty": "B5",
-          "platform": "programmers",
-          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/181952"
-        }
-      ]
-    },
-    {
-      "date": "2023-09-02",
-      "problems": [
-        {
-          "name": "Hello World",
-          "algorithmType": "구현",
-          "difficulty": "B5",
-          "platform": "baekjoon",
-          "url": "https://www.acmicpc.net/problem/2557"
-        },
-        {
-          "name": "A와 B 출력하기",
-          "algorithmType": "구현",
-          "difficulty": "Lv.0",
-          "platform": "programmers",
-          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/181951"
-        }
-      ]
-    },
-    {
-      "date": "2023-09-03",
-      "problems": [
-        {
-          "name": "Hello World",
-          "algorithmType": "구현",
-          "difficulty": "B5",
-          "platform": "baekjoon",
-          "url": "https://www.acmicpc.net/problem/2557"
-        },
-        {
-          "name": "A와 B 출력하기",
-          "algorithmType": "구현",
-          "difficulty": "Lv.0",
-          "platform": "programmers",
-          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/181951"
-        }
-      ]
-    },
-    {
       "date": "2023-09-04",
       "problems": [
         {
@@ -82,7 +25,110 @@
           "url": "https://www.acmicpc.net/problem/15686"
         }
       ]
+    },
+    {
+      "date": "2023-09-05",
+      "problems": [
+        {
+          "name": "모의 고사",
+          "algorithmType": "구현",
+          "difficulty": "Lv.1",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/42840?language=python3"
+        },
+        {
+          "name": "키 순서",
+          "algorithmType": "BFS",
+          "difficulty": "G4",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/2458"
+        },
+        {
+          "name": "산지니의 여행계획",
+          "algorithmType": "DFS",
+          "difficulty": "G1",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/28019"
+        }
+      ]
+    },
+    {
+      "date": "2023-09-06",
+      "problems": [
+        {
+          "name": "아기 상어 2",
+          "algorithmType": "완전 탐색",
+          "difficulty": "S2",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/17086"
+        },
+        {
+          "name": "가르침",
+          "algorithmType": "백트래킹",
+          "difficulty": "G4",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/1062"
+        },
+        {
+          "name": "달이 차오른다, 가자.",
+          "algorithmType": "비트마스킹",
+          "difficulty": "G1",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/1194"
+        }
+      ]
+    },
+    {
+      "date": "2023-09-07",
+      "problems": [
+        {
+          "name": "수들의 합 5",
+          "algorithmType": "투 포인터",
+          "difficulty": "S5",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/2018"
+        },
+        {
+          "name": "회문",
+          "algorithmType": "투 포인터",
+          "difficulty": "G5",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/17609"
+        },
+        {
+          "name": "같이 눈사람 만들래?",
+          "algorithmType": "투 포인터",
+          "difficulty": "G3",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/20366"
+        }
+      ]
+    },
+    {
+      "date": "2023-09-08",
+      "problems": [
+        {
+          "name": "키패드 누르기",
+          "algorithmType": "구현",
+          "difficulty": "Lv.1",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/67256"
+        },
+        {
+          "name": "거리두기 확인하기",
+          "algorithmType": "완전 탐색",
+          "difficulty": "Lv.2",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/81302"
+        },
+        {
+          "name": "카드 짝 맞추기",
+          "algorithmType": "백트래킹",
+          "difficulty": "Lv.3",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/72415"
+        }
+      ]
     }
-
   ]
 }
