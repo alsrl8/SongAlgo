@@ -14,6 +14,10 @@ export function IsChromeRunning() {
   return window['go']['main']['App']['IsChromeRunning']();
 }
 
+export function NavigateToBjProblemWithCookie(arg1) {
+  return window['go']['main']['App']['NavigateToBjProblemWithCookie'](arg1);
+}
+
 export function NavigateToPageWithCookie(arg1) {
   return window['go']['main']['App']['NavigateToPageWithCookie'](arg1);
 }

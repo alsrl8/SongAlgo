@@ -1,0 +1,28 @@
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.header .logo {
+    width: 120px;
+    height: 100%;
+    max-height: 90px;
+    object-fit: contain;
+}
+
+.header .siteLogo {
+    width: 120px;
+    height: auto;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+    opacity: 100%;
+    margin-right: 10px;
+}
+
+.header .siteLogo:hover {
+    box-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red;
+}

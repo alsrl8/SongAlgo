@@ -34,7 +34,11 @@ func newResourceManager() (*resourceManager, error) {
 			"profile.default_content_settings.popups": 0,
 		},
 		Args: []string{
+			"--headless",
 			"--user-data-dir=" + userDataDir,
+		},
+		ExcludeSwitches: []string{
+			"enable-logging",
 		},
 	}
 	rm.caps.AddChrome(chromeCaps)
@@ -81,11 +85,6 @@ func getChromeDriverPath() (chromeDriverPath string) {
 	return
 }
 
-// getCookieDataPath Get Cookie data json file path.
-func getCookieDataPath() string {
-	return "./selenium/cookie/cookies.json"
-}
-
 // getChromeDriverService Get Chrome web driver service from chrome selenium.
 func getChromeDriverService() (*selenium.Service, error) {
 	var opts []selenium.ServiceOption
@@ -120,17 +119,6 @@ func NavigateToPageWithCookieAndWait(url string) {
 	if err != nil {
 		log.Printf("Failed to access to url(%s): %v", url, err)
 		return
-	}
-
-	err = OpenPageWithWebDriver(rm.wd, url)
-	if err != nil {
-		log.Printf("Failed to access to url(%s): %v", url, err)
-		return
-	}
-
-	err = (*rm.wd).Refresh()
-	if err != nil {
-		log.Printf("Failed to refreshing page")
 	}
 
 	waitUntilUserCloseBrowser(rm.wd)
