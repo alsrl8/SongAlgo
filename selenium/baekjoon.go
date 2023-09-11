@@ -122,19 +122,18 @@ func findBjSubmitHistories(wd *selenium.WebDriver) []SubmitHistory {
 }
 
 func NavigateToBjProblemWithCookie(url string) []SubmitHistory {
-	rm, err := newResourceManager()
-	if err != nil {
-		log.Printf("Failed to create new resource manager: %v", err)
-		return []SubmitHistory{}
-	}
-	defer cleanupResourceManager(rm)
+	wd := GetWebDriverInstance()
 
-	err = OpenPageWithWebDriver(rm.wd, url)
+	err := OpenPageWithWebDriver(wd.driver, url)
 	if err != nil {
 		log.Printf("Failed to access to url(%s): %v", url, err)
 		return []SubmitHistory{}
 	}
 
-	submitHistories := findBjSubmitHistories(rm.wd)
+	submitHistories := findBjSubmitHistories(wd.driver)
 	return submitHistories
+}
+
+func UploadBjSourceToGithub(SubmissionNumber string) {
+	// TODO 백준 제출 코드를 깃허브에 업로드하는 기능 추가
 }

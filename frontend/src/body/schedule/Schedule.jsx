@@ -56,13 +56,13 @@ function Schedule({
                   alt="logo"
                   className="logo"
                   onClick={async () => {
-                    const chromeRunning = await IsChromeRunning();
-                    if (chromeRunning) {
-                      alert(
-                        "Please close Chrome browser before using this feature.",
-                      );
-                      return;
-                    }
+                    // const chromeRunning = await IsChromeRunning();
+                    // if (chromeRunning) {
+                    //   alert(
+                    //     "Please close Chrome browser before using this feature.",
+                    //   );
+                    //   return;
+                    // }
 
                     if (problem.platform === "baekjoon") {
                       await NavigateToBjProblemWithCookie(problem.url).then(

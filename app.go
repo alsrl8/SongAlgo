@@ -46,3 +46,7 @@ func (app *App) NavigateToPageWithCookie(url string) {
 func (app *App) NavigateToBjProblemWithCookie(url string) []selenium.SubmitHistory {
 	return selenium.NavigateToBjProblemWithCookie(url)
 }
+
+func (app *App) UploadBjSourceToGithub(SubmissionNumber string) {
+	selenium.UploadBjSourceToGithub(SubmissionNumber)
+}

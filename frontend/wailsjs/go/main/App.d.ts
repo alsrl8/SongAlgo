@@ -12,3 +12,5 @@ export function IsChromeRunning():Promise<boolean>;
 export function NavigateToBjProblemWithCookie(arg1:string):Promise<Array<selenium.SubmitHistory>>;
 
 export function NavigateToPageWithCookie(arg1:string):Promise<void>;
+
+export function UploadBjSourceToGithub(arg1:string):Promise<void>;
