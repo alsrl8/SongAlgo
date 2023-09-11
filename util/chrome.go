@@ -4,12 +4,16 @@ import (
 	"bytes"
 	"log"
 	"os/exec"
+	"syscall"
 )
 
 func IsChromeRunning() bool {
 	cmd := exec.Command("tasklist", "/fi", "imagename eq chrome.exe")
+
 	var out bytes.Buffer
 	cmd.Stdout = &out
+	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+
 	err := cmd.Run()
 	if err != nil {
 		log.Println("Failed to execute command:", err)
