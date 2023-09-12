@@ -1,4 +1,4 @@
-.modal-background {
+.problem-modal-background {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,7 +11,7 @@
     z-index: 1000;
 }
 
-.modal {
+.problem-modal {
     position: relative;
     background-color: rgba(27, 38, 54);
     padding: 20px;
@@ -23,7 +23,7 @@
     box-sizing: border-box;
 }
 
-.modal .close-button {
+.problem-modal .close-button {
     position: absolute;
     top: 20px;
     right: 20px;

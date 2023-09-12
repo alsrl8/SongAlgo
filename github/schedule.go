@@ -23,10 +23,10 @@ type ScheduleList struct {
 
 func FetchScheduleListFromGitHub() (*ScheduleList, error) {
 	fetchParams := FetchParams{
-		Owner:  "alsrl8",
-		Repo:   "SongAlgo",
-		Branch: "schedule",
-		Path:   "Schedule.json",
+		Owner:  GetRepositoryOwner(),
+		Repo:   GetRepositoryName(),
+		Branch: GetScheduleBranchName(),
+		Path:   GetScheduleFileName(),
 	}
 	fetchData, err := FetchFromGithub(fetchParams)
 	if err != nil {

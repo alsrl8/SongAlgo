@@ -1,18 +1,46 @@
 import React from "react";
 import "./ProblemModal.css";
+import { Modal } from "antd";
+import { UploadBjSourceToGithub } from "../../wailsjs/go/main/App.js";
 
-const ProblemModal = ({ isOpen, onClose, submitHistories }) => {
+const ProblemModal = ({
+  isOpen,
+  onClose,
+  selectedProblemTitle,
+  selectedProblemDate,
+  submitHistories,
+}) => {
   if (!isOpen) {
     return null;
   }
 
-  if (submitHistories.length > 0) {
-    console.log(submitHistories);
-  }
+  let debounceTimeout = null;
+  const handleClickCorrectHistory = (submission) => {
+    if (debounceTimeout) return;
+    showConfirm(submission);
+    debounceTimeout = setTimeout(() => {
+      clearTimeout(debounceTimeout);
+      debounceTimeout = null;
+    }, 500);
+  };
+  const showConfirm = (submission) => {
+    Modal.confirm({
+      title: "이 코드를 제출하시겠습니까?",
+      content: "Github에 이미 해당 코드가 있다면 덮어쓰게 됩니다.",
+      onOk() {
+        UploadBjSourceToGithub(
+          selectedProblemTitle,
+          selectedProblemDate,
+          submission,
+        );
+      },
+      onCancel() {},
+    });
+  };
 
   return (
-    <div className="modal-background">
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
+    <div className="problem-modal-background">
+      <div className="problem-modal" onClick={(e) => e.stopPropagation()}>
         <table className="submissionTable">
           <thead>
             <tr>
@@ -32,6 +60,7 @@ const ProblemModal = ({ isOpen, onClose, submitHistories }) => {
                 className={`submissionHistory ${
                   submission.Time ? "correct" : "wrong"
                 }`}
+                onClick={() => handleClickCorrectHistory(submission)}
               >
                 <td>{submission.SubmissionNumber}</td>
                 <td>{submission.Result}</td>

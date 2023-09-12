@@ -39,10 +39,10 @@ func (app *App) IsChromeRunning() bool {
 	return util.IsChromeRunning()
 }
 
-func (app *App) NavigateToPageWithCookie(url string) {
-	selenium.NavigateToPageWithCookieAndWait(url)
-}
-
 func (app *App) NavigateToBjProblemWithCookie(url string) []selenium.SubmitHistory {
 	return selenium.NavigateToBjProblemWithCookie(url)
+}
+
+func (app *App) UploadBjSourceToGithub(problemTitle string, problemDate string, submission selenium.SubmitHistory) {
+	selenium.UploadBjSourceToGithub(problemTitle, problemDate, submission)
 }

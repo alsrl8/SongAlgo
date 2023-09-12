@@ -4,7 +4,12 @@ import Menu from "./menu/Menu.jsx";
 import Schedule from "./schedule/Schedule.jsx";
 import { GetMenu } from "../../wailsjs/go/main/App.js";
 
-function Body({ setIsModalOpen, setSubmitHistories }) {
+function Body({
+  setIsModalOpen,
+  setSubmitHistories,
+  setSelectedProblemTitle,
+  setSelectedProblemDate,
+}) {
   const [menu, setMenu] = useState([]);
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
 
@@ -24,6 +29,8 @@ function Body({ setIsModalOpen, setSubmitHistories }) {
           setSelectedMenuItem={setSelectedMenuItem}
           setIsModalOpen={setIsModalOpen}
           setSubmitHistories={setSubmitHistories}
+          setSelectedProblemTitle={setSelectedProblemTitle}
+          setSelectedProblemDate={setSelectedProblemDate}
         />
       )}
     </>
