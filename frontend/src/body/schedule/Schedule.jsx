@@ -13,6 +13,8 @@ function Schedule({
   setSelectedMenuItem,
   setIsModalOpen,
   setSubmitHistories,
+  setSelectedProblemTitle,
+  setSelectedProblemDate,
 }) {
   const [scheduleList, setScheduleList] = useState([]);
 
@@ -21,6 +23,11 @@ function Schedule({
       setScheduleList(_scheduleList.list);
     });
   }, []);
+
+  const convertDateToYYMMDD = (dateString) => {
+    const parts = dateString.split("-");
+    return parts[0].substring(2) + parts[1] + parts[2];
+  };
 
   return (
     <div className="scheduleContainer">
@@ -56,14 +63,6 @@ function Schedule({
                   alt="logo"
                   className="logo"
                   onClick={async () => {
-                    // const chromeRunning = await IsChromeRunning();
-                    // if (chromeRunning) {
-                    //   alert(
-                    //     "Please close Chrome browser before using this feature.",
-                    //   );
-                    //   return;
-                    // }
-
                     if (problem.platform === "baekjoon") {
                       await NavigateToBjProblemWithCookie(problem.url).then(
                         (_submitHistories) => {
@@ -71,6 +70,10 @@ function Schedule({
                             return;
                           }
                           setSubmitHistories(_submitHistories);
+                          setSelectedProblemTitle(problem.name);
+                          setSelectedProblemDate(
+                            convertDateToYYMMDD(item.date),
+                          );
                           setIsModalOpen(true);
                         },
                       );

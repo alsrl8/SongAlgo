@@ -85,3 +85,36 @@ export namespace github {
 
 }
 
+export namespace selenium {
+	
+	export class SubmitHistory {
+	    SubmissionNumber: string;
+	    ID: string;
+	    Problem: string;
+	    Result: string;
+	    Memory: string;
+	    Time: string;
+	    Language: string;
+	    CodeLength: string;
+	    SubmissionTime: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new SubmitHistory(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.SubmissionNumber = source["SubmissionNumber"];
+	        this.ID = source["ID"];
+	        this.Problem = source["Problem"];
+	        this.Result = source["Result"];
+	        this.Memory = source["Memory"];
+	        this.Time = source["Time"];
+	        this.Language = source["Language"];
+	        this.CodeLength = source["CodeLength"];
+	        this.SubmissionTime = source["SubmissionTime"];
+	    }
+	}
+
+}
+

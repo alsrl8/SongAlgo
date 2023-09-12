@@ -18,10 +18,6 @@ export function NavigateToBjProblemWithCookie(arg1) {
   return window['go']['main']['App']['NavigateToBjProblemWithCookie'](arg1);
 }
 
-export function NavigateToPageWithCookie(arg1) {
-  return window['go']['main']['App']['NavigateToPageWithCookie'](arg1);
-}
-
-export function UploadBjSourceToGithub(arg1) {
-  return window['go']['main']['App']['UploadBjSourceToGithub'](arg1);
+export function UploadBjSourceToGithub(arg1, arg2, arg3) {
+  return window['go']['main']['App']['UploadBjSourceToGithub'](arg1, arg2, arg3);
 }
