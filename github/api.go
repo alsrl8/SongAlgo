@@ -9,6 +9,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 )
 
 type UploadParams struct {
@@ -21,6 +22,7 @@ type UploadParams struct {
 	Branch    string
 	Message   string
 	Content   string
+	Sha       string
 }
 
 type GetParams struct {
@@ -36,6 +38,11 @@ type FetchParams struct {
 	Repo   string
 	Branch string
 	Path   string
+}
+
+type FileResponse struct {
+	File       `json:"file"`
+	StatusCode string `json:"statusCode"`
 }
 
 type File struct {
@@ -83,6 +90,13 @@ func GetGithubRepositoryContent(params GetParams) (File, error) {
 		}
 	}()
 
+	switch resp.StatusCode {
+	case 403:
+		return File{}, ErrForbidden
+	case 404:
+		return File{}, ErrResourceNotFound
+	}
+
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		log.Printf("Error during reading readcloser body: %+v", err)
@@ -97,13 +111,24 @@ func GetGithubRepositoryContent(params GetParams) (File, error) {
 	return file, nil
 }
 
+func GetGithubRepositorySource(branchName string, path string) (File, error) {
+	params := GetParams{
+		Token:  os.Getenv("GITHUB_TOKEN"),
+		Owner:  GetRepositoryOwner(),
+		Repo:   GetRepositoryName(),
+		Branch: branchName,
+		Path:   path,
+	}
+	return GetGithubRepositoryContent(params)
+}
+
 func UploadFileToGithub(params UploadParams) error {
 	apiURL := fmt.Sprintf("https://api.github.com/repos/%s/%s/contents/%s", params.Owner, params.Repo, params.Path)
 	data := map[string]interface{}{
-		"message":   params.Message,
-		"content":   base64.StdEncoding.EncodeToString([]byte(params.Content)),
-		"branch":    params.Branch,
-		"committer": map[string]string{"name": params.Committer, "email": params.Email},
+		"message": params.Message,
+		"content": base64.StdEncoding.EncodeToString([]byte(params.Content)),
+		"branch":  params.Branch,
+		"sha":     params.Sha,
 	}
 
 	jsonData, err := json.Marshal(data)
@@ -134,13 +159,17 @@ func UploadFileToGithub(params UploadParams) error {
 		}
 	}(resp.Body)
 
+	log.Printf("got response from github api. Status Code:%+v, Body:%+v", resp.StatusCode, resp.Body)
+
 	switch resp.StatusCode {
-	case 404:
-		return errors.New("UploadFileToGithub error: resource not found")
-	case 409:
-		return errors.New("UploadFileToGithub: conflict")
-	case 422:
-		return errors.New("UploadFileToGithub: Validation failed, or the endpoint has been spammed")
+	case 401: // Unauthorized
+		return errors.New("UploadFileToGithub: Unauthorized - Check your access credentials or token")
+	case 404: // Not Found
+		return errors.New("UploadFileToGithub: Resource not found - The endpoint or file may not exist")
+	case 409: // Conflict
+		return errors.New("UploadFileToGithub: Conflict - The file may already exist or there's a conflict with the request")
+	case 422: // Unprocessable Entity
+		return errors.New("UploadFileToGithub: Validation failed, or the endpoint has been spammed - Ensure request parameters are correct")
 	}
 
 	return nil

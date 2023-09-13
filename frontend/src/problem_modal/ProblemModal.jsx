@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ProblemModal.css";
 import { Modal } from "antd";
-import { UploadBjSourceToGithub } from "../../wailsjs/go/main/App.js";
+import {
+  GetGithubRepositoryBjSource,
+  UploadBjSourceToGithub,
+} from "../../wailsjs/go/main/App.js";
 
 const ProblemModal = ({
   isOpen,
@@ -10,6 +13,9 @@ const ProblemModal = ({
   selectedProblemDate,
   submitHistories,
 }) => {
+  const [source, setSource] = useState(null);
+  const [statusCode, setStatusCode] = useState("");
+
   if (!isOpen) {
     return null;
   }
@@ -17,21 +23,53 @@ const ProblemModal = ({
   let debounceTimeout = null;
   const handleClickCorrectHistory = (submission) => {
     if (debounceTimeout) return;
-    showConfirm(submission);
+    GetGithubRepositoryBjSource(
+      selectedProblemTitle,
+      selectedProblemDate,
+      submission.ID,
+      submission.Language,
+    ).then(async (result) => {
+      if (result.statusCode === "302") {
+        showConfirmOverwriteCode(submission, result.file.sha);
+      } else {
+        showConfirmWriteCode(submission);
+      }
+      setSource(result.file);
+      setStatusCode(result.statusCode);
+    });
+
     debounceTimeout = setTimeout(() => {
       clearTimeout(debounceTimeout);
       debounceTimeout = null;
     }, 500);
   };
-  const showConfirm = (submission) => {
+  const showConfirmOverwriteCode = (submission, sha) => {
     Modal.confirm({
       title: "이 코드를 제출하시겠습니까?",
-      content: "Github에 이미 해당 코드가 있다면 덮어쓰게 됩니다.",
+      content:
+        "Github에 이미 해당 코드가 있습니다. Ok 버튼을 누르면 코드를 덮어쓰게 됩니다.",
       onOk() {
         UploadBjSourceToGithub(
           selectedProblemTitle,
           selectedProblemDate,
           submission,
+          sha,
+        );
+      },
+      onCancel() {},
+    });
+  };
+
+  const showConfirmWriteCode = (submission) => {
+    Modal.confirm({
+      title: "이 코드를 제출하시겠습니까?",
+      content: "",
+      onOk() {
+        UploadBjSourceToGithub(
+          selectedProblemTitle,
+          selectedProblemDate,
+          submission,
+          "",
         );
       },
       onCancel() {},

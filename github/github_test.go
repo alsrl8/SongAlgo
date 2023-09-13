@@ -28,7 +28,7 @@ func TestGetGithubRepositoryContent(t *testing.T) {
 		Token:  os.Getenv("GITHUB_TOKEN"),
 		Owner:  GetRepositoryOwner(),
 		Repo:   GetRepositoryName(),
-		Path:   "code.py",
+		Path:   "code2323.py",
 		Branch: "alsrl8",
 	}
 	content, err := GetGithubRepositoryContent(params)

@@ -2,7 +2,6 @@ package main
 
 import (
 	"SongAlgo/selenium"
-	"fmt"
 	"log"
 	"os"
 	"os/signal"
@@ -33,7 +32,7 @@ func main() {
 
 	err := run()
 	if err != nil {
-		fmt.Println("Error: ", err)
+		log.Printf("Error: %+v", err)
 		return
 	}
 }

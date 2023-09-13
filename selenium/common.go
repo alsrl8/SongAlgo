@@ -1,7 +1,6 @@
 package selenium
 
 import (
-	"fmt"
 	"github.com/tebeka/selenium"
 	"log"
 	"time"
@@ -20,7 +19,7 @@ func getChromeDriverService() (*selenium.Service, error) {
 	chromeDriverPath := getChromeDriverPath()
 	service, err := selenium.NewChromeDriverService(chromeDriverPath, 4444, opts...)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 	return service, nil
 }
