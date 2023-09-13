@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   GetSchedule,
   NavigateToBjProblemWithCookie,
-  NavigateToPgProblemWithCookie,
+  IsSubmittedCodeCorrect,
 } from "../../../wailsjs/go/main/App.js";
 import "./Schedule.css";
 import cdLogo from "../../assets/images/code_logo.png";
@@ -65,9 +65,6 @@ function Schedule({
                     if (problem.platform === "baekjoon") {
                       await NavigateToBjProblemWithCookie(problem.url).then(
                         (_submitHistories) => {
-                          if (_submitHistories.length === 0) {
-                            return;
-                          }
                           setSubmitHistories(_submitHistories);
                           setSelectedProblemTitle(problem.name);
                           setSelectedProblemDate(
@@ -77,8 +74,10 @@ function Schedule({
                         },
                       );
                     } else if (problem.platform === "programmers") {
-                      await NavigateToPgProblemWithCookie(problem.url).then(
-                        () => {},
+                      await IsSubmittedCodeCorrect(problem.url).then(
+                        (result) => {
+                          console.log(result);
+                        },
                       );
                     }
                   }}

@@ -18,12 +18,12 @@ export function IsChromeRunning() {
   return window['go']['main']['App']['IsChromeRunning']();
 }
 
-export function NavigateToBjProblemWithCookie(arg1) {
-  return window['go']['main']['App']['NavigateToBjProblemWithCookie'](arg1);
+export function IsSubmittedCodeCorrect(arg1) {
+  return window['go']['main']['App']['IsSubmittedCodeCorrect'](arg1);
 }
 
-export function NavigateToPgProblemWithCookie(arg1) {
-  return window['go']['main']['App']['NavigateToPgProblemWithCookie'](arg1);
+export function NavigateToBjProblemWithCookie(arg1) {
+  return window['go']['main']['App']['NavigateToBjProblemWithCookie'](arg1);
 }
 
 export function UploadBjSourceToGithub(arg1, arg2, arg3, arg4) {

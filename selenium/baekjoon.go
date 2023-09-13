@@ -133,7 +133,7 @@ func UploadBjSourceToGithub(problemTitle string, problemDate string, submission 
 	codeElements := findBjSubmitCodeElements(webDriverInstance.driver)
 
 	extension := convertCodeLanguageToFileExtension(submission.Language)
-	githubId := convertBjIdToGithubId(submission.ID)
+	githubId := convertBjIdToGithubId(submission.ID) // TODO Github ID는 직접 세팅하도록 수정(프로그래머스는 페이지 내에서 아이디 정보를 찾을 수 없다.)
 	date := time.Now().Format("060102")
 	codes := extractCodeFromCodeElements(codeElements)
 
