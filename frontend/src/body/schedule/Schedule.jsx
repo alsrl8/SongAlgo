@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import {
   GetSchedule,
   NavigateToBjProblemWithCookie,
-  IsChromeRunning,
+  NavigateToPgProblemWithCookie,
 } from "../../../wailsjs/go/main/App.js";
 import "./Schedule.css";
 import cdLogo from "../../assets/images/code_logo.png";
-import githubLogo from "../../assets/images/github-logo.png";
 
 function Schedule({
   selectedMenuItem,
@@ -77,10 +76,13 @@ function Schedule({
                           setIsModalOpen(true);
                         },
                       );
+                    } else if (problem.platform === "programmers") {
+                      await NavigateToPgProblemWithCookie(problem.url).then(
+                        () => {},
+                      );
                     }
                   }}
                 />
-                <img src={githubLogo} alt="logo" className="logo" />
               </div>
             </div>
           ))}

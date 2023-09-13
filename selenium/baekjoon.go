@@ -127,21 +127,7 @@ func NavigateToBjProblemWithCookie(url string) []SubmitHistory {
 	return submitHistories
 }
 
-func extractCodeFromCodeElements(codeElements []selenium.WebElement) string {
-	var codes []string
-	for _, ce := range codeElements {
-		text, err := ce.Text()
-		if err != nil {
-			log.Printf("Erorr getting text: %v", err)
-			continue
-		}
-		codes = append(codes, text)
-	}
-	return strings.Join(codes, "\n")
-}
-
 func UploadBjSourceToGithub(problemTitle string, problemDate string, submission SubmitHistory, sha string) {
-	log.Printf("UploadBjSourceToGithub")
 	webDriverInstance := GetWebDriverInstance()
 	navigateToBjSourcePage(webDriverInstance.driver, submission.SubmissionNumber)
 	codeElements := findBjSubmitCodeElements(webDriverInstance.driver)

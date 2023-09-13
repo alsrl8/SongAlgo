@@ -3,6 +3,7 @@ package selenium
 import (
 	"github.com/tebeka/selenium"
 	"log"
+	"strings"
 	"time"
 )
 
@@ -51,4 +52,18 @@ func monitorBrowserClose(wd *selenium.WebDriver, c chan bool) {
 		}
 	}
 	log.Printf("Browser was closed by the user.")
+}
+
+// extractCodeFromCodeElements CodeMirror HTML Tag에서 Code를 한 줄씩 읽어 string으로 반환한다.
+func extractCodeFromCodeElements(codeElements []selenium.WebElement) string {
+	var codes []string
+	for _, ce := range codeElements {
+		text, err := ce.Text()
+		if err != nil {
+			log.Printf("Erorr getting text: %v", err)
+			continue
+		}
+		codes = append(codes, text)
+	}
+	return strings.Join(codes, "\n")
 }

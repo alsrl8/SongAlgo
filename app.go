@@ -55,3 +55,7 @@ func (app *App) GetGithubRepositoryBjSource(problemTitle string, problemDate str
 	}
 	return github.FileResponse{File: source, StatusCode: "302"}
 }
+
+func (app *App) NavigateToPgProblemWithCookie(url string) {
+	selenium.NavigateToPgProblemWithCookie(url)
+}
