@@ -140,52 +140,26 @@ func extractCodeFromCodeElements(codeElements []selenium.WebElement) string {
 	return strings.Join(codes, "\n")
 }
 
-func convertBjIdToGithubId(bjId string) (githubId string) {
-	switch bjId {
-	case "alsrl9":
-		githubId = "alsrl8"
-	}
-	return
-}
-
-func convertCodeLanguageToFileExtension(language string) (extension string) {
-	switch language {
-	case "PyPy3", "Python 3":
-		return "py"
-	case "C90", "C99", "C11":
-		return "c"
-	case "Java 8", "Java 8 (OpenJDK)", "Java 11", "Java 15":
-		return "java"
-	case "C++98", "C++11", "C++14", "C++17":
-		return "cpp"
-	case "Go":
-		return "go"
-	default:
-		return language
-	}
-}
-
-func UploadBjSourceToGithub(problemTitle string, problemDate string, submission SubmitHistory) {
+func UploadBjSourceToGithub(problemTitle string, problemDate string, submission SubmitHistory, sha string) {
+	log.Printf("UploadBjSourceToGithub")
 	webDriverInstance := GetWebDriverInstance()
 	navigateToBjSourcePage(webDriverInstance.driver, submission.SubmissionNumber)
 	codeElements := findBjSubmitCodeElements(webDriverInstance.driver)
 
-	problemName := problemTitle
 	extension := convertCodeLanguageToFileExtension(submission.Language)
 	githubId := convertBjIdToGithubId(submission.ID)
 	date := time.Now().Format("060102")
 	codes := extractCodeFromCodeElements(codeElements)
 
 	params := github.UploadParams{
-		Token:     os.Getenv("GITHUB_TOKEN"),
-		Owner:     github.GetRepositoryOwner(),
-		Committer: os.Getenv("GITHUB_NAME"),
-		Email:     os.Getenv("GITHUB_EMAIL"),
-		Repo:      github.GetRepositoryName(),
-		Path:      fmt.Sprintf("%s/%s.%s", problemDate, problemName, extension),
-		Branch:    githubId,
-		Message:   date,
-		Content:   codes,
+		Token:   os.Getenv("GITHUB_TOKEN"),
+		Owner:   github.GetRepositoryOwner(),
+		Repo:    github.GetRepositoryName(),
+		Path:    fmt.Sprintf("%s/%s.%s", problemDate, problemTitle, extension),
+		Branch:  githubId,
+		Message: date,
+		Content: codes,
+		Sha:     sha,
 	}
 	err := github.UploadFileToGithub(params)
 	if err != nil {
@@ -208,4 +182,36 @@ func findBjSubmitCodeElements(wd *selenium.WebDriver) []selenium.WebElement {
 	}
 
 	return codeElements
+}
+
+func convertCodeLanguageToFileExtension(language string) (extension string) {
+	switch language {
+	case "PyPy3", "Python 3":
+		return "py"
+	case "C90", "C99", "C11":
+		return "c"
+	case "Java 8", "Java 8 (OpenJDK)", "Java 11", "Java 15":
+		return "java"
+	case "C++98", "C++11", "C++14", "C++17":
+		return "cpp"
+	case "Go":
+		return "go"
+	default:
+		return language
+	}
+}
+
+func convertBjIdToGithubId(bjId string) (githubId string) {
+	switch bjId {
+	case "alsrl9":
+		githubId = "alsrl8"
+	}
+	return
+}
+
+func GetGithubRepositoryBjSource(problemTitle string, problemDate string, bjId string, language string) (github.File, error) {
+	branchName := convertBjIdToGithubId(bjId)
+	extension := convertCodeLanguageToFileExtension(language)
+	path := fmt.Sprintf("%s/%s.%s", problemDate, problemTitle, extension)
+	return github.GetGithubRepositorySource(branchName, path)
 }

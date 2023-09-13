@@ -5,6 +5,7 @@ import (
 	"SongAlgo/selenium"
 	"SongAlgo/util"
 	"context"
+	"github.com/pkg/errors"
 )
 
 // App struct
@@ -43,6 +44,14 @@ func (app *App) NavigateToBjProblemWithCookie(url string) []selenium.SubmitHisto
 	return selenium.NavigateToBjProblemWithCookie(url)
 }
 
-func (app *App) UploadBjSourceToGithub(problemTitle string, problemDate string, submission selenium.SubmitHistory) {
-	selenium.UploadBjSourceToGithub(problemTitle, problemDate, submission)
+func (app *App) UploadBjSourceToGithub(problemTitle string, problemDate string, submission selenium.SubmitHistory, sha string) {
+	selenium.UploadBjSourceToGithub(problemTitle, problemDate, submission, sha)
+}
+
+func (app *App) GetGithubRepositoryBjSource(problemTitle string, problemDate string, bjId string, language string) github.FileResponse {
+	source, err := selenium.GetGithubRepositoryBjSource(problemTitle, problemDate, bjId, language)
+	if errors.Is(err, github.ErrResourceNotFound) {
+		return github.FileResponse{File: source, StatusCode: "404"}
+	}
+	return github.FileResponse{File: source, StatusCode: "302"}
 }
