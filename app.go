@@ -5,7 +5,6 @@ import (
 	"SongAlgo/selenium"
 	"SongAlgo/util"
 	"context"
-	"github.com/pkg/errors"
 )
 
 // App struct
@@ -49,9 +48,25 @@ func (app *App) UploadBjSourceToGithub(problemTitle string, problemDate string, 
 }
 
 func (app *App) GetGithubRepositoryBjSource(problemTitle string, problemDate string, bjId string, language string) github.FileResponse {
-	source, err := selenium.GetGithubRepositoryBjSource(problemTitle, problemDate, bjId, language)
-	if errors.Is(err, github.ErrResourceNotFound) {
-		return github.FileResponse{File: source, StatusCode: "404"}
-	}
-	return github.FileResponse{File: source, StatusCode: "302"}
+	file, err := selenium.GetGithubRepositoryBjSource(problemTitle, problemDate, bjId, language)
+	fileResponse := github.ConvertGithubRepositoryFileToFileResponse(file, err)
+	return fileResponse
+}
+
+func (app *App) IsSubmittedCodeCorrect(url string) bool {
+	return selenium.IsSubmittedCodeCorrect(url)
+}
+
+func (app *App) UploadPgSourceToGithub(problemTitle string, problemDate string, githubId string, code string, extension string, sha string) {
+	selenium.UploadPgSourceToGithub(problemTitle, problemDate, githubId, code, extension, sha)
+}
+
+func (app *App) GetPgSourceData(url string) selenium.PgSourceData {
+	return selenium.GetPgSourceData(url)
+}
+
+func (app *App) GetGithubRepositoryPgSource(problemTitle string, problemDate string, githubId string, extension string) github.FileResponse {
+	file, err := selenium.GetGithubRepositoryPgSource(problemTitle, problemDate, githubId, extension)
+	fileResponse := github.ConvertGithubRepositoryFileToFileResponse(file, err)
+	return fileResponse
 }

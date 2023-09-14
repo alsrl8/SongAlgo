@@ -127,38 +127,25 @@ func NavigateToBjProblemWithCookie(url string) []SubmitHistory {
 	return submitHistories
 }
 
-func extractCodeFromCodeElements(codeElements []selenium.WebElement) string {
-	var codes []string
-	for _, ce := range codeElements {
-		text, err := ce.Text()
-		if err != nil {
-			log.Printf("Erorr getting text: %v", err)
-			continue
-		}
-		codes = append(codes, text)
-	}
-	return strings.Join(codes, "\n")
-}
-
 func UploadBjSourceToGithub(problemTitle string, problemDate string, submission SubmitHistory, sha string) {
-	log.Printf("UploadBjSourceToGithub")
 	webDriverInstance := GetWebDriverInstance()
 	navigateToBjSourcePage(webDriverInstance.driver, submission.SubmissionNumber)
 	codeElements := findBjSubmitCodeElements(webDriverInstance.driver)
 
+	dateString := convertDateString(problemDate)
 	extension := convertCodeLanguageToFileExtension(submission.Language)
 	githubId := convertBjIdToGithubId(submission.ID)
 	date := time.Now().Format("060102")
-	codes := extractCodeFromCodeElements(codeElements)
+	code := extractCodeFromCodeElements(codeElements)
 
 	params := github.UploadParams{
 		Token:   os.Getenv("GITHUB_TOKEN"),
 		Owner:   github.GetRepositoryOwner(),
 		Repo:    github.GetRepositoryName(),
-		Path:    fmt.Sprintf("%s/%s.%s", problemDate, problemTitle, extension),
+		Path:    fmt.Sprintf("%s/%s.%s", dateString, problemTitle, extension),
 		Branch:  githubId,
 		Message: date,
-		Content: codes,
+		Content: code,
 		Sha:     sha,
 	}
 	err := github.UploadFileToGithub(params)
@@ -182,23 +169,6 @@ func findBjSubmitCodeElements(wd *selenium.WebDriver) []selenium.WebElement {
 	}
 
 	return codeElements
-}
-
-func convertCodeLanguageToFileExtension(language string) (extension string) {
-	switch language {
-	case "PyPy3", "Python 3":
-		return "py"
-	case "C90", "C99", "C11":
-		return "c"
-	case "Java 8", "Java 8 (OpenJDK)", "Java 11", "Java 15":
-		return "java"
-	case "C++98", "C++11", "C++14", "C++17":
-		return "cpp"
-	case "Go":
-		return "go"
-	default:
-		return language
-	}
 }
 
 func convertBjIdToGithubId(bjId string) (githubId string) {

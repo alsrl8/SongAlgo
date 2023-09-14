@@ -14,10 +14,6 @@ function App() {
     setIsModalOpen(false);
   };
 
-  const showConfirm = () => {
-    return <div>HeyHey</div>;
-  };
-
   return (
     <div id="App">
       <div className="header-container">
@@ -29,7 +25,6 @@ function App() {
         setSelectedProblemTitle={setSelectedProblemTitle}
         setSelectedProblemDate={setSelectedProblemDate}
       />
-      <button onClick={showConfirm}>Hi</button>
       <ProblemModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}

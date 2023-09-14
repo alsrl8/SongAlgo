@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import {
   GetSchedule,
   NavigateToBjProblemWithCookie,
-  IsChromeRunning,
+  IsSubmittedCodeCorrect,
+  UploadPgSourceToGithub,
+  GetPgSourceData,
+  GetGithubRepositoryPgSource,
+  UploadBjSourceToGithub,
 } from "../../../wailsjs/go/main/App.js";
 import "./Schedule.css";
 import cdLogo from "../../assets/images/code_logo.png";
-import githubLogo from "../../assets/images/github-logo.png";
+import { Modal } from "antd";
 
 function Schedule({
   selectedMenuItem,
@@ -24,9 +28,67 @@ function Schedule({
     });
   }, []);
 
-  const convertDateToYYMMDD = (dateString) => {
-    const parts = dateString.split("-");
-    return parts[0].substring(2) + parts[1] + parts[2];
+  const showWarningPgCode = () => {
+    Modal.warning({
+      title: "코드를 제출할 수 없습니다.",
+      content: (
+        <div>
+          이 코드는 오답 판정을 받았기 때문에
+          <br />
+          Github에 올릴 수 없습니다.
+        </div>
+      ),
+    });
+  };
+
+  const showConfirmOverwriteCode = (
+    problemTitle,
+    problemDate,
+    githubId,
+    code,
+    extension,
+    sha,
+  ) => {
+    Modal.confirm({
+      title: "이 코드를 제출하시겠습니까?",
+      content:
+        "Github에 이미 해당 코드가 있습니다. Ok 버튼을 누르면 코드를 덮어쓰게 됩니다.",
+      onOk() {
+        UploadPgSourceToGithub(
+          problemTitle,
+          problemDate,
+          githubId,
+          code,
+          extension,
+          sha,
+        );
+      },
+      onCancel() {},
+    });
+  };
+
+  const showConfirmSubmitPgCode = (
+    problemTitle,
+    problemDate,
+    githubId,
+    code,
+    extension,
+  ) => {
+    Modal.confirm({
+      title: "코드를 제출하시겠습니까?",
+      content: "",
+      onOk() {
+        UploadPgSourceToGithub(
+          problemTitle,
+          problemDate,
+          githubId,
+          code,
+          extension,
+          "",
+        );
+      },
+      onCancel() {},
+    });
   };
 
   return (
@@ -66,21 +128,52 @@ function Schedule({
                     if (problem.platform === "baekjoon") {
                       await NavigateToBjProblemWithCookie(problem.url).then(
                         (_submitHistories) => {
-                          if (_submitHistories.length === 0) {
-                            return;
-                          }
                           setSubmitHistories(_submitHistories);
                           setSelectedProblemTitle(problem.name);
-                          setSelectedProblemDate(
-                            convertDateToYYMMDD(item.date),
-                          );
+                          setSelectedProblemDate(item.date);
                           setIsModalOpen(true);
+                        },
+                      );
+                    } else if (problem.platform === "programmers") {
+                      await IsSubmittedCodeCorrect(problem.url).then(
+                        (result) => {
+                          if (result === false) {
+                            showWarningPgCode();
+                            return;
+                          }
+                          GetPgSourceData(problem.url).then((pgSourceData) => {
+                            GetGithubRepositoryPgSource(
+                              problem.name,
+                              item.date,
+                              "alsrl8",
+                              pgSourceData.extension,
+                            ).then((fileResponse) => {
+                              console.log(fileResponse);
+                              if (fileResponse.statusCode === "302") {
+                                showConfirmOverwriteCode(
+                                  problem.name,
+                                  item.date,
+                                  "alsrl8",
+                                  pgSourceData.code,
+                                  pgSourceData.extension,
+                                  fileResponse.file.sha,
+                                );
+                              } else {
+                                showConfirmSubmitPgCode(
+                                  problem.name,
+                                  item.date,
+                                  "alsrl8",
+                                  pgSourceData.code,
+                                  pgSourceData.extension,
+                                );
+                              }
+                            });
+                          });
                         },
                       );
                     }
                   }}
                 />
-                <img src={githubLogo} alt="logo" className="logo" />
               </div>
             </div>
           ))}
