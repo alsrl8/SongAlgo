@@ -3,9 +3,12 @@ import {
   GetSchedule,
   NavigateToBjProblemWithCookie,
   IsSubmittedCodeCorrect,
+  UploadPgSourceToGithub,
+  GetPgSourceData,
 } from "../../../wailsjs/go/main/App.js";
 import "./Schedule.css";
 import cdLogo from "../../assets/images/code_logo.png";
+import { Modal } from "antd";
 
 function Schedule({
   selectedMenuItem,
@@ -23,9 +26,40 @@ function Schedule({
     });
   }, []);
 
-  const convertDateToYYMMDD = (dateString) => {
-    const parts = dateString.split("-");
-    return parts[0].substring(2) + parts[1] + parts[2];
+  const showWarningPgCode = () => {
+    Modal.warning({
+      title: "코드를 제출할 수 없습니다.",
+      content: (
+        <div>
+          이 코드는 오답 판정을 받았기 때문에
+          <br />
+          Github에 올릴 수 없습니다.
+        </div>
+      ),
+    });
+  };
+
+  const showConfirmSubmitPgCode = (
+    problemTitle,
+    problemDate,
+    githubId,
+    code,
+    extension,
+  ) => {
+    Modal.confirm({
+      title: "코드를 제출하시겠습니까?",
+      content: "",
+      onOk() {
+        UploadPgSourceToGithub(
+          problemTitle,
+          problemDate,
+          githubId,
+          code,
+          extension,
+        );
+      },
+      onCancel() {},
+    });
   };
 
   return (
@@ -67,16 +101,28 @@ function Schedule({
                         (_submitHistories) => {
                           setSubmitHistories(_submitHistories);
                           setSelectedProblemTitle(problem.name);
-                          setSelectedProblemDate(
-                            convertDateToYYMMDD(item.date),
-                          );
+                          setSelectedProblemDate(item.date);
                           setIsModalOpen(true);
                         },
                       );
                     } else if (problem.platform === "programmers") {
                       await IsSubmittedCodeCorrect(problem.url).then(
                         (result) => {
-                          console.log(result);
+                          if (result === false) {
+                            showWarningPgCode();
+                            return;
+                          }
+                          // TODO Github에 이미 제출된 코드 이력이 있는지 조사
+                          // TODO 프로그래머스 code를 받아오도록 수정
+                          GetPgSourceData(problem.url).then((pgSourceData) => {
+                            showConfirmSubmitPgCode(
+                              problem.name,
+                              item.date,
+                              "alsrl8",
+                              pgSourceData.code,
+                              pgSourceData.extension,
+                            );
+                          });
                         },
                       );
                     }

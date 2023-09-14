@@ -158,6 +158,20 @@ export namespace github {
 
 export namespace selenium {
 	
+	export class PgSourceData {
+	    code: string;
+	    extension: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new PgSourceData(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.code = source["code"];
+	        this.extension = source["extension"];
+	    }
+	}
 	export class SubmitHistory {
 	    SubmissionNumber: string;
 	    ID: string;

@@ -59,3 +59,11 @@ func (app *App) GetGithubRepositoryBjSource(problemTitle string, problemDate str
 func (app *App) IsSubmittedCodeCorrect(url string) bool {
 	return selenium.IsSubmittedCodeCorrect(url)
 }
+
+func (app *App) UploadPgSourceToGithub(problemTitle string, problemDate string, githubId string, code string, extension string) {
+	selenium.UploadPgSourceToGithub(problemTitle, problemDate, githubId, code, extension)
+}
+
+func (app *App) GetPgSourceData(url string) selenium.PgSourceData {
+	return selenium.GetPgSourceData(url)
+}

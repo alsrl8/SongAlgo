@@ -10,6 +10,10 @@ export function GetMenu() {
   return window['go']['main']['App']['GetMenu']();
 }
 
+export function GetPgSourceData(arg1) {
+  return window['go']['main']['App']['GetPgSourceData'](arg1);
+}
+
 export function GetSchedule() {
   return window['go']['main']['App']['GetSchedule']();
 }
@@ -28,4 +32,8 @@ export function NavigateToBjProblemWithCookie(arg1) {
 
 export function UploadBjSourceToGithub(arg1, arg2, arg3, arg4) {
   return window['go']['main']['App']['UploadBjSourceToGithub'](arg1, arg2, arg3, arg4);
+}
+
+export function UploadPgSourceToGithub(arg1, arg2, arg3, arg4, arg5) {
+  return window['go']['main']['App']['UploadPgSourceToGithub'](arg1, arg2, arg3, arg4, arg5);
 }

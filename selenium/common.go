@@ -67,3 +67,28 @@ func extractCodeFromCodeElements(codeElements []selenium.WebElement) string {
 	}
 	return strings.Join(codes, "\n")
 }
+
+// convertDateString "YYYY-MM-DD" 형식의 date string을 "YYMMDD"로 반환한다.
+func convertDateString(dateStr string) string {
+	parts := strings.Split(dateStr, "-")
+	return parts[0][2:] + parts[1] + parts[2]
+}
+
+// convertCodeLanguageToFileExtension 언어 이름을 매개 변수로 받고 확장자를 반환한다.
+func convertCodeLanguageToFileExtension(language string) (extension string) {
+	language = strings.Trim(language, " ")
+	switch language {
+	case "Python3", "PyPy3", "Python 3", "Python2":
+		return "py"
+	case "C90", "C99", "C11":
+		return "c"
+	case "Java", "Java 8", "Java 8 (OpenJDK)", "Java 11", "Java 15":
+		return "java"
+	case "C++", "C++98", "C++11", "C++14", "C++17":
+		return "cpp"
+	case "Go":
+		return "go"
+	default:
+		return language
+	}
+}

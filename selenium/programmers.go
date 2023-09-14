@@ -1,11 +1,18 @@
 package selenium
 
 import (
+	"SongAlgo/github"
 	"fmt"
 	"github.com/tebeka/selenium"
 	"log"
+	"os"
 	"time"
 )
+
+type PgSourceData struct {
+	Code      string `json:"code"`
+	Extension string `json:"extension"`
+}
 
 func findSubmitButton(wd *selenium.WebDriver) (selenium.WebElement, error) {
 	button, err := (*wd).FindElement(selenium.ByID, "submit-code")
@@ -82,24 +89,30 @@ func IsSubmittedCodeCorrect(url string) bool {
 	return titleText == "정답입니다!"
 }
 
-func UploadPgSourceToGithub(url string, problemTitle string, problemDate string) {
-	webDriverInstance := GetWebDriverInstance()
-
-	err := OpenPageWithWebDriver(webDriverInstance.driver, url)
+func UploadPgSourceToGithub(problemTitle string, problemDate string, githubId string, code string, extension string) {
+	dateString := convertDateString(problemDate)
+	date := time.Now().Format("060102")
+	params := github.UploadParams{
+		Token:   os.Getenv("GITHUB_TOKEN"),
+		Owner:   github.GetRepositoryOwner(),
+		Repo:    github.GetRepositoryName(),
+		Path:    fmt.Sprintf("%s/%s.%s", dateString, problemTitle, extension),
+		Branch:  githubId,
+		Message: date,
+		Content: code,
+		//Sha:     sha,  // TODO 프로그래머스 코드 제출 시 덮어쓰기 기능을 위해 SHA를 같이 전달하도록 수정
+	}
+	err := github.UploadFileToGithub(params)
 	if err != nil {
-		log.Printf("Failed to access to url(%s): %+v", url, err)
+		log.Printf("Error occured during uploading file to github: %+v", err)
 		return
 	}
-
-	codeElements := findPgSubmitCodeElements(webDriverInstance.driver)
-	codes := extractCodeFromCodeElements(codeElements)
-	fmt.Println(codes)
 }
 
 func findPgSubmitCodeElements(wd *selenium.WebDriver) []selenium.WebElement {
 	codeMirror, err := (*wd).FindElement(selenium.ByClassName, "CodeMirror-code")
 	if err != nil {
-		log.Fatalf("Failed to find element: %v", err)
+		log.Printf("Failed to find element: %v", err)
 		return []selenium.WebElement{}
 	}
 
@@ -110,4 +123,43 @@ func findPgSubmitCodeElements(wd *selenium.WebDriver) []selenium.WebElement {
 	}
 
 	return codeElements
+}
+
+func findPgLanguageElement(wd *selenium.WebDriver) selenium.WebElement {
+	element, err := (*wd).FindElement(selenium.ByCSSSelector, `.btn-dark.dropdown-toggle`)
+	if err != nil {
+		log.Printf("Failed to find element: %+v", err)
+		return nil
+	}
+
+	return element
+}
+
+func extractLanguageFromLanguageElement(languageElement selenium.WebElement) string {
+	language, err := languageElement.Text()
+	if err != nil {
+		log.Printf("Failed to extract language from html element: %+v", err)
+		return ""
+	}
+	return language
+}
+
+func GetPgSourceData(url string) PgSourceData {
+	webDriverInstance := GetWebDriverInstance()
+	err := OpenPageWithWebDriver(webDriverInstance.driver, url)
+	if err != nil {
+		log.Printf("Failed to access to url(%s): %+v", url, err)
+		return PgSourceData{}
+	}
+
+	codeElements := findPgSubmitCodeElements(webDriverInstance.driver)
+	code := extractCodeFromCodeElements(codeElements)
+	languageElement := findPgLanguageElement(webDriverInstance.driver)
+	language := extractLanguageFromLanguageElement(languageElement)
+	extension := convertCodeLanguageToFileExtension(language)
+
+	return PgSourceData{
+		Code:      code,
+		Extension: extension,
+	}
 }
