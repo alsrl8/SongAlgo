@@ -89,7 +89,7 @@ func IsSubmittedCodeCorrect(url string) bool {
 	return titleText == "정답입니다!"
 }
 
-func UploadPgSourceToGithub(problemTitle string, problemDate string, githubId string, code string, extension string) {
+func UploadPgSourceToGithub(problemTitle string, problemDate string, githubId string, code string, extension string, sha string) {
 	dateString := convertDateString(problemDate)
 	date := time.Now().Format("060102")
 	params := github.UploadParams{
@@ -100,7 +100,7 @@ func UploadPgSourceToGithub(problemTitle string, problemDate string, githubId st
 		Branch:  githubId,
 		Message: date,
 		Content: code,
-		//Sha:     sha,  // TODO 프로그래머스 코드 제출 시 덮어쓰기 기능을 위해 SHA를 같이 전달하도록 수정
+		Sha:     sha,
 	}
 	err := github.UploadFileToGithub(params)
 	if err != nil {
@@ -162,4 +162,12 @@ func GetPgSourceData(url string) PgSourceData {
 		Code:      code,
 		Extension: extension,
 	}
+}
+
+func GetGithubRepositoryPgSource(problemTitle string, problemDate string, githubId string, extension string) (github.File, error) {
+	branchName := githubId
+	dateString := convertDateString(problemDate)
+	path := fmt.Sprintf("%s/%s.%s", dateString, problemTitle, extension)
+	log.Printf("Getting github source from path(%+v)", path)
+	return github.GetGithubRepositorySource(branchName, path)
 }

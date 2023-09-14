@@ -5,6 +5,8 @@ import {selenium} from '../models';
 
 export function GetGithubRepositoryBjSource(arg1:string,arg2:string,arg3:string,arg4:string):Promise<github.FileResponse>;
 
+export function GetGithubRepositoryPgSource(arg1:string,arg2:string,arg3:string,arg4:string):Promise<github.FileResponse>;
+
 export function GetMenu():Promise<any>;
 
 export function GetPgSourceData(arg1:string):Promise<selenium.PgSourceData>;
@@ -19,4 +21,4 @@ export function NavigateToBjProblemWithCookie(arg1:string):Promise<Array<seleniu
 
 export function UploadBjSourceToGithub(arg1:string,arg2:string,arg3:selenium.SubmitHistory,arg4:string):Promise<void>;
 
-export function UploadPgSourceToGithub(arg1:string,arg2:string,arg3:string,arg4:string,arg5:string):Promise<void>;
+export function UploadPgSourceToGithub(arg1:string,arg2:string,arg3:string,arg4:string,arg5:string,arg6:string):Promise<void>;

@@ -122,6 +122,13 @@ func GetGithubRepositorySource(branchName string, path string) (File, error) {
 	return GetGithubRepositoryContent(params)
 }
 
+func ConvertGithubRepositoryFileToFileResponse(file File, err error) FileResponse {
+	if errors.Is(err, ErrResourceNotFound) {
+		return FileResponse{File: file, StatusCode: "404"}
+	}
+	return FileResponse{File: file, StatusCode: "302"}
+}
+
 func UploadFileToGithub(params UploadParams) error {
 	apiURL := fmt.Sprintf("https://api.github.com/repos/%s/%s/contents/%s", params.Owner, params.Repo, params.Path)
 	data := map[string]interface{}{

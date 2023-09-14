@@ -5,6 +5,8 @@ import {
   IsSubmittedCodeCorrect,
   UploadPgSourceToGithub,
   GetPgSourceData,
+  GetGithubRepositoryPgSource,
+  UploadBjSourceToGithub,
 } from "../../../wailsjs/go/main/App.js";
 import "./Schedule.css";
 import cdLogo from "../../assets/images/code_logo.png";
@@ -39,6 +41,32 @@ function Schedule({
     });
   };
 
+  const showConfirmOverwriteCode = (
+    problemTitle,
+    problemDate,
+    githubId,
+    code,
+    extension,
+    sha,
+  ) => {
+    Modal.confirm({
+      title: "이 코드를 제출하시겠습니까?",
+      content:
+        "Github에 이미 해당 코드가 있습니다. Ok 버튼을 누르면 코드를 덮어쓰게 됩니다.",
+      onOk() {
+        UploadPgSourceToGithub(
+          problemTitle,
+          problemDate,
+          githubId,
+          code,
+          extension,
+          sha,
+        );
+      },
+      onCancel() {},
+    });
+  };
+
   const showConfirmSubmitPgCode = (
     problemTitle,
     problemDate,
@@ -56,6 +84,7 @@ function Schedule({
           githubId,
           code,
           extension,
+          "",
         );
       },
       onCancel() {},
@@ -112,16 +141,33 @@ function Schedule({
                             showWarningPgCode();
                             return;
                           }
-                          // TODO Github에 이미 제출된 코드 이력이 있는지 조사
-                          // TODO 프로그래머스 code를 받아오도록 수정
                           GetPgSourceData(problem.url).then((pgSourceData) => {
-                            showConfirmSubmitPgCode(
+                            GetGithubRepositoryPgSource(
                               problem.name,
                               item.date,
                               "alsrl8",
-                              pgSourceData.code,
                               pgSourceData.extension,
-                            );
+                            ).then((fileResponse) => {
+                              console.log(fileResponse);
+                              if (fileResponse.statusCode === "302") {
+                                showConfirmOverwriteCode(
+                                  problem.name,
+                                  item.date,
+                                  "alsrl8",
+                                  pgSourceData.code,
+                                  pgSourceData.extension,
+                                  fileResponse.file.sha,
+                                );
+                              } else {
+                                showConfirmSubmitPgCode(
+                                  problem.name,
+                                  item.date,
+                                  "alsrl8",
+                                  pgSourceData.code,
+                                  pgSourceData.extension,
+                                );
+                              }
+                            });
                           });
                         },
                       );
