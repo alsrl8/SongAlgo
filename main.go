@@ -9,7 +9,6 @@ import (
 )
 
 func initializeWebDriver() *selenium.WebDriverInstance {
-
 	return selenium.GetWebDriverInstance()
 }
 
