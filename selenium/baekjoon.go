@@ -180,8 +180,9 @@ func convertBjIdToGithubId(bjId string) (githubId string) {
 }
 
 func GetGithubRepositoryBjSource(problemTitle string, problemDate string, bjId string, language string) (github.File, error) {
+	dateString := convertDateString(problemDate)
 	branchName := convertBjIdToGithubId(bjId)
 	extension := convertCodeLanguageToFileExtension(language)
-	path := fmt.Sprintf("%s/%s.%s", problemDate, problemTitle, extension)
+	path := fmt.Sprintf("%s/%s.%s", dateString, problemTitle, extension)
 	return github.GetGithubRepositorySource(branchName, path)
 }
