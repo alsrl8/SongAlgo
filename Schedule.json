@@ -259,6 +259,110 @@
           "url": "https://school.programmers.co.kr/learn/courses/30/lessons/42897"
         }
       ]
+    },
+    {
+      "date": "2023-09-19",
+      "problems": [
+        {
+          "name": "최소 힙",
+          "algorithmType": "우선순위 큐",
+          "difficulty": "S2",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/1927"
+        },
+        {
+          "name": "이중우선순위큐",
+          "algorithmType": "우선순위 큐",
+          "difficulty": "Lv.3",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/42628"
+        },
+        {
+          "name": "문제집",
+          "algorithmType": "우선순위 큐",
+          "difficulty": "G2",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/1766"
+        }
+      ]
+    },
+    {
+      "date": "2023-09-20",
+      "problems": [
+        {
+          "name": "카드 합체 놀이",
+          "algorithmType": "",
+          "difficulty": "S1",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/15903"
+        },
+        {
+          "name": "디스크 컨트롤러",
+          "algorithmType": "",
+          "difficulty": "Lv.3",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/42627"
+        },
+        {
+          "name": "보석 도둑",
+          "algorithmType": "",
+          "difficulty": "G2",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/1202"
+        }
+      ]
+    },
+    {
+      "date": "2023-09-21",
+      "problems": [
+        {
+          "name": "계단 오르기",
+          "algorithmType": "",
+          "difficulty": "S3",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/2579"
+        },
+        {
+          "name": "평범한 배낭",
+          "algorithmType": "",
+          "difficulty": "G5",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/12865"
+        },
+        {
+          "name": "앱",
+          "algorithmType": "",
+          "difficulty": "G3",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/7579"
+        }
+      ]
+    },
+    {
+      "date": "2023-09-22",
+      "problems": [
+        {
+          "name": "트리의 부모 찾기",
+          "algorithmType": "",
+          "difficulty": "S2",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/11725"
+        },
+        {
+          "name": "전화번호 목록",
+          "algorithmType": "",
+          "difficulty": "G4",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/5052"
+        },
+        {
+          "name": "정점들의 거리",
+          "algorithmType": "",
+          "difficulty": "P5",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/1761"
+        }
+      ]
     }
   ]
 }
