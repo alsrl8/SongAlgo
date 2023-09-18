@@ -34,8 +34,8 @@ const ProblemModal = ({
       } else {
         showConfirmWriteCode(submission);
       }
-      setSource(result.file);
-      setStatusCode(result.statusCode);
+      setSource(result.file); // TODO 필요한지 검토
+      setStatusCode(result.statusCode); // TODO 필요한지 검토
     });
 
     debounceTimeout = setTimeout(() => {

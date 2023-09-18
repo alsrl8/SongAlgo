@@ -6,6 +6,8 @@ import { GetMenu } from "../../wailsjs/go/main/App.js";
 
 function Body({
   setIsModalOpen,
+  setIsLoading,
+  setLoadingText,
   setSubmitHistories,
   setSelectedProblemTitle,
   setSelectedProblemDate,
@@ -28,6 +30,8 @@ function Body({
           selectedMenuItem={selectedMenuItem}
           setSelectedMenuItem={setSelectedMenuItem}
           setIsModalOpen={setIsModalOpen}
+          setIsLoading={setIsLoading}
+          setLoadingText={setLoadingText}
           setSubmitHistories={setSubmitHistories}
           setSelectedProblemTitle={setSelectedProblemTitle}
           setSelectedProblemDate={setSelectedProblemDate}
