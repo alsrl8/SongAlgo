@@ -16,6 +16,8 @@ function Schedule({
   selectedMenuItem,
   setSelectedMenuItem,
   setIsModalOpen,
+  setIsLoading,
+  setLoadingText,
   setSubmitHistories,
   setSelectedProblemTitle,
   setSelectedProblemDate,
@@ -126,21 +128,32 @@ function Schedule({
                   className="logo"
                   onClick={async () => {
                     if (problem.platform === "baekjoon") {
+                      setIsLoading(true);
+                      setLoadingText("백준 제출 이력을 읽어오고 있습니다.");
                       await NavigateToBjProblemWithCookie(problem.url).then(
                         (_submitHistories) => {
                           setSubmitHistories(_submitHistories);
                           setSelectedProblemTitle(problem.name);
                           setSelectedProblemDate(item.date);
                           setIsModalOpen(true);
+                          setIsLoading(false);
                         },
                       );
                     } else if (problem.platform === "programmers") {
+                      setIsLoading(true);
+                      setLoadingText(
+                        "프로그래머스 제출 이력을 읽어오고 있습니다.",
+                      );
                       await IsSubmittedCodeCorrect(problem.url).then(
                         (result) => {
                           if (result === false) {
+                            setIsLoading(false);
                             showWarningPgCode();
                             return;
                           }
+                          setLoadingText(
+                            "프로그래머스 코드가 Github에 업로드 됐는지 확인하고 있습니다.",
+                          );
                           GetPgSourceData(problem.url).then((pgSourceData) => {
                             GetGithubRepositoryPgSource(
                               problem.name,
@@ -148,7 +161,7 @@ function Schedule({
                               "alsrl8",
                               pgSourceData.extension,
                             ).then((fileResponse) => {
-                              console.log(fileResponse);
+                              setIsLoading(false);
                               if (fileResponse.statusCode === "302") {
                                 showConfirmOverwriteCode(
                                   problem.name,
