@@ -389,6 +389,110 @@
           "url": "https://www.acmicpc.net/problem/9660"
         }
       ]
+    },
+    {
+      "date": "2023-09-26",
+      "problems": [
+        {
+          "name": "부재중 전화",
+          "algorithmType": "",
+          "difficulty": "B2",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/1333"
+        },
+        {
+          "name": "키로거",
+          "algorithmType": "",
+          "difficulty": "S2",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/5397"
+        },
+        {
+          "name": "개미굴",
+          "algorithmType": "",
+          "difficulty": "G3",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/14725"
+        }
+      ]
+    },
+    {
+      "date": "2023-09-27",
+      "problems": [
+        {
+          "name": "수열",
+          "algorithmType": "",
+          "difficulty": "S3",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/2559"
+        },
+        {
+          "name": "좋은 친구",
+          "algorithmType": "",
+          "difficulty": "G4",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/3078"
+        },
+        {
+          "name": "시리얼 넘버",
+          "algorithmType": "",
+          "difficulty": "P5",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/5444"
+        }
+      ]
+    },
+    {
+      "date": "2023-09-28",
+      "problems": [
+        {
+          "name": "단어 뒤집기 2",
+          "algorithmType": "",
+          "difficulty": "S3",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/17413"
+        },
+        {
+          "name": "플로이드",
+          "algorithmType": "",
+          "difficulty": "G4",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/11404"
+        },
+        {
+          "name": "소수의 연속합",
+          "algorithmType": "",
+          "difficulty": "G3",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/1644"
+        }
+      ]
+    },
+    {
+      "date": "2023-09-29",
+      "problems": [
+        {
+          "name": "점프 점프",
+          "algorithmType": "",
+          "difficulty": "S3",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/11060"
+        },
+        {
+          "name": "가운데를 말해요",
+          "algorithmType": "",
+          "difficulty": "G2",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/1655"
+        },
+        {
+          "name": "백조의 호수",
+          "algorithmType": "",
+          "difficulty": "P5",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/3197"
+        }
+      ]
     }
   ]
 }
