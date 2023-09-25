@@ -363,6 +363,32 @@
           "url": "https://www.acmicpc.net/problem/1761"
         }
       ]
+    },
+    {
+      "date": "2023-09-25",
+      "problems": [
+        {
+          "name": "지구 온난화",
+          "algorithmType": "",
+          "difficulty": "S2",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/5212"
+        },
+        {
+          "name": "연구소",
+          "algorithmType": "",
+          "difficulty": "G4",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/14502"
+        },
+        {
+          "name": "돌 게임 6",
+          "algorithmType": "",
+          "difficulty": "G5",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/9660"
+        }
+      ]
     }
   ]
 }
