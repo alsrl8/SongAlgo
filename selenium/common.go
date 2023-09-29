@@ -1,8 +1,12 @@
 package selenium
 
 import (
+	"fmt"
 	"github.com/tebeka/selenium"
 	"log"
+	"os"
+	"path/filepath"
+	"runtime"
 	"strings"
 	"time"
 )
@@ -91,4 +95,26 @@ func convertCodeLanguageToFileExtension(language string) (extension string) {
 	default:
 		return language
 	}
+}
+
+func getUserDataDir() (string, error) {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return "", err
+	}
+
+	// Construct the path to the Chrome User Data directory based on the OS.
+	var userDataDir string
+	switch runtime.GOOS {
+	case "windows":
+		userDataDir = filepath.Join(home, "AppData", "Local", "Google", "Chrome", "User Data")
+	case "darwin":
+		userDataDir = filepath.Join(home, "Library", "Application Support", "Google", "Chrome")
+	case "linux":
+		userDataDir = filepath.Join(home, ".config", "google-chrome")
+	default:
+		return "", fmt.Errorf("unsupported operating system: %s", runtime.GOOS)
+	}
+
+	return userDataDir, nil
 }
