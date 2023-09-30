@@ -4,59 +4,64 @@ import (
 	"github.com/tebeka/selenium"
 	"github.com/tebeka/selenium/chrome"
 	"log"
-	"sync"
 )
 
 type DriverManager struct {
 	service *selenium.Service
 	driver  *selenium.WebDriver
-	mu      sync.Mutex
 }
 
 var instance *DriverManager
-var once sync.Once
 
-func GetWebDriverManager() *DriverManager {
-	once.Do(func() {
-		service, err := getChromeDriverService()
-		if err != nil {
-			log.Fatalf("Failed to activate web driver service: %v", err)
-		}
+func IsDriverManagerRunning() bool {
+	return instance != nil
+}
 
-		caps := selenium.Capabilities{"browserName": "chrome"}
-		//userDataDir, err := getChromeUserDataDir()
-		userDataDir, err := createChromeUserDataDir()
-		if err != nil {
-			log.Fatalf("Failed to get chrome user data dir: %v", err)
-		}
-		chromeCaps := chrome.Capabilities{
-			Prefs: map[string]interface{}{
-				"profile.default_content_settings.popups": 0,
-			},
-			Args: []string{
-				//"--headless",
-				"--user-data-dir=" + userDataDir,
-			},
-			ExcludeSwitches: []string{
-				"enable-logging",
-			},
-		}
-		caps.AddChrome(chromeCaps)
+func GetWebDriverManager(headless bool) *DriverManager {
+	if IsDriverManagerRunning() {
+		return instance
+	}
 
-		webDriver, err := selenium.NewRemote(caps, "")
-		if err != nil {
-			log.Fatalf("Failed to open web driver session: %v", err)
-		}
+	service, err := getChromeDriverService()
+	if err != nil {
+		log.Fatalf("Failed to activate web driver service: %v", err)
+	}
 
-		instance = &DriverManager{service: service, driver: &webDriver}
-	})
+	caps := selenium.Capabilities{"browserName": "chrome"}
+	userDataDir, err := createChromeUserDataDir()
+	if err != nil {
+		log.Fatalf("Failed to get chrome user data dir: %v", err)
+	}
 
+	args := []string{"--user-data-dir=" + userDataDir}
+	if headless {
+		args = append(args, "--headless")
+	}
+
+	chromeCaps := chrome.Capabilities{
+		Prefs: map[string]interface{}{
+			"profile.default_content_settings.popups": 0,
+		},
+		Args: args,
+		ExcludeSwitches: []string{
+			"enable-logging",
+		},
+	}
+	caps.AddChrome(chromeCaps)
+
+	webDriver, err := selenium.NewRemote(caps, "")
+	if err != nil {
+		log.Fatalf("Failed to open web driver session: %v", err)
+	}
+
+	instance = &DriverManager{service: service, driver: &webDriver}
 	return instance
 }
 
 func (wd *DriverManager) Close() {
-	wd.mu.Lock()
-	defer wd.mu.Unlock()
+	if wd == nil {
+		return
+	}
 
 	if wd.driver != nil {
 		err := (*wd.driver).Quit()
@@ -73,4 +78,5 @@ func (wd *DriverManager) Close() {
 		}
 		wd.service = nil
 	}
+	instance = nil
 }

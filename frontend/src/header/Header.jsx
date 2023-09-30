@@ -4,14 +4,80 @@ import wailsLogo from "./../assets/images/logo-universal.png";
 import bjLogo from "./../assets/images/bj_logo.png";
 import pgLogo from "./../assets/images/programers_logo.png";
 import React from "react";
+import {
+  IsBjLoggedIn,
+  CloseSeleniumBrowser,
+  IsPgLoggedIn,
+} from "../../wailsjs/go/main/App.js";
+import { Modal } from "antd";
 
-function Header() {
+const showWarningAlreadyLoggedIn = (domain) => {
+  Modal.warning({
+    title: "이미 로그인 되어 있습니다.",
+    content: (
+      <div>
+        {domain} 사이트에 <br />
+        이미 로그인 되어 있습니다.
+      </div>
+    ),
+  });
+};
+const handleBjLogin = async (setIsLoading, setLoadingText) => {
+  setIsLoading(true);
+  setLoadingText("백준 로그인 상태를 확인하고 있습니다.");
+  await CloseSeleniumBrowser().then(() => {
+    IsBjLoggedIn("https://www.acmicpc.net/problem/1000").then((result) => {
+      setIsLoading(false);
+      if (result === true) {
+        showWarningAlreadyLoggedIn("백준");
+        return;
+      }
+    });
+  });
+};
+const handlePgLogin = async (setIsLoading, setLoadingText) => {
+  setIsLoading(true);
+  setLoadingText("프로그래머스 로그인 상태를 확인하고 있습니다.");
+  await CloseSeleniumBrowser().then(() => {
+    IsPgLoggedIn(
+      "https://school.programmers.co.kr/learn/courses/30/lessons/1829",
+    ).then((result) => {
+      setIsLoading(false);
+      if (result === true) {
+        showWarningAlreadyLoggedIn("Programmers");
+        return;
+      }
+    });
+  });
+};
+
+function Header({ setIsLoading, setLoadingText }) {
   return (
     <>
       <div className="header">
-        <img src={bjLogo} id="bjLogo" className="siteLogo" alt="logo" />
-        <img src={pgLogo} id="pgLogo" className="siteLogo" alt="logo" />
-        <img src={songAlgoLogo} id="songAlgoLogo" className="logo" alt="logo" />
+        <img
+          src={bjLogo}
+          id="bjLogo"
+          className="siteLogo"
+          alt="logo"
+          onClick={() => handleBjLogin(setIsLoading, setLoadingText)}
+        />
+        <img
+          src={pgLogo}
+          id="pgLogo"
+          className="siteLogo"
+          alt="logo"
+          onClick={() => handlePgLogin(setIsLoading, setLoadingText)}
+        />
+        <img
+          src={songAlgoLogo}
+          id="songAlgoLogo"
+          className="logo"
+          alt="logo"
+          onClick={() => {
+            CloseSeleniumBrowser();
+          }}
+        />
         <img src={wailsLogo} id="wailsLogo" className="logo" alt="logo" />
       </div>
     </>

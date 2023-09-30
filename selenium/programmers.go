@@ -48,7 +48,7 @@ func waitForSubmitResult(wd *selenium.WebDriver) error {
 }
 
 func IsPgLoggedIn(url string) bool {
-	dm := GetWebDriverManager()
+	dm := GetWebDriverManager(false)
 
 	err := OpenPageWithWebDriver(dm.driver, url)
 	if err != nil {
@@ -64,7 +64,7 @@ func IsPgLoggedIn(url string) bool {
 }
 
 func IsSubmittedCodeCorrect(url string) bool {
-	dm := GetWebDriverManager()
+	dm := GetWebDriverManager(false)
 
 	err := OpenPageWithWebDriver(dm.driver, url)
 	if err != nil {
@@ -161,7 +161,7 @@ func extractLanguageFromLanguageElement(languageElement selenium.WebElement) str
 }
 
 func GetPgSourceData(url string) PgSourceData {
-	dm := GetWebDriverManager()
+	dm := GetWebDriverManager(false)
 	err := OpenPageWithWebDriver(dm.driver, url)
 	if err != nil {
 		log.Printf("Failed to access to url(%s): %+v", url, err)

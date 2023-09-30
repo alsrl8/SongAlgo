@@ -20,7 +20,7 @@ function App() {
     <div id="App">
       <Loading isLoading={isLoading} loadingText={loadingText} />
       <div className="header-container">
-        <Header />
+        <Header setIsLoading={setIsLoading} setLoadingText={setLoadingText} />
       </div>
       <Body
         setIsModalOpen={setIsModalOpen}

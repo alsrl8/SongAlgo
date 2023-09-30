@@ -7,7 +7,6 @@ import {
   UploadPgSourceToGithub,
   GetPgSourceData,
   GetGithubRepositoryPgSource,
-  UploadBjSourceToGithub,
 } from "../../../wailsjs/go/main/App.js";
 import "./Schedule.css";
 import cdLogo from "../../assets/images/code_logo.png";

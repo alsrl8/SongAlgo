@@ -78,3 +78,11 @@ func (app *App) GetGithubRepositoryPgSource(problemTitle string, problemDate str
 	fileResponse := github.ConvertGithubRepositoryFileToFileResponse(file, err)
 	return fileResponse
 }
+
+func (app *App) CloseSeleniumBrowser() {
+	if selenium.IsDriverManagerRunning() == false {
+		return
+	}
+	manager := selenium.GetWebDriverManager(false)
+	manager.Close()
+}

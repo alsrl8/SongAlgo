@@ -24,7 +24,7 @@ type SubmitHistory struct {
 }
 
 func IsBjLoggedIn(url string) bool {
-	dm := GetWebDriverManager()
+	dm := GetWebDriverManager(false)
 
 	err := OpenPageWithWebDriver(dm.driver, url)
 	if err != nil {
@@ -131,7 +131,7 @@ func findBjSubmitHistories(wd *selenium.WebDriver) []SubmitHistory {
 }
 
 func NavigateToBjProblemWithCookie(url string) []SubmitHistory {
-	dm := GetWebDriverManager()
+	dm := GetWebDriverManager(false)
 
 	err := OpenPageWithWebDriver(dm.driver, url)
 	if err != nil {
@@ -144,7 +144,7 @@ func NavigateToBjProblemWithCookie(url string) []SubmitHistory {
 }
 
 func UploadBjSourceToGithub(problemTitle string, problemDate string, submission SubmitHistory, sha string) {
-	dm := GetWebDriverManager()
+	dm := GetWebDriverManager(false)
 	navigateToBjSourcePage(dm.driver, submission.SubmissionNumber)
 	codeElements := findBjSubmitCodeElements(dm.driver)
 

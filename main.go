@@ -6,7 +6,7 @@ import (
 )
 
 func initializeWebDriver() *selenium.DriverManager {
-	return selenium.GetWebDriverManager()
+	return selenium.GetWebDriverManager(false)
 }
 
 func main() {
