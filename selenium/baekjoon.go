@@ -128,9 +128,9 @@ func NavigateToBjProblemWithCookie(url string) []SubmitHistory {
 }
 
 func UploadBjSourceToGithub(problemTitle string, problemDate string, submission SubmitHistory, sha string) {
-	webDriverInstance := GetWebDriverInstance()
-	navigateToBjSourcePage(webDriverInstance.driver, submission.SubmissionNumber)
-	codeElements := findBjSubmitCodeElements(webDriverInstance.driver)
+	wd := GetWebDriverInstance()
+	navigateToBjSourcePage(wd.driver, submission.SubmissionNumber)
+	codeElements := findBjSubmitCodeElements(wd.driver)
 
 	dateString := convertDateString(problemDate)
 	extension := convertCodeLanguageToFileExtension(submission.Language)

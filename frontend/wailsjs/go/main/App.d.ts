@@ -15,6 +15,8 @@ export function GetSchedule():Promise<github.ScheduleList>;
 
 export function IsChromeRunning():Promise<boolean>;
 
+export function IsPgLoggedIn(arg1:string):Promise<boolean>;
+
 export function IsSubmittedCodeCorrect(arg1:string):Promise<boolean>;
 
 export function NavigateToBjProblemWithCookie(arg1:string):Promise<Array<selenium.SubmitHistory>>;

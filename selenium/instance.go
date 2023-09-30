@@ -24,7 +24,8 @@ func GetWebDriverInstance() *WebDriverInstance {
 		}
 
 		caps := selenium.Capabilities{"browserName": "chrome"}
-		userDataDir, err := getUserDataDir()
+		//userDataDir, err := getChromeUserDataDir()
+		userDataDir, err := createChromeUserDataDir()
 		if err != nil {
 			log.Fatalf("Failed to get chrome user data dir: %v", err)
 		}
@@ -33,7 +34,7 @@ func GetWebDriverInstance() *WebDriverInstance {
 				"profile.default_content_settings.popups": 0,
 			},
 			Args: []string{
-				"--headless",
+				//"--headless",
 				"--user-data-dir=" + userDataDir,
 			},
 			ExcludeSwitches: []string{

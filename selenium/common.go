@@ -97,7 +97,7 @@ func convertCodeLanguageToFileExtension(language string) (extension string) {
 	}
 }
 
-func getUserDataDir() (string, error) {
+func getChromeUserDataDir() (string, error) {
 	home, err := os.UserHomeDir()
 	if err != nil {
 		return "", err
@@ -117,4 +117,33 @@ func getUserDataDir() (string, error) {
 	}
 
 	return userDataDir, nil
+}
+
+func createChromeUserDataDir() (string, error) {
+	// Get the home directory for the current user.
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return "", err
+	}
+
+	// Define the path for the custom profile directory.
+	var customProfileDir string
+	switch runtime.GOOS {
+	case "windows":
+		customProfileDir = filepath.Join(home, "AppData", "Local", "SongAlgo", "User Data")
+	case "darwin":
+		customProfileDir = filepath.Join(home, "Library", "Application Support", "SongAlgo")
+	case "linux":
+		customProfileDir = filepath.Join(home, ".config", "SongAlgo")
+	default:
+		return "", fmt.Errorf("unsupported operating system: %s", runtime.GOOS)
+	}
+
+	// Create the custom profile directory if it doesn't exist.
+	err = os.MkdirAll(customProfileDir, 0755)
+	if err != nil {
+		return "", err
+	}
+
+	return customProfileDir, nil
 }

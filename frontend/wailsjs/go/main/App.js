@@ -26,6 +26,10 @@ export function IsChromeRunning() {
   return window['go']['main']['App']['IsChromeRunning']();
 }
 
+export function IsPgLoggedIn(arg1) {
+  return window['go']['main']['App']['IsPgLoggedIn'](arg1);
+}
+
 export function IsSubmittedCodeCorrect(arg1) {
   return window['go']['main']['App']['IsSubmittedCodeCorrect'](arg1);
 }

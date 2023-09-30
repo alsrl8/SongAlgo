@@ -47,16 +47,32 @@ func waitForSubmitResult(wd *selenium.WebDriver) error {
 	return err
 }
 
-func IsSubmittedCodeCorrect(url string) bool {
-	webDriverInstance := GetWebDriverInstance()
+func IsPgLoggedIn(url string) bool {
+	wd := GetWebDriverInstance()
 
-	err := OpenPageWithWebDriver(webDriverInstance.driver, url)
+	err := OpenPageWithWebDriver(wd.driver, url)
 	if err != nil {
 		log.Printf("Failed to access to url(%s): %+v", url, err)
 		return false
 	}
 
-	button, err := findSubmitButton(webDriverInstance.driver)
+	_, err = findSubmitButton(wd.driver)
+	if err != nil {
+		return false
+	}
+	return true
+}
+
+func IsSubmittedCodeCorrect(url string) bool {
+	wd := GetWebDriverInstance()
+
+	err := OpenPageWithWebDriver(wd.driver, url)
+	if err != nil {
+		log.Printf("Failed to access to url(%s): %+v", url, err)
+		return false
+	}
+
+	button, err := findSubmitButton(wd.driver)
 	if err != nil {
 		log.Printf("Failed to find submit button: %+v", err)
 		return false
@@ -68,13 +84,13 @@ func IsSubmittedCodeCorrect(url string) bool {
 		return false
 	}
 
-	err = waitForSubmitResult(webDriverInstance.driver)
+	err = waitForSubmitResult(wd.driver)
 	if err != nil {
 		log.Printf("Not Found or other error: %+v", err)
 		return false
 	}
 
-	modalTitle, err := (*webDriverInstance.driver).FindElement(selenium.ByClassName, "modal-title")
+	modalTitle, err := (*wd.driver).FindElement(selenium.ByClassName, "modal-title")
 	if err != nil {
 		log.Printf("Failed to find modal title: %+v", err)
 		return false
@@ -145,16 +161,16 @@ func extractLanguageFromLanguageElement(languageElement selenium.WebElement) str
 }
 
 func GetPgSourceData(url string) PgSourceData {
-	webDriverInstance := GetWebDriverInstance()
-	err := OpenPageWithWebDriver(webDriverInstance.driver, url)
+	wd := GetWebDriverInstance()
+	err := OpenPageWithWebDriver(wd.driver, url)
 	if err != nil {
 		log.Printf("Failed to access to url(%s): %+v", url, err)
 		return PgSourceData{}
 	}
 
-	codeElements := findPgSubmitCodeElements(webDriverInstance.driver)
+	codeElements := findPgSubmitCodeElements(wd.driver)
 	code := extractCodeFromCodeElements(codeElements)
-	languageElement := findPgLanguageElement(webDriverInstance.driver)
+	languageElement := findPgLanguageElement(wd.driver)
 	language := extractLanguageFromLanguageElement(languageElement)
 	extension := convertCodeLanguageToFileExtension(language)
 

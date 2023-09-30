@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   GetSchedule,
   NavigateToBjProblemWithCookie,
+  IsPgLoggedIn,
   IsSubmittedCodeCorrect,
   UploadPgSourceToGithub,
   GetPgSourceData,
@@ -29,6 +30,19 @@ function Schedule({
       setScheduleList(_scheduleList.list);
     });
   }, []);
+
+  const showWarningPgLogin = () => {
+    Modal.warning({
+      title: "코드를 제출할 수 없습니다.",
+      content: (
+        <div>
+          브라우저가 Programmers에
+          <br />
+          로그인되어 있지 않습니다.
+        </div>
+      ),
+    });
+  };
 
   const showWarningPgCode = () => {
     Modal.warning({
@@ -144,8 +158,13 @@ function Schedule({
                       setLoadingText(
                         "프로그래머스 제출 이력을 읽어오고 있습니다.",
                       );
-                      await IsSubmittedCodeCorrect(problem.url).then(
-                        (result) => {
+                      await IsPgLoggedIn(problem.url).then((result) => {
+                        if (result === false) {
+                          setIsLoading(false);
+                          showWarningPgLogin();
+                          return;
+                        }
+                        IsSubmittedCodeCorrect(problem.url).then((result) => {
                           if (result === false) {
                             setIsLoading(false);
                             showWarningPgCode();
@@ -182,8 +201,8 @@ function Schedule({
                               }
                             });
                           });
-                        },
-                      );
+                        });
+                      });
                     }
                   }}
                 />

@@ -61,6 +61,10 @@ func (app *App) UploadPgSourceToGithub(problemTitle string, problemDate string, 
 	selenium.UploadPgSourceToGithub(problemTitle, problemDate, githubId, code, extension, sha)
 }
 
+func (app *App) IsPgLoggedIn(url string) bool {
+	return selenium.IsPgLoggedIn(url)
+}
+
 func (app *App) GetPgSourceData(url string) selenium.PgSourceData {
 	return selenium.GetPgSourceData(url)
 }
