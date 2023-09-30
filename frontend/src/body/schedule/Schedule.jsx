@@ -31,6 +31,19 @@ function Schedule({
     });
   }, []);
 
+  const showWarningBjLogin = () => {
+    Modal.warning({
+      title: "코드를 제출할 수 없습니다.",
+      content: (
+        <div>
+          브라우저가 백준에
+          <br />
+          로그인되어 있지 않습니다.
+        </div>
+      ),
+    });
+  };
+
   const showWarningPgLogin = () => {
     Modal.warning({
       title: "코드를 제출할 수 없습니다.",
@@ -144,15 +157,22 @@ function Schedule({
                     if (problem.platform === "baekjoon") {
                       setIsLoading(true);
                       setLoadingText("백준 제출 이력을 읽어오고 있습니다.");
-                      await NavigateToBjProblemWithCookie(problem.url).then(
-                        (_submitHistories) => {
-                          setSubmitHistories(_submitHistories);
-                          setSelectedProblemTitle(problem.name);
-                          setSelectedProblemDate(item.date);
-                          setIsModalOpen(true);
+                      await IsPgLoggedIn(problem.url).then((result) => {
+                        if (result === false) {
                           setIsLoading(false);
-                        },
-                      );
+                          showWarningBjLogin();
+                          return;
+                        }
+                        NavigateToBjProblemWithCookie(problem.url).then(
+                          (_submitHistories) => {
+                            setSubmitHistories(_submitHistories);
+                            setSelectedProblemTitle(problem.name);
+                            setSelectedProblemDate(item.date);
+                            setIsModalOpen(true);
+                            setIsLoading(false);
+                          },
+                        );
+                      });
                     } else if (problem.platform === "programmers") {
                       setIsLoading(true);
                       setLoadingText(

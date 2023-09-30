@@ -23,6 +23,22 @@ type SubmitHistory struct {
 	SubmissionTime   string `json:"SubmissionTime"`
 }
 
+func IsBjLoggedIn(url string) bool {
+	wd := GetWebDriverInstance()
+
+	err := OpenPageWithWebDriver(wd.driver, url)
+	if err != nil {
+		log.Printf("Failed to access to url(%s): %v", url, err)
+		return false
+	}
+
+	_, err = (*wd.driver).FindElement(selenium.ByLinkText, "내 제출")
+	if err != nil {
+		return false
+	}
+	return true
+}
+
 func navigateToBjSourcePage(wd *selenium.WebDriver, submissionNumber string) {
 	url := fmt.Sprintf("https://www.acmicpc.net/source/%s", submissionNumber)
 	err := OpenPageWithWebDriver(wd, url)

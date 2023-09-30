@@ -13,6 +13,8 @@ export function GetPgSourceData(arg1:string):Promise<selenium.PgSourceData>;
 
 export function GetSchedule():Promise<github.ScheduleList>;
 
+export function IsBjLoggedIn(arg1:string):Promise<boolean>;
+
 export function IsChromeRunning():Promise<boolean>;
 
 export function IsPgLoggedIn(arg1:string):Promise<boolean>;

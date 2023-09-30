@@ -22,6 +22,10 @@ export function GetSchedule() {
   return window['go']['main']['App']['GetSchedule']();
 }
 
+export function IsBjLoggedIn(arg1) {
+  return window['go']['main']['App']['IsBjLoggedIn'](arg1);
+}
+
 export function IsChromeRunning() {
   return window['go']['main']['App']['IsChromeRunning']();
 }
