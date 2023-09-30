@@ -5,8 +5,8 @@ import (
 	"log"
 )
 
-func initializeWebDriver() *selenium.WebDriverInstance {
-	return selenium.GetWebDriverInstance()
+func initializeWebDriver() *selenium.DriverManager {
+	return selenium.GetWebDriverManager()
 }
 
 func main() {

@@ -7,16 +7,16 @@ import (
 	"sync"
 )
 
-type WebDriverInstance struct {
+type DriverManager struct {
 	service *selenium.Service
 	driver  *selenium.WebDriver
 	mu      sync.Mutex
 }
 
-var instance *WebDriverInstance
+var instance *DriverManager
 var once sync.Once
 
-func GetWebDriverInstance() *WebDriverInstance {
+func GetWebDriverManager() *DriverManager {
 	once.Do(func() {
 		service, err := getChromeDriverService()
 		if err != nil {
@@ -48,13 +48,13 @@ func GetWebDriverInstance() *WebDriverInstance {
 			log.Fatalf("Failed to open web driver session: %v", err)
 		}
 
-		instance = &WebDriverInstance{service: service, driver: &webDriver}
+		instance = &DriverManager{service: service, driver: &webDriver}
 	})
 
 	return instance
 }
 
-func (wd *WebDriverInstance) Close() {
+func (wd *DriverManager) Close() {
 	wd.mu.Lock()
 	defer wd.mu.Unlock()
 

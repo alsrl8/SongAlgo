@@ -24,15 +24,15 @@ type SubmitHistory struct {
 }
 
 func IsBjLoggedIn(url string) bool {
-	wd := GetWebDriverInstance()
+	dm := GetWebDriverManager()
 
-	err := OpenPageWithWebDriver(wd.driver, url)
+	err := OpenPageWithWebDriver(dm.driver, url)
 	if err != nil {
 		log.Printf("Failed to access to url(%s): %v", url, err)
 		return false
 	}
 
-	_, err = (*wd.driver).FindElement(selenium.ByLinkText, "내 제출")
+	_, err = (*dm.driver).FindElement(selenium.ByLinkText, "내 제출")
 	if err != nil {
 		return false
 	}
@@ -131,22 +131,22 @@ func findBjSubmitHistories(wd *selenium.WebDriver) []SubmitHistory {
 }
 
 func NavigateToBjProblemWithCookie(url string) []SubmitHistory {
-	wd := GetWebDriverInstance()
+	dm := GetWebDriverManager()
 
-	err := OpenPageWithWebDriver(wd.driver, url)
+	err := OpenPageWithWebDriver(dm.driver, url)
 	if err != nil {
 		log.Printf("Failed to access to url(%s): %v", url, err)
 		return []SubmitHistory{}
 	}
 
-	submitHistories := findBjSubmitHistories(wd.driver)
+	submitHistories := findBjSubmitHistories(dm.driver)
 	return submitHistories
 }
 
 func UploadBjSourceToGithub(problemTitle string, problemDate string, submission SubmitHistory, sha string) {
-	wd := GetWebDriverInstance()
-	navigateToBjSourcePage(wd.driver, submission.SubmissionNumber)
-	codeElements := findBjSubmitCodeElements(wd.driver)
+	dm := GetWebDriverManager()
+	navigateToBjSourcePage(dm.driver, submission.SubmissionNumber)
+	codeElements := findBjSubmitCodeElements(dm.driver)
 
 	dateString := convertDateString(problemDate)
 	extension := convertCodeLanguageToFileExtension(submission.Language)
