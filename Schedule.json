@@ -493,6 +493,110 @@
           "url": "https://www.acmicpc.net/problem/3197"
         }
       ]
+    },
+    {
+      "date": "2023-10-03",
+      "problems": [
+        {
+          "name": "안정적인 문자열",
+          "algorithmType": "",
+          "difficulty": "S2",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/4889"
+        },
+        {
+          "name": "이모티콘 할인행사",
+          "algorithmType": "",
+          "difficulty": "Lv.2",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/150368"
+        },
+        {
+          "name": "꿀 따기",
+          "algorithmType": "",
+          "difficulty": "G5",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/21758"
+        }
+      ]
+    },
+    {
+      "date": "2023-10-04",
+      "problems": [
+        {
+          "name": "다음 소수",
+          "algorithmType": "",
+          "difficulty": "S4",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/4134"
+        },
+        {
+          "name": "택배상자",
+          "algorithmType": "",
+          "difficulty": "Lv.2",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/131704"
+        },
+        {
+          "name": "숨바꼭질 3",
+          "algorithmType": "",
+          "difficulty": "G3",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/13549"
+        }
+      ]
+    },
+    {
+      "date": "2023-10-05",
+      "problems": [
+        {
+          "name": "하노이 탑",
+          "algorithmType": "",
+          "difficulty": "S1",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/1914"
+        },
+        {
+          "name": "모두 0으로 만들기",
+          "algorithmType": "",
+          "difficulty": "Lv.3",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/76503"
+        },
+        {
+          "name": "동굴 탐험",
+          "algorithmType": "",
+          "difficulty": "Lv.4",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/67260"
+        }
+      ]
+    },
+    {
+      "date": "2023-10-06",
+      "problems": [
+        {
+          "name": "최대공약수",
+          "algorithmType": "",
+          "difficulty": "S1",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/2824"
+        },
+        {
+          "name": "카운트 다운",
+          "algorithmType": "",
+          "difficulty": "Lv.3",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/131129"
+        },
+        {
+          "name": "[3차] 자동완성",
+          "algorithmType": "",
+          "difficulty": "Lv.4",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/17685"
+        }
+      ]
     }
   ]
 }
