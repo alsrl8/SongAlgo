@@ -597,6 +597,32 @@
           "url": "https://school.programmers.co.kr/learn/courses/30/lessons/17685"
         }
       ]
+    },
+    {
+      "date": "2023-10-09",
+      "problems": [
+        {
+          "name": "뒤집기",
+          "algorithmType": "",
+          "difficulty": "S5",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/1439"
+        },
+        {
+          "name": "숨바꼭질 3",
+          "algorithmType": "",
+          "difficulty": "G5",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/13549"
+        },
+        {
+          "name": "양과 늑대",
+          "algorithmType": "",
+          "difficulty": "Lv.3",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/92343"
+        }
+      ]
     }
   ]
 }
