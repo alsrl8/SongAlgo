@@ -623,6 +623,110 @@
           "url": "https://school.programmers.co.kr/learn/courses/30/lessons/92343"
         }
       ]
+    },
+    {
+      "date": "2023-10-10",
+      "problems": [
+        {
+          "name": "영단어 암기는 괴로워",
+          "algorithmType": "",
+          "difficulty": "S3",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/20920"
+        },
+        {
+          "name": "스킬트리",
+          "algorithmType": "",
+          "difficulty": "Lv.2",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/49993"
+        },
+        {
+          "name": "에어컨",
+          "algorithmType": "",
+          "difficulty": "Lv.3",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/214289"
+        }
+      ]
+    },
+    {
+      "date": "2023-10-11",
+      "problems": [
+        {
+          "name": "양",
+          "algorithmType": "",
+          "difficulty": "S1",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/3184"
+        },
+        {
+          "name": "큰 수 만들기",
+          "algorithmType": "",
+          "difficulty": "Lv.2",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/42883"
+        },
+        {
+          "name": "양과 늑대",
+          "algorithmType": "",
+          "difficulty": "Lv.3",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/92343"
+        }
+      ]
+    },
+    {
+      "date": "2023-10-12",
+      "problems": [
+        {
+          "name": "카펫",
+          "algorithmType": "",
+          "difficulty": "Lv.2",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/42842"
+        },
+        {
+          "name": "강의실",
+          "algorithmType": "",
+          "difficulty": "G5",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/1374"
+        },
+        {
+          "name": "야근 지수",
+          "algorithmType": "",
+          "difficulty": "Lv.3",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/12927"
+        }
+      ]
+    },
+    {
+      "date": "2023-10-13",
+      "problems": [
+        {
+          "name": "화학식량",
+          "algorithmType": "",
+          "difficulty": "S2",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/2257"
+        },
+        {
+          "name": "최소 회의실 개수",
+          "algorithmType": "",
+          "difficulty": "G5",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/19598"
+        },
+        {
+          "name": "불우이웃돕기",
+          "algorithmType": "",
+          "difficulty": "G3",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/1414"
+        }
+      ]
     }
   ]
 }
