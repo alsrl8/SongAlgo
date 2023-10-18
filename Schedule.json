@@ -727,6 +727,58 @@
           "url": "https://www.acmicpc.net/problem/1414"
         }
       ]
+    },
+    {
+      "date": "2023-10-19",
+      "problems": [
+        {
+          "name": "먹을 것인가 먹힐 것인가",
+          "algorithmType": "",
+          "difficulty": "S3",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/7795"
+        },
+        {
+          "name": "우수 마을",
+          "algorithmType": "",
+          "difficulty": "G2",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/1949"
+        },
+        {
+          "name": "최고의 집합",
+          "algorithmType": "",
+          "difficulty": "Lv.3",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/12938"
+        }
+      ]
+    },
+    {
+      "date": "2023-10-20",
+      "problems": [
+        {
+          "name": "거스름돈",
+          "algorithmType": "",
+          "difficulty": "S5",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/14916"
+        },
+        {
+          "name": "계란으로 계란 치기",
+          "algorithmType": "",
+          "difficulty": "G5",
+          "platform": "baekjoon",
+          "url": "https://www.acmicpc.net/problem/16987"
+        },
+        {
+          "name": "야근지수",
+          "algorithmType": "",
+          "difficulty": "Lv.3",
+          "platform": "programmers",
+          "url": "https://school.programmers.co.kr/learn/courses/30/lessons/12927"
+        }
+      ]
     }
   ]
 }
