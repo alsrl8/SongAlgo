@@ -831,6 +831,32 @@
                     "url": "https://www.acmicpc.net/problem/1941"
                 }
             ]
+        },
+        {
+            "date": "2023-10-25",
+            "problems": [
+                {
+                    "name": "케빈 베이컨의 6단계 법칙",
+                    "algorithmType": "",
+                    "difficulty": "S1",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/1389"
+                },
+                {
+                    "name": "왕위 계승",
+                    "algorithmType": "",
+                    "difficulty": "G4",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/5021"
+                },
+                {
+                    "name": "사과나무",
+                    "algorithmType": "",
+                    "difficulty": "G2",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/2233"
+                }
+            ]
         }
     ]
 }
