@@ -857,6 +857,32 @@
                     "url": "https://www.acmicpc.net/problem/2233"
                 }
             ]
+        },
+        {
+            "date": "2023-10-26",
+            "problems": [
+                {
+                    "name": "카드",
+                    "algorithmType": "",
+                    "difficulty": "S4",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/11652"
+                },
+                {
+                    "name": "저울",
+                    "algorithmType": "",
+                    "difficulty": "G4",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/10159"
+                },
+                {
+                    "name": "빗물",
+                    "algorithmType": "",
+                    "difficulty": "G5",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/14719"
+                }
+            ]
         }
     ]
 }
