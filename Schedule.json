@@ -779,6 +779,32 @@
                     "url": "https://school.programmers.co.kr/learn/courses/30/lessons/12927"
                 }
             ]
+        },
+        {
+            "date": "2023-10-23",
+            "problems": [
+                {
+                    "name": "빙고",
+                    "algorithmType": "",
+                    "difficulty": "S4",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/2578"
+                },
+                {
+                    "name": "감소하는 수",
+                    "algorithmType": "",
+                    "difficulty": "G5",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/1038"
+                },
+                {
+                    "name": "색종이 붙이기",
+                    "algorithmType": "",
+                    "difficulty": "G2",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/17136"
+                }
+            ]
         }
     ]
 }
