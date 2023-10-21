@@ -25,14 +25,3 @@ def dfs(i):
     if len(candidates) == 0:
         dfs(N)
         return
-
-    for j in candidates:
-        eggs[i][0] -= eggs[j][1]
-        eggs[j][0] -= eggs[i][1]
-        dfs(i + 1)
-        eggs[i][0] += eggs[j][1]
-        eggs[j][0] += eggs[i][1]
-
-
-dfs(0)
-print(answer)
