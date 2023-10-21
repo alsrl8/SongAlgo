@@ -805,6 +805,32 @@
                     "url": "https://www.acmicpc.net/problem/17136"
                 }
             ]
+        },
+        {
+            "date": "2023-10-24",
+            "problems": [
+                {
+                    "name": "스파이",
+                    "algorithmType": "",
+                    "difficulty": "S3",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/28075"
+                },
+                {
+                    "name": "탑",
+                    "algorithmType": "",
+                    "difficulty": "G5",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/2493"
+                },
+                {
+                    "name": "소문난 칠공주",
+                    "algorithmType": "",
+                    "difficulty": "G3",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/1941"
+                }
+            ]
         }
     ]
 }
