@@ -42,8 +42,16 @@ export function IsSubmittedCodeCorrect(arg1) {
   return window['go']['main']['App']['IsSubmittedCodeCorrect'](arg1);
 }
 
+export function NavigateToBjLoginPage() {
+  return window['go']['main']['App']['NavigateToBjLoginPage']();
+}
+
 export function NavigateToBjProblemWithCookie(arg1) {
   return window['go']['main']['App']['NavigateToBjProblemWithCookie'](arg1);
+}
+
+export function NavigateToPgLoginPage() {
+  return window['go']['main']['App']['NavigateToPgLoginPage']();
 }
 
 export function UploadBjSourceToGithub(arg1, arg2, arg3, arg4) {

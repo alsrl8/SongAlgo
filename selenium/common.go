@@ -39,16 +39,17 @@ func OpenPageWithWebDriver(wd *selenium.WebDriver, url string) error {
 }
 
 // waitUntilUserCloseBrowser Keep selenium browser awake until user closes the browser.
-func waitUntilUserCloseBrowser(wd *selenium.WebDriver) {
+func waitUntilUserCloseBrowser(dm *DriverManager) {
 	c := make(chan bool)
-	go monitorBrowserClose(wd, c)
+	go monitorBrowserClose(dm.driver, c)
 	<-c
+	dm.Close()
 }
 
 // monitorBrowserClose Keep looking at if browser is alive.
 func monitorBrowserClose(wd *selenium.WebDriver, c chan bool) {
 	for {
-		time.Sleep(1 * time.Second) // Poll every second
+		time.Sleep(100 * time.Millisecond) // Poll every second
 		_, err := (*wd).Title()
 		if err != nil {
 			c <- true

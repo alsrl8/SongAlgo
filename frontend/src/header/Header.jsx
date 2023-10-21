@@ -8,6 +8,8 @@ import {
   IsBjLoggedIn,
   CloseSeleniumBrowser,
   IsPgLoggedIn,
+  NavigateToPgLoginPage,
+  NavigateToBjLoginPage,
 } from "../../wailsjs/go/main/App.js";
 import { Modal } from "antd";
 
@@ -32,6 +34,9 @@ const handleBjLogin = async (setIsLoading, setLoadingText) => {
         showWarningAlreadyLoggedIn("백준");
         return;
       }
+      CloseSeleniumBrowser().then(() => {
+        NavigateToBjLoginPage();
+      });
     });
   });
 };
@@ -47,6 +52,9 @@ const handlePgLogin = async (setIsLoading, setLoadingText) => {
         showWarningAlreadyLoggedIn("Programmers");
         return;
       }
+      CloseSeleniumBrowser().then(() => {
+        NavigateToPgLoginPage();
+      });
     });
   });
 };

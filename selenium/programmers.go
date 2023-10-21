@@ -48,7 +48,7 @@ func waitForSubmitResult(wd *selenium.WebDriver) error {
 }
 
 func IsPgLoggedIn(url string) bool {
-	dm := GetWebDriverManager(false)
+	dm := GetWebDriverManager(true)
 
 	err := OpenPageWithWebDriver(dm.driver, url)
 	if err != nil {
@@ -64,7 +64,7 @@ func IsPgLoggedIn(url string) bool {
 }
 
 func IsSubmittedCodeCorrect(url string) bool {
-	dm := GetWebDriverManager(false)
+	dm := GetWebDriverManager(true)
 
 	err := OpenPageWithWebDriver(dm.driver, url)
 	if err != nil {
@@ -161,7 +161,7 @@ func extractLanguageFromLanguageElement(languageElement selenium.WebElement) str
 }
 
 func GetPgSourceData(url string) PgSourceData {
-	dm := GetWebDriverManager(false)
+	dm := GetWebDriverManager(true)
 	err := OpenPageWithWebDriver(dm.driver, url)
 	if err != nil {
 		log.Printf("Failed to access to url(%s): %+v", url, err)
@@ -186,4 +186,13 @@ func GetGithubRepositoryPgSource(problemTitle string, problemDate string, github
 	path := fmt.Sprintf("%s/%s.%s", dateString, problemTitle, extension)
 	log.Printf("Getting github source from path(%+v)", path)
 	return github.GetGithubRepositorySource(branchName, path)
+}
+
+func NavigateToPgLoginPage() {
+	dm := GetWebDriverManager(false)
+	loginPage := "https://programmers.co.kr/account/sign_in?referer=https%3A%2F%2Fprogrammers.co.kr%2F"
+	err := (*dm.driver).Get(loginPage)
+	if err != nil {
+		log.Printf("Failed to access to url(%s): %+v", loginPage, err)
+	}
 }

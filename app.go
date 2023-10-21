@@ -86,3 +86,11 @@ func (app *App) CloseSeleniumBrowser() {
 	manager := selenium.GetWebDriverManager(false)
 	manager.Close()
 }
+
+func (app *App) NavigateToPgLoginPage() {
+	selenium.NavigateToPgLoginPage()
+}
+
+func (app *App) NavigateToBjLoginPage() {
+	selenium.NavigateToBjLoginPage()
+}

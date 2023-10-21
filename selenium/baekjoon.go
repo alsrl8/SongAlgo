@@ -24,7 +24,7 @@ type SubmitHistory struct {
 }
 
 func IsBjLoggedIn(url string) bool {
-	dm := GetWebDriverManager(false)
+	dm := GetWebDriverManager(true)
 
 	err := OpenPageWithWebDriver(dm.driver, url)
 	if err != nil {
@@ -131,7 +131,7 @@ func findBjSubmitHistories(wd *selenium.WebDriver) []SubmitHistory {
 }
 
 func NavigateToBjProblemWithCookie(url string) []SubmitHistory {
-	dm := GetWebDriverManager(false)
+	dm := GetWebDriverManager(true)
 
 	err := OpenPageWithWebDriver(dm.driver, url)
 	if err != nil {
@@ -144,7 +144,7 @@ func NavigateToBjProblemWithCookie(url string) []SubmitHistory {
 }
 
 func UploadBjSourceToGithub(problemTitle string, problemDate string, submission SubmitHistory, sha string) {
-	dm := GetWebDriverManager(false)
+	dm := GetWebDriverManager(true)
 	navigateToBjSourcePage(dm.driver, submission.SubmissionNumber)
 	codeElements := findBjSubmitCodeElements(dm.driver)
 
@@ -201,4 +201,13 @@ func GetGithubRepositoryBjSource(problemTitle string, problemDate string, bjId s
 	extension := convertCodeLanguageToFileExtension(language)
 	path := fmt.Sprintf("%s/%s.%s", dateString, problemTitle, extension)
 	return github.GetGithubRepositorySource(branchName, path)
+}
+
+func NavigateToBjLoginPage() {
+	dm := GetWebDriverManager(false)
+	loginPage := "https://www.acmicpc.net/login?next=%2Fproblem%2F1000"
+	err := (*dm.driver).Get(loginPage)
+	if err != nil {
+		log.Printf("Failed to access to url(%s): %+v", loginPage, err)
+	}
 }
