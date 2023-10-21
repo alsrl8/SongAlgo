@@ -123,7 +123,17 @@ function Schedule({
 
   return (
     <div className="scheduleContainer">
-      <h2>{selectedMenuItem}</h2>
+      <div className="scheduleContainerHeader">
+        <h2>문제 리스트</h2>
+        <button
+          className="goBackButton"
+          onClick={() => {
+            setSelectedMenuItem(null);
+          }}
+        >
+          Go Back
+        </button>
+      </div>
       {scheduleList.map((item, index) => (
         <div key={"schedule" + index} className="scheduleCard">
           <span className="date">{item.date}</span>
@@ -238,14 +248,6 @@ function Schedule({
           ))}
         </div>
       ))}
-      <button
-        className="goBackButton"
-        onClick={() => {
-          setSelectedMenuItem(null);
-        }}
-      >
-        Go Back
-      </button>
     </div>
   );
 }

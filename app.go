@@ -24,8 +24,8 @@ func (app *App) startup(ctx context.Context) {
 	app.ctx = ctx
 }
 
-func (app *App) GetMenu() [2]string {
-	return [2]string{"1. 오늘의 문제 확인", "2. 종료"}
+func (app *App) GetMenu() [3]string {
+	return [3]string{"1. 오늘의 문제 확인", "2. 문제 추가하기", "3. 종료"}
 }
 
 func (app *App) GetSchedule() *github.ScheduleList {
@@ -98,4 +98,8 @@ func (app *App) NavigateToBjLoginPage() {
 
 func (app *App) CloseProgram() {
 	os.Exit(0)
+}
+
+func (app *App) AddProblem(username string, date string, problemUrl1 string, problemUrl2 string, problemUrl3 string) {
+	selenium.AddProblem(username, date, problemUrl1, problemUrl2, problemUrl3)
 }

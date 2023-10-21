@@ -7,6 +7,8 @@ import (
 	"github.com/tebeka/selenium"
 	"log"
 	"os"
+	"path"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -199,8 +201,8 @@ func GetGithubRepositoryBjSource(problemTitle string, problemDate string, bjId s
 	dateString := convertDateString(problemDate)
 	branchName := convertBjIdToGithubId(bjId)
 	extension := convertCodeLanguageToFileExtension(language)
-	path := fmt.Sprintf("%s/%s.%s", dateString, problemTitle, extension)
-	return github.GetGithubRepositorySource(branchName, path)
+	pathStr := fmt.Sprintf("%s/%s.%s", dateString, problemTitle, extension)
+	return github.GetGithubRepositorySource(branchName, pathStr)
 }
 
 func NavigateToBjLoginPage() {
@@ -210,4 +212,89 @@ func NavigateToBjLoginPage() {
 	if err != nil {
 		log.Printf("Failed to access to url(%s): %+v", loginPage, err)
 	}
+}
+
+func crawlBjProblem(url string) *github.Problem {
+	dm := GetWebDriverManager(true)
+	err := (*dm.driver).Get(url)
+	if err != nil {
+		log.Printf("Failed to access to url(%s): %+v", url, err)
+		return nil
+	}
+
+	problemName := getBjProblemNameFromHtmlSource(dm.driver)
+	tier := getBjTierFromHtmlSource(dm.driver)
+
+	return &github.Problem{
+		Name:          problemName,
+		AlgorithmType: "",
+		Difficulty:    tier,
+		Platform:      "baekjoon",
+		Url:           url,
+	}
+}
+
+func getBjProblemNameFromHtmlSource(wd *selenium.WebDriver) string {
+	element, err := (*wd).FindElement(selenium.ByID, "problem_title")
+	if err != nil {
+		log.Printf("Failed to find problem title element: %v", err)
+		return ""
+	}
+
+	problemName, err := element.Text()
+	if err != nil {
+		log.Printf("Failed to get problem title from element: %v", err)
+		return ""
+	}
+	return problemName
+}
+
+func getBjTierFromHtmlSource(wd *selenium.WebDriver) string {
+	infoElement, err := (*wd).FindElement(selenium.ByCSSSelector, "ul.nav.nav-pills.no-print.problem-menu")
+	if err != nil {
+		log.Printf("Failed to find info element: %v", err)
+		return ""
+	}
+
+	imgElement, err := infoElement.FindElement(selenium.ByTagName, "img")
+	if err != nil {
+		log.Printf("Failed to find img element from info element: %v", err)
+		return ""
+	}
+
+	src, err := imgElement.GetAttribute("src")
+	if err != nil {
+		log.Printf("Failed to get src from element: %v", err)
+		return ""
+	}
+
+	tierImage := strings.TrimSuffix(path.Base(src), ".svg")
+	tierImageNum, _ := strconv.Atoi(tierImage)
+	tier := getTierByTierImageNum(tierImageNum)
+	return tier
+}
+
+func getTierByTierImageNum(tierImageNum int) (tier string) {
+	if tierImageNum <= 0 || tierImageNum > 31 {
+		return ""
+	}
+
+	switch (tierImageNum - 1) / 5 {
+	case 0: // Bronze
+		tier += "B"
+	case 1: // Silver
+		tier += "S"
+	case 2: // Gold
+		tier += "G"
+	case 3: // Platinum
+		tier += "P"
+	case 4: // Diamond
+		tier += "D"
+	case 5: // Ruby
+		tier += "R"
+	}
+
+	tierNum := 5 - (tierImageNum-1)%5
+	tier += strconv.Itoa(tierNum)
+	return
 }

@@ -1,6 +1,11 @@
 .scheduleContainer {
 }
 
+.scheduleContainerHeader {
+    display: flex;
+    flex-direction: row;
+}
+
 .scheduleCard {
     display: flex;
     flex-direction: column;
@@ -82,7 +87,11 @@
 }
 
 .goBackButton {
-    padding: 10px 20px;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: auto;
+    height: 50px;
+    padding: 10px 10px;
     border-radius: 4px;
     background-color: rgba(47, 85, 151, 0.5);
     color: white;

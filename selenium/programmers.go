@@ -196,3 +196,7 @@ func NavigateToPgLoginPage() {
 		log.Printf("Failed to access to url(%s): %+v", loginPage, err)
 	}
 }
+
+func crawlPgProblem(url string) *github.Problem {
+	return nil
+}
