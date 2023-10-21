@@ -883,6 +883,32 @@
                     "url": "https://www.acmicpc.net/problem/14719"
                 }
             ]
+        },
+        {
+            "date": "2023-10-27",
+            "problems": [
+                {
+                    "name": "회전하는 큐",
+                    "algorithmType": "",
+                    "difficulty": "S3",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/1021"
+                },
+                {
+                    "name": "좋다",
+                    "algorithmType": "",
+                    "difficulty": "G4",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/1253"
+                },
+                {
+                    "name": "치즈",
+                    "algorithmType": "",
+                    "difficulty": "G4",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/2636"
+                }
+            ]
         }
     ]
 }
