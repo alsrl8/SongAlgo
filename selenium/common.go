@@ -1,8 +1,12 @@
 package selenium
 
 import (
+	"fmt"
 	"github.com/tebeka/selenium"
 	"log"
+	"os"
+	"path/filepath"
+	"runtime"
 	"strings"
 	"time"
 )
@@ -35,16 +39,17 @@ func OpenPageWithWebDriver(wd *selenium.WebDriver, url string) error {
 }
 
 // waitUntilUserCloseBrowser Keep selenium browser awake until user closes the browser.
-func waitUntilUserCloseBrowser(wd *selenium.WebDriver) {
+func waitUntilUserCloseBrowser(dm *DriverManager) {
 	c := make(chan bool)
-	go monitorBrowserClose(wd, c)
+	go monitorBrowserClose(dm.driver, c)
 	<-c
+	dm.Close()
 }
 
 // monitorBrowserClose Keep looking at if browser is alive.
 func monitorBrowserClose(wd *selenium.WebDriver, c chan bool) {
 	for {
-		time.Sleep(1 * time.Second) // Poll every second
+		time.Sleep(100 * time.Millisecond) // Poll every second
 		_, err := (*wd).Title()
 		if err != nil {
 			c <- true
@@ -91,4 +96,55 @@ func convertCodeLanguageToFileExtension(language string) (extension string) {
 	default:
 		return language
 	}
+}
+
+func getChromeUserDataDir() (string, error) {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return "", err
+	}
+
+	// Construct the path to the Chrome User Data directory based on the OS.
+	var userDataDir string
+	switch runtime.GOOS {
+	case "windows":
+		userDataDir = filepath.Join(home, "AppData", "Local", "Google", "Chrome", "User Data")
+	case "darwin":
+		userDataDir = filepath.Join(home, "Library", "Application Support", "Google", "Chrome")
+	case "linux":
+		userDataDir = filepath.Join(home, ".config", "google-chrome")
+	default:
+		return "", fmt.Errorf("unsupported operating system: %s", runtime.GOOS)
+	}
+
+	return userDataDir, nil
+}
+
+func createChromeUserDataDir() (string, error) {
+	// Get the home directory for the current user.
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return "", err
+	}
+
+	// Define the path for the custom profile directory.
+	var customProfileDir string
+	switch runtime.GOOS {
+	case "windows":
+		customProfileDir = filepath.Join(home, "AppData", "Local", "SongAlgo", "User Data")
+	case "darwin":
+		customProfileDir = filepath.Join(home, "Library", "Application Support", "SongAlgo")
+	case "linux":
+		customProfileDir = filepath.Join(home, ".config", "SongAlgo")
+	default:
+		return "", fmt.Errorf("unsupported operating system: %s", runtime.GOOS)
+	}
+
+	// Create the custom profile directory if it doesn't exist.
+	err = os.MkdirAll(customProfileDir, 0755)
+	if err != nil {
+		return "", err
+	}
+
+	return customProfileDir, nil
 }

@@ -47,16 +47,32 @@ func waitForSubmitResult(wd *selenium.WebDriver) error {
 	return err
 }
 
-func IsSubmittedCodeCorrect(url string) bool {
-	webDriverInstance := GetWebDriverInstance()
+func IsPgLoggedIn(url string) bool {
+	dm := GetWebDriverManager(true)
 
-	err := OpenPageWithWebDriver(webDriverInstance.driver, url)
+	err := OpenPageWithWebDriver(dm.driver, url)
 	if err != nil {
 		log.Printf("Failed to access to url(%s): %+v", url, err)
 		return false
 	}
 
-	button, err := findSubmitButton(webDriverInstance.driver)
+	_, err = findSubmitButton(dm.driver)
+	if err != nil {
+		return false
+	}
+	return true
+}
+
+func IsSubmittedCodeCorrect(url string) bool {
+	dm := GetWebDriverManager(true)
+
+	err := OpenPageWithWebDriver(dm.driver, url)
+	if err != nil {
+		log.Printf("Failed to access to url(%s): %+v", url, err)
+		return false
+	}
+
+	button, err := findSubmitButton(dm.driver)
 	if err != nil {
 		log.Printf("Failed to find submit button: %+v", err)
 		return false
@@ -68,13 +84,13 @@ func IsSubmittedCodeCorrect(url string) bool {
 		return false
 	}
 
-	err = waitForSubmitResult(webDriverInstance.driver)
+	err = waitForSubmitResult(dm.driver)
 	if err != nil {
 		log.Printf("Not Found or other error: %+v", err)
 		return false
 	}
 
-	modalTitle, err := (*webDriverInstance.driver).FindElement(selenium.ByClassName, "modal-title")
+	modalTitle, err := (*dm.driver).FindElement(selenium.ByClassName, "modal-title")
 	if err != nil {
 		log.Printf("Failed to find modal title: %+v", err)
 		return false
@@ -145,16 +161,16 @@ func extractLanguageFromLanguageElement(languageElement selenium.WebElement) str
 }
 
 func GetPgSourceData(url string) PgSourceData {
-	webDriverInstance := GetWebDriverInstance()
-	err := OpenPageWithWebDriver(webDriverInstance.driver, url)
+	dm := GetWebDriverManager(true)
+	err := OpenPageWithWebDriver(dm.driver, url)
 	if err != nil {
 		log.Printf("Failed to access to url(%s): %+v", url, err)
 		return PgSourceData{}
 	}
 
-	codeElements := findPgSubmitCodeElements(webDriverInstance.driver)
+	codeElements := findPgSubmitCodeElements(dm.driver)
 	code := extractCodeFromCodeElements(codeElements)
-	languageElement := findPgLanguageElement(webDriverInstance.driver)
+	languageElement := findPgLanguageElement(dm.driver)
 	language := extractLanguageFromLanguageElement(languageElement)
 	extension := convertCodeLanguageToFileExtension(language)
 
@@ -170,4 +186,13 @@ func GetGithubRepositoryPgSource(problemTitle string, problemDate string, github
 	path := fmt.Sprintf("%s/%s.%s", dateString, problemTitle, extension)
 	log.Printf("Getting github source from path(%+v)", path)
 	return github.GetGithubRepositorySource(branchName, path)
+}
+
+func NavigateToPgLoginPage() {
+	dm := GetWebDriverManager(false)
+	loginPage := "https://programmers.co.kr/account/sign_in?referer=https%3A%2F%2Fprogrammers.co.kr%2F"
+	err := (*dm.driver).Get(loginPage)
+	if err != nil {
+		log.Printf("Failed to access to url(%s): %+v", loginPage, err)
+	}
 }

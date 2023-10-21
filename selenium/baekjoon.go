@@ -23,6 +23,22 @@ type SubmitHistory struct {
 	SubmissionTime   string `json:"SubmissionTime"`
 }
 
+func IsBjLoggedIn(url string) bool {
+	dm := GetWebDriverManager(true)
+
+	err := OpenPageWithWebDriver(dm.driver, url)
+	if err != nil {
+		log.Printf("Failed to access to url(%s): %v", url, err)
+		return false
+	}
+
+	_, err = (*dm.driver).FindElement(selenium.ByLinkText, "내 제출")
+	if err != nil {
+		return false
+	}
+	return true
+}
+
 func navigateToBjSourcePage(wd *selenium.WebDriver, submissionNumber string) {
 	url := fmt.Sprintf("https://www.acmicpc.net/source/%s", submissionNumber)
 	err := OpenPageWithWebDriver(wd, url)
@@ -115,22 +131,22 @@ func findBjSubmitHistories(wd *selenium.WebDriver) []SubmitHistory {
 }
 
 func NavigateToBjProblemWithCookie(url string) []SubmitHistory {
-	wd := GetWebDriverInstance()
+	dm := GetWebDriverManager(true)
 
-	err := OpenPageWithWebDriver(wd.driver, url)
+	err := OpenPageWithWebDriver(dm.driver, url)
 	if err != nil {
 		log.Printf("Failed to access to url(%s): %v", url, err)
 		return []SubmitHistory{}
 	}
 
-	submitHistories := findBjSubmitHistories(wd.driver)
+	submitHistories := findBjSubmitHistories(dm.driver)
 	return submitHistories
 }
 
 func UploadBjSourceToGithub(problemTitle string, problemDate string, submission SubmitHistory, sha string) {
-	webDriverInstance := GetWebDriverInstance()
-	navigateToBjSourcePage(webDriverInstance.driver, submission.SubmissionNumber)
-	codeElements := findBjSubmitCodeElements(webDriverInstance.driver)
+	dm := GetWebDriverManager(true)
+	navigateToBjSourcePage(dm.driver, submission.SubmissionNumber)
+	codeElements := findBjSubmitCodeElements(dm.driver)
 
 	dateString := convertDateString(problemDate)
 	extension := convertCodeLanguageToFileExtension(submission.Language)
@@ -185,4 +201,13 @@ func GetGithubRepositoryBjSource(problemTitle string, problemDate string, bjId s
 	extension := convertCodeLanguageToFileExtension(language)
 	path := fmt.Sprintf("%s/%s.%s", dateString, problemTitle, extension)
 	return github.GetGithubRepositorySource(branchName, path)
+}
+
+func NavigateToBjLoginPage() {
+	dm := GetWebDriverManager(false)
+	loginPage := "https://www.acmicpc.net/login?next=%2Fproblem%2F1000"
+	err := (*dm.driver).Get(loginPage)
+	if err != nil {
+		log.Printf("Failed to access to url(%s): %+v", loginPage, err)
+	}
 }

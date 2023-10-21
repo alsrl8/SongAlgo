@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import {
   GetSchedule,
   NavigateToBjProblemWithCookie,
+  IsPgLoggedIn,
+  IsBjLoggedIn,
   IsSubmittedCodeCorrect,
   UploadPgSourceToGithub,
   GetPgSourceData,
   GetGithubRepositoryPgSource,
-  UploadBjSourceToGithub,
+  CloseSeleniumBrowser,
 } from "../../../wailsjs/go/main/App.js";
 import "./Schedule.css";
 import cdLogo from "../../assets/images/code_logo.png";
@@ -29,6 +31,32 @@ function Schedule({
       setScheduleList(_scheduleList.list);
     });
   }, []);
+
+  const showWarningBjLogin = () => {
+    Modal.warning({
+      title: "코드를 제출할 수 없습니다.",
+      content: (
+        <div>
+          브라우저가 백준에
+          <br />
+          로그인되어 있지 않습니다.
+        </div>
+      ),
+    });
+  };
+
+  const showWarningPgLogin = () => {
+    Modal.warning({
+      title: "코드를 제출할 수 없습니다.",
+      content: (
+        <div>
+          브라우저가 Programmers에
+          <br />
+          로그인되어 있지 않습니다.
+        </div>
+      ),
+    });
+  };
 
   const showWarningPgCode = () => {
     Modal.warning({
@@ -130,60 +158,78 @@ function Schedule({
                     if (problem.platform === "baekjoon") {
                       setIsLoading(true);
                       setLoadingText("백준 제출 이력을 읽어오고 있습니다.");
-                      await NavigateToBjProblemWithCookie(problem.url).then(
-                        (_submitHistories) => {
-                          setSubmitHistories(_submitHistories);
-                          setSelectedProblemTitle(problem.name);
-                          setSelectedProblemDate(item.date);
-                          setIsModalOpen(true);
-                          setIsLoading(false);
-                        },
-                      );
+                      await CloseSeleniumBrowser().then(() => {
+                        IsBjLoggedIn(problem.url).then((result) => {
+                          if (result === false) {
+                            setIsLoading(false);
+                            showWarningBjLogin();
+                            return;
+                          }
+                          NavigateToBjProblemWithCookie(problem.url).then(
+                            (_submitHistories) => {
+                              setSubmitHistories(_submitHistories);
+                              setSelectedProblemTitle(problem.name);
+                              setSelectedProblemDate(item.date);
+                              setIsModalOpen(true);
+                              setIsLoading(false);
+                            },
+                          );
+                        });
+                      });
                     } else if (problem.platform === "programmers") {
                       setIsLoading(true);
                       setLoadingText(
                         "프로그래머스 제출 이력을 읽어오고 있습니다.",
                       );
-                      await IsSubmittedCodeCorrect(problem.url).then(
-                        (result) => {
+                      await CloseSeleniumBrowser().then(() => {
+                        IsPgLoggedIn(problem.url).then((result) => {
                           if (result === false) {
                             setIsLoading(false);
-                            showWarningPgCode();
+                            showWarningPgLogin();
                             return;
                           }
-                          setLoadingText(
-                            "프로그래머스 코드가 Github에 업로드 됐는지 확인하고 있습니다.",
-                          );
-                          GetPgSourceData(problem.url).then((pgSourceData) => {
-                            GetGithubRepositoryPgSource(
-                              problem.name,
-                              item.date,
-                              "alsrl8",
-                              pgSourceData.extension,
-                            ).then((fileResponse) => {
+                          IsSubmittedCodeCorrect(problem.url).then((result) => {
+                            if (result === false) {
                               setIsLoading(false);
-                              if (fileResponse.statusCode === "302") {
-                                showConfirmOverwriteCode(
+                              showWarningPgCode();
+                              return;
+                            }
+                            setLoadingText(
+                              "프로그래머스 코드가 Github에 업로드 됐는지 확인하고 있습니다.",
+                            );
+                            GetPgSourceData(problem.url).then(
+                              (pgSourceData) => {
+                                GetGithubRepositoryPgSource(
                                   problem.name,
                                   item.date,
                                   "alsrl8",
-                                  pgSourceData.code,
                                   pgSourceData.extension,
-                                  fileResponse.file.sha,
-                                );
-                              } else {
-                                showConfirmSubmitPgCode(
-                                  problem.name,
-                                  item.date,
-                                  "alsrl8",
-                                  pgSourceData.code,
-                                  pgSourceData.extension,
-                                );
-                              }
-                            });
+                                ).then((fileResponse) => {
+                                  setIsLoading(false);
+                                  if (fileResponse.statusCode === "302") {
+                                    showConfirmOverwriteCode(
+                                      problem.name,
+                                      item.date,
+                                      "alsrl8",
+                                      pgSourceData.code,
+                                      pgSourceData.extension,
+                                      fileResponse.file.sha,
+                                    );
+                                  } else {
+                                    showConfirmSubmitPgCode(
+                                      problem.name,
+                                      item.date,
+                                      "alsrl8",
+                                      pgSourceData.code,
+                                      pgSourceData.extension,
+                                    );
+                                  }
+                                });
+                              },
+                            );
                           });
-                        },
-                      );
+                        });
+                      });
                     }
                   }}
                 />

@@ -17,8 +17,8 @@ func NewApp() *App {
 	return &App{}
 }
 
-// startup is called when the app starts. The context is saved
-// so we can call the runtime methods
+// startup is called when the app starts.
+// The context is saved so we can call the runtime methods
 func (app *App) startup(ctx context.Context) {
 	app.ctx = ctx
 }
@@ -61,6 +61,14 @@ func (app *App) UploadPgSourceToGithub(problemTitle string, problemDate string, 
 	selenium.UploadPgSourceToGithub(problemTitle, problemDate, githubId, code, extension, sha)
 }
 
+func (app *App) IsBjLoggedIn(url string) bool {
+	return selenium.IsBjLoggedIn(url)
+}
+
+func (app *App) IsPgLoggedIn(url string) bool {
+	return selenium.IsPgLoggedIn(url)
+}
+
 func (app *App) GetPgSourceData(url string) selenium.PgSourceData {
 	return selenium.GetPgSourceData(url)
 }
@@ -69,4 +77,20 @@ func (app *App) GetGithubRepositoryPgSource(problemTitle string, problemDate str
 	file, err := selenium.GetGithubRepositoryPgSource(problemTitle, problemDate, githubId, extension)
 	fileResponse := github.ConvertGithubRepositoryFileToFileResponse(file, err)
 	return fileResponse
+}
+
+func (app *App) CloseSeleniumBrowser() {
+	if selenium.IsDriverManagerRunning() == false {
+		return
+	}
+	manager := selenium.GetWebDriverManager(false)
+	manager.Close()
+}
+
+func (app *App) NavigateToPgLoginPage() {
+	selenium.NavigateToPgLoginPage()
+}
+
+func (app *App) NavigateToBjLoginPage() {
+	selenium.NavigateToBjLoginPage()
 }
