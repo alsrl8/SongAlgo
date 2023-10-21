@@ -779,58 +779,6 @@
                     "url": "https://school.programmers.co.kr/learn/courses/30/lessons/12927"
                 }
             ]
-        },
-        {
-            "date": "2023-10-23",
-            "problems": [
-                {
-                    "name": "Hello World",
-                    "algorithmType": "",
-                    "difficulty": "B5",
-                    "platform": "baekjoon",
-                    "url": "https://www.acmicpc.net/problem/2557"
-                },
-                {
-                    "name": "Hello World",
-                    "algorithmType": "",
-                    "difficulty": "B5",
-                    "platform": "baekjoon",
-                    "url": "https://www.acmicpc.net/problem/2557"
-                },
-                {
-                    "name": "Hello World",
-                    "algorithmType": "",
-                    "difficulty": "B5",
-                    "platform": "baekjoon",
-                    "url": "https://www.acmicpc.net/problem/2557"
-                }
-            ]
-        },
-        {
-            "date": "2023-10-24",
-            "problems": [
-                {
-                    "name": "한수",
-                    "algorithmType": "",
-                    "difficulty": "S4",
-                    "platform": "baekjoon",
-                    "url": "https://www.acmicpc.net/problem/1065"
-                },
-                {
-                    "name": "한수",
-                    "algorithmType": "",
-                    "difficulty": "S4",
-                    "platform": "baekjoon",
-                    "url": "https://www.acmicpc.net/problem/1065"
-                },
-                {
-                    "name": "한수",
-                    "algorithmType": "",
-                    "difficulty": "S4",
-                    "platform": "baekjoon",
-                    "url": "https://www.acmicpc.net/problem/1065"
-                }
-            ]
         }
     ]
 }
