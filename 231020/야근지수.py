@@ -7,10 +7,11 @@ def solution(n, works):
         return 0
 
     pq = []  # max heap
-    for w in works:
-        heapq.heappush(pq, -w)
+
+
 
     for _ in range(n):
         w = -heapq.heappop(pq)
         heapq.heappush(pq, -(w - 1))
 
+    return sum([s ** 2 for s in pq])
