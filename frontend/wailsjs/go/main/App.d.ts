@@ -3,6 +3,8 @@
 import {github} from '../models';
 import {selenium} from '../models';
 
+export function CloseProgram():Promise<void>;
+
 export function CloseSeleniumBrowser():Promise<void>;
 
 export function GetGithubRepositoryBjSource(arg1:string,arg2:string,arg3:string,arg4:string):Promise<github.FileResponse>;

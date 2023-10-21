@@ -5,6 +5,7 @@ import (
 	"SongAlgo/selenium"
 	"SongAlgo/util"
 	"context"
+	"os"
 )
 
 // App struct
@@ -93,4 +94,8 @@ func (app *App) NavigateToPgLoginPage() {
 
 func (app *App) NavigateToBjLoginPage() {
 	selenium.NavigateToBjLoginPage()
+}
+
+func (app *App) CloseProgram() {
+	os.Exit(0)
 }
