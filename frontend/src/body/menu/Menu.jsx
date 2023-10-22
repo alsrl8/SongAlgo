@@ -12,9 +12,12 @@ function Menu({ menu, setSelectedMenuItem }) {
           onClick={() => {
             switch (index) {
               case 0: // Problem list
-                setSelectedMenuItem(item);
+                setSelectedMenuItem(index);
                 break;
-              case 1: // Close program
+              case 1: // Add problem
+                setSelectedMenuItem(index);
+                break;
+              case 2: // Close program
                 CloseProgram();
                 break;
             }

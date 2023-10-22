@@ -3,6 +3,8 @@
 import {github} from '../models';
 import {selenium} from '../models';
 
+export function AddProblem(arg1:string,arg2:string,arg3:string,arg4:string,arg5:string):Promise<void>;
+
 export function CloseProgram():Promise<void>;
 
 export function CloseSeleniumBrowser():Promise<void>;

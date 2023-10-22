@@ -2,6 +2,7 @@ package github
 
 import (
 	"encoding/json"
+	"log"
 )
 
 type Problem struct {
@@ -22,6 +23,7 @@ type ScheduleList struct {
 }
 
 func FetchScheduleListFromGitHub() (*ScheduleList, error) {
+	log.Printf("Fetching schedule list from github repository...")
 	fetchParams := FetchParams{
 		Owner:  GetRepositoryOwner(),
 		Repo:   GetRepositoryName(),
@@ -37,6 +39,12 @@ func FetchScheduleListFromGitHub() (*ScheduleList, error) {
 	err = json.Unmarshal(fetchData, &scheduleList)
 	if err != nil {
 		return nil, err
+	}
+
+	// Reverse schedule list
+	n := len(scheduleList.List)
+	for i := 0; i < n/2; i++ {
+		scheduleList.List[i], scheduleList.List[n-1-i] = scheduleList.List[n-1-i], scheduleList.List[i]
 	}
 
 	return &scheduleList, nil

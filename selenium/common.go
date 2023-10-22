@@ -1,9 +1,13 @@
 package selenium
 
 import (
+	"SongAlgo/github"
+	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"github.com/tebeka/selenium"
 	"log"
+	"net/url"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -147,4 +151,79 @@ func createChromeUserDataDir() (string, error) {
 	}
 
 	return customProfileDir, nil
+}
+
+func AddProblem(username string, date string, problemUrl1 string, problemUrl2 string, problemUrl3 string) {
+	if username != github.GetRepositoryOwner() {
+		log.Printf("User name(%s) is invalid", username)
+		return
+	}
+
+	problemUrlList := []string{problemUrl1, problemUrl2, problemUrl3}
+	var problemList []github.Problem
+	for _, problemUrl := range problemUrlList {
+		parsedUrl, err := url.Parse(problemUrl)
+		if err != nil {
+			log.Printf("Failed to parsing url(%s): %+v", problemUrl, err)
+			return
+		}
+
+		var problem *github.Problem
+		switch parsedUrl.Hostname() {
+		case "www.acmicpc.net":
+			problem = crawlBjProblem(parsedUrl.String())
+		case "school.programmers.co.kr":
+			problem = crawlPgProblem(parsedUrl.String())
+		}
+
+		if problem == nil {
+			log.Printf("Failed to crawl problem from given url(%s)", problemUrl)
+			return
+		}
+		problemList = append(problemList, *problem)
+	}
+
+	params := github.GetParams{
+		Token:  os.Getenv("GITHUB_TOKEN"),
+		Owner:  github.GetRepositoryOwner(),
+		Repo:   github.GetRepositoryName(),
+		Branch: github.GetScheduleBranchName(),
+		Path:   github.GetScheduleFileName(),
+	}
+	file, _ := github.GetGithubRepositoryContent(params)
+
+	scheduleList := github.ScheduleList{}
+	decodedContent, err := base64.StdEncoding.DecodeString(file.Content)
+	if err != nil {
+		log.Printf("Failed to decode file content from github")
+		return
+	}
+	err = json.Unmarshal(decodedContent, &scheduleList)
+	if err != nil {
+		log.Printf("Failed to fetch schedule list from github")
+		return
+	}
+	scheduleList.List = append(scheduleList.List, github.Schedule{
+		Date:     date,
+		Problems: problemList,
+	})
+	jsonData, _ := json.MarshalIndent(scheduleList, "", "    ")
+
+	uploadParams := github.UploadParams{
+		Token:     os.Getenv("GITHUB_TOKEN"),
+		Owner:     github.GetRepositoryOwner(),
+		Committer: github.GetRepositoryOwner(),
+		Repo:      github.GetRepositoryName(),
+		Path:      "Schedule.json",
+		Branch:    "schedule",
+		Message:   date,
+		Content:   string(jsonData),
+		Sha:       file.Sha,
+	}
+
+	err = github.UploadFileToGithub(uploadParams)
+	if err != nil {
+		log.Printf("Error occured during uploading file to github: %+v", err)
+		return
+	}
 }
