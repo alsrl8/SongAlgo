@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
 import {
-  GetSchedule,
-  NavigateToBjProblemWithCookie,
-  IsPgLoggedIn,
-  IsBjLoggedIn,
-  IsSubmittedCodeCorrect,
-  UploadPgSourceToGithub,
-  GetPgSourceData,
-  GetGithubRepositoryPgSource,
   CloseSeleniumBrowser,
+  GetGithubRepositoryPgSource,
+  GetPgSourceData,
+  GetSchedule,
+  IsBjLoggedIn,
+  IsPgLoggedIn,
+  IsSubmittedCodeCorrect,
+  NavigateToBjProblemWithCookie,
+  UploadPgSourceToGithub,
 } from "../../../wailsjs/go/main/App.js";
 import "./Schedule.css";
 import cdLogo from "../../assets/images/code_logo.png";
 import { Modal } from "antd";
 
 function Schedule({
-  selectedMenuItem,
   setSelectedMenuItem,
   setIsModalOpen,
   setIsLoading,

@@ -17,9 +17,13 @@ const Add = ({ setSelectedMenuItem }) => {
       form.getFieldValue("ProblemUrl2"),
       form.getFieldValue("ProblemUrl3"),
     );
+    form.setFieldValue("ProblemUrl1", "");
+    form.setFieldValue("ProblemUrl2", "");
+    form.setFieldValue("ProblemUrl3", "");
   };
 
   const onFinishFailed = () => {};
+  const onProblemUrlChange = (changedUrl) => {};
 
   return (
     <>

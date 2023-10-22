@@ -25,7 +25,7 @@ func (app *App) startup(ctx context.Context) {
 }
 
 func (app *App) GetMenu() [3]string {
-	return [3]string{"1. 오늘의 문제 확인", "2. 문제 추가하기", "3. 종료"}
+	return [3]string{"1. 문제 리스트", "2. 문제 추가하기", "3. 종료"}
 }
 
 func (app *App) GetSchedule() *github.ScheduleList {
