@@ -12,7 +12,7 @@ import {
 } from "../../../wailsjs/go/main/App.js";
 import "./Schedule.css";
 import cdLogo from "../../assets/images/code_logo.png";
-import { Modal } from "antd";
+import { Modal, Pagination } from "antd";
 
 function Schedule({
   setSelectedMenuItem,
@@ -24,6 +24,8 @@ function Schedule({
   setSelectedProblemDate,
 }) {
   const [scheduleList, setScheduleList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [schedulesPerPage, setSchedulesPerPage] = useState(5);
 
   useEffect(() => {
     GetSchedule().then((_scheduleList) => {
@@ -120,6 +122,17 @@ function Schedule({
     });
   };
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const indexOfLastSchedule = currentPage * schedulesPerPage;
+  const indexOfFirstSchedule = indexOfLastSchedule - schedulesPerPage;
+  const currentSchedules = scheduleList.slice(
+    indexOfFirstSchedule,
+    indexOfLastSchedule,
+  );
+
   return (
     <div className="scheduleContainer">
       <div className="scheduleContainerHeader">
@@ -133,7 +146,7 @@ function Schedule({
           Go Back
         </button>
       </div>
-      {scheduleList.map((item, index) => (
+      {currentSchedules.map((item, index) => (
         <div key={"schedule" + index} className="scheduleCard">
           <span className="date">{item.date}</span>
           {item.problems.map((problem, pi) => (
@@ -247,6 +260,13 @@ function Schedule({
           ))}
         </div>
       ))}
+      <Pagination
+        current={currentPage}
+        onChange={handlePageChange}
+        total={scheduleList.length}
+        pageSize={schedulesPerPage}
+        showSizeChanger={false}
+      />
     </div>
   );
 }

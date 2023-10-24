@@ -97,3 +97,11 @@
     color: white;
     cursor: pointer;
 }
+
+.ant-pagination-item a {
+    color: white !important;
+}
+
+.ant-pagination-item-active {
+    background-color: black !important;
+}
