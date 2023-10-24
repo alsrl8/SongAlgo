@@ -9,7 +9,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"os"
 )
 
 type UploadParams struct {
@@ -113,7 +112,7 @@ func GetGithubRepositoryContent(params GetParams) (File, error) {
 
 func GetGithubRepositorySource(branchName string, path string) (File, error) {
 	params := GetParams{
-		Token:  os.Getenv("GITHUB_TOKEN"),
+		Token:  GetRepositoryToken(),
 		Owner:  GetRepositoryOwner(),
 		Repo:   GetRepositoryName(),
 		Branch: branchName,

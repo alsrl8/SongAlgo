@@ -7,6 +7,7 @@ require (
 	github.com/stretchr/testify v1.8.4
 	github.com/tebeka/selenium v0.9.9
 	github.com/wailsapp/wails/v2 v2.5.1
+	gopkg.in/ini.v1 v1.67.0
 )
 
 require (

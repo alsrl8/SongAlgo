@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/tebeka/selenium"
 	"log"
-	"os"
 	"time"
 )
 
@@ -109,7 +108,7 @@ func UploadPgSourceToGithub(problemTitle string, problemDate string, githubId st
 	dateString := convertDateString(problemDate)
 	date := time.Now().Format("060102")
 	params := github.UploadParams{
-		Token:   os.Getenv("GITHUB_TOKEN"),
+		Token:   github.GetRepositoryToken(),
 		Owner:   github.GetRepositoryOwner(),
 		Repo:    github.GetRepositoryName(),
 		Path:    fmt.Sprintf("%s/%s.%s", dateString, problemTitle, extension),

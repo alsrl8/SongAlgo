@@ -9,7 +9,7 @@ import (
 
 func TestUploadFileToGithub(t *testing.T) {
 	params := UploadParams{
-		Token:     os.Getenv("GITHUB_TOKEN"),
+		Token:     GetRepositoryToken(),
 		Owner:     GetRepositoryOwner(),
 		Committer: os.Getenv("GITHUB_NAME"),
 		Email:     os.Getenv("GITHUB_EMAIL"),
@@ -25,7 +25,7 @@ func TestUploadFileToGithub(t *testing.T) {
 
 func TestGetGithubRepositoryContent(t *testing.T) {
 	params := GetParams{
-		Token:  os.Getenv("GITHUB_TOKEN"),
+		Token:  GetRepositoryToken(),
 		Owner:  GetRepositoryOwner(),
 		Repo:   GetRepositoryName(),
 		Path:   "code2323.py",

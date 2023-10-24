@@ -6,7 +6,6 @@ import (
 	"github.com/pkg/errors"
 	"github.com/tebeka/selenium"
 	"log"
-	"os"
 	"path"
 	"strconv"
 	"strings"
@@ -157,7 +156,7 @@ func UploadBjSourceToGithub(problemTitle string, problemDate string, submission 
 	code := extractCodeFromCodeElements(codeElements)
 
 	params := github.UploadParams{
-		Token:   os.Getenv("GITHUB_TOKEN"),
+		Token:   github.GetRepositoryToken(),
 		Owner:   github.GetRepositoryOwner(),
 		Repo:    github.GetRepositoryName(),
 		Path:    fmt.Sprintf("%s/%s.%s", dateString, problemTitle, extension),
