@@ -69,3 +69,9 @@
 .setting-header h3 {
     margin-top: 10px;  /* Remove the default top margin */
 }
+
+.setting-input-error {
+    outline: 1px solid red !important;
+    border-color: red !important;
+    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.2) !important;
+}
