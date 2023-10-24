@@ -55,7 +55,7 @@ function App() {
       <Setting
         isSettingModalOpen={isSettingModalOpen}
         onClose={handleCloseSettingModal}
-        setUserId={setUserName}
+        setUserName={setUserName}
       />
     </div>
   );

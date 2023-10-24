@@ -2,18 +2,30 @@ import React, { useState } from "react";
 import "./setting.css";
 import { Input } from "antd";
 
-const Setting = ({ isSettingModalOpen, onClose, setUserId }) => {
+const forbiddenUsernames = ["", "alsrl8", "main"];
+
+const Setting = ({ isSettingModalOpen, onClose, setUserName }) => {
   if (!isSettingModalOpen) return null;
 
-  const [userName, setUserName] = useState("");
+  const [inputUserName, setInputUserName] = useState("");
+  const [error, setError] = useState("");
 
   const handleOkButtonClick = () => {
-    setUserId(userName);
+    if (!inputUserName) {
+      setError("Username cannot be empty.");
+      return;
+    }
+    if (forbiddenUsernames.includes(inputUserName.toLowerCase())) {
+      setError("This username is not allowed.");
+      return;
+    }
+    setUserName(inputUserName);
     onClose();
   };
 
   const handleUserNameInputChange = (e) => {
-    setUserName(e.target.value);
+    setInputUserName(e.target.value);
+    if (error) setError("");
   };
 
   return (
@@ -34,6 +46,7 @@ const Setting = ({ isSettingModalOpen, onClose, setUserId }) => {
             <Input value="https://github.com/alsrl8/SongAlgo" disabled />
             User Name
             <Input
+              className={error ? "setting-input-error" : ""}
               placeholder="사용자 이름"
               onChange={handleUserNameInputChange}
             />
