@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./setting.css";
 import { Input } from "antd";
 
-const forbiddenUsernames = ["", "alsrl8", "main"];
+const forbiddenUsernames = ["", "main", "schedule", "base_user"];
 
 const Setting = ({ isSettingModalOpen, onClose, setUserName }) => {
   if (!isSettingModalOpen) return null;
