@@ -3,7 +3,7 @@ import songAlgoLogo from "./../assets/images/song_algo_logo_white.png";
 import wailsLogo from "./../assets/images/logo-universal.png";
 import bjLogo from "./../assets/images/bj_logo.png";
 import pgLogo from "./../assets/images/programers_logo.png";
-import React from "react";
+import React, { useState } from "react";
 import {
   IsBjLoggedIn,
   CloseSeleniumBrowser,
@@ -59,34 +59,43 @@ const handlePgLogin = async (setIsLoading, setLoadingText) => {
   });
 };
 
-function Header({ setIsLoading, setLoadingText }) {
+function Header({
+  userId,
+  setIsLoading,
+  setLoadingText,
+  setIsSettingModalOpen,
+}) {
   return (
     <>
       <div className="header">
-        <img
-          src={bjLogo}
-          id="bjLogo"
-          className="siteLogo"
-          alt="logo"
-          onClick={() => handleBjLogin(setIsLoading, setLoadingText)}
-        />
-        <img
-          src={pgLogo}
-          id="pgLogo"
-          className="siteLogo"
-          alt="logo"
-          onClick={() => handlePgLogin(setIsLoading, setLoadingText)}
-        />
-        <img
-          src={songAlgoLogo}
-          id="songAlgoLogo"
-          className="logo"
-          alt="logo"
-          onClick={() => {
-            CloseSeleniumBrowser();
-          }}
-        />
-        <img src={wailsLogo} id="wailsLogo" className="logo" alt="logo" />
+        <div className="headerLeft">
+          {userId !== "" ? "User Name: " + userId : "NO USER"}
+        </div>
+        <div className="headerRight">
+          <img
+            src={bjLogo}
+            id="bjLogo"
+            className="siteLogo"
+            alt="logo"
+            onClick={() => handleBjLogin(setIsLoading, setLoadingText)}
+          />
+          <img
+            src={pgLogo}
+            id="pgLogo"
+            className="siteLogo"
+            alt="logo"
+            onClick={() => handlePgLogin(setIsLoading, setLoadingText)}
+          />
+          <img
+            src={songAlgoLogo}
+            id="songAlgoLogo"
+            className="logo"
+            alt="logo"
+            onClick={() => {
+              setIsSettingModalOpen(true);
+            }}
+          />
+        </div>
       </div>
     </>
   );
