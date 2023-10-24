@@ -60,7 +60,7 @@ const handlePgLogin = async (setIsLoading, setLoadingText) => {
 };
 
 function Header({
-  userId,
+  userName,
   setIsLoading,
   setLoadingText,
   setIsSettingModalOpen,
@@ -69,7 +69,7 @@ function Header({
     <>
       <div className="header">
         <div className="headerLeft">
-          {userId !== "" ? "User Name: " + userId : "NO USER"}
+          {userName !== "" ? "User Name: " + userName : "NO USER"}
         </div>
         <div className="headerRight">
           <img

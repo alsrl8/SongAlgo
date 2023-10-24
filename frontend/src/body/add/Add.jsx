@@ -7,7 +7,7 @@ const formLabel = (label) => {
   return <div className="form-label">{label}</div>;
 };
 
-const Add = ({ setSelectedMenuItem }) => {
+const Add = ({ setSelectedMenuItem, userName }) => {
   const [form] = Form.useForm();
   const onFinish = () => {
     AddProblem(
@@ -27,7 +27,12 @@ const Add = ({ setSelectedMenuItem }) => {
 
   return (
     <>
-      <Form form={form} onFinish={onFinish} onFinishFailed={onFinishFailed}>
+      <Form
+        form={form}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        initialValues={{ UserID: userName }}
+      >
         <Form.Item
           label={formLabel("사용자 이름")}
           name="UserID"
@@ -38,7 +43,7 @@ const Add = ({ setSelectedMenuItem }) => {
             },
           ]}
         >
-          <Input />
+          <Input disabled />
         </Form.Item>
 
         <Form.Item

@@ -6,6 +6,7 @@ import Add from "./add/Add.jsx";
 import { GetMenu } from "../../wailsjs/go/main/App.js";
 
 function Body({
+  userName,
   setIsModalOpen,
   setIsLoading,
   setLoadingText,
@@ -37,7 +38,7 @@ function Body({
           setSelectedProblemDate={setSelectedProblemDate}
         />
       ) : (
-        <Add setSelectedMenuItem={setSelectedMenuItem} />
+        <Add setSelectedMenuItem={setSelectedMenuItem} userName={userName} />
       )}
     </>
   );
