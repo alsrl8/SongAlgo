@@ -909,32 +909,6 @@
                     "url": "https://www.acmicpc.net/problem/2636"
                 }
             ]
-        },
-        {
-            "date": "2023-10-22",
-            "problems": [
-                {
-                    "name": "한수",
-                    "algorithmType": "",
-                    "difficulty": "S4",
-                    "platform": "baekjoon",
-                    "url": "https://www.acmicpc.net/problem/1065"
-                },
-                {
-                    "name": "한수",
-                    "algorithmType": "",
-                    "difficulty": "S4",
-                    "platform": "baekjoon",
-                    "url": "https://www.acmicpc.net/problem/1065"
-                },
-                {
-                    "name": "한수",
-                    "algorithmType": "",
-                    "difficulty": "S4",
-                    "platform": "baekjoon",
-                    "url": "https://www.acmicpc.net/problem/1065"
-                }
-            ]
         }
     ]
 }
