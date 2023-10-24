@@ -54,11 +54,11 @@
     text-align: center;
     cursor: default;
 
-    &.correct{
+    &.correct {
 
     }
 
-    &.correct:hover{
+    &.correct:hover {
         text-shadow: -1px 0 blue, 0 1px blue, 1px 0 blue, 0 -1px blue;
     }
 
