@@ -29,6 +29,7 @@ function Body({
         <Menu menu={menu} setSelectedMenuItem={setSelectedMenuItem} />
       ) : selectedMenuItem === 0 ? (
         <Schedule
+          userName={userName}
           setSelectedMenuItem={setSelectedMenuItem}
           setIsModalOpen={setIsModalOpen}
           setIsLoading={setIsLoading}

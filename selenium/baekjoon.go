@@ -144,14 +144,14 @@ func NavigateToBjProblemWithCookie(url string) []SubmitHistory {
 	return submitHistories
 }
 
-func UploadBjSourceToGithub(problemTitle string, problemDate string, submission SubmitHistory, sha string) {
+func UploadBjSourceToGithub(problemTitle string, problemDate string, submission SubmitHistory, sha string, userName string) {
 	dm := GetWebDriverManager(true)
 	navigateToBjSourcePage(dm.driver, submission.SubmissionNumber)
 	codeElements := findBjSubmitCodeElements(dm.driver)
 
 	dateString := convertDateString(problemDate)
 	extension := convertCodeLanguageToFileExtension(submission.Language)
-	githubId := convertBjIdToGithubId(submission.ID)
+	branchName := userName
 	date := time.Now().Format("060102")
 	code := extractCodeFromCodeElements(codeElements)
 
@@ -160,7 +160,7 @@ func UploadBjSourceToGithub(problemTitle string, problemDate string, submission 
 		Owner:   github.GetRepositoryOwner(),
 		Repo:    github.GetRepositoryName(),
 		Path:    fmt.Sprintf("%s/%s.%s", dateString, problemTitle, extension),
-		Branch:  githubId,
+		Branch:  branchName,
 		Message: date,
 		Content: code,
 		Sha:     sha,
@@ -188,17 +188,9 @@ func findBjSubmitCodeElements(wd *selenium.WebDriver) []selenium.WebElement {
 	return codeElements
 }
 
-func convertBjIdToGithubId(bjId string) (githubId string) {
-	switch bjId {
-	case "alsrl9":
-		githubId = "alsrl8"
-	}
-	return
-}
-
-func GetGithubRepositoryBjSource(problemTitle string, problemDate string, bjId string, language string) (github.File, error) {
+func GetGithubRepositoryBjSource(problemTitle string, problemDate string, userName string, language string) (github.File, error) {
 	dateString := convertDateString(problemDate)
-	branchName := convertBjIdToGithubId(bjId)
+	branchName := userName
 	extension := convertCodeLanguageToFileExtension(language)
 	pathStr := fmt.Sprintf("%s/%s.%s", dateString, problemTitle, extension)
 	return github.GetGithubRepositorySource(branchName, pathStr)

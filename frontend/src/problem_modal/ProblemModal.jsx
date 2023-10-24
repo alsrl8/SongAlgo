@@ -9,6 +9,7 @@ import {
 const ProblemModal = ({
   isOpen,
   onClose,
+  userName,
   selectedProblemTitle,
   selectedProblemDate,
   submitHistories,
@@ -54,6 +55,7 @@ const ProblemModal = ({
           selectedProblemDate,
           submission,
           sha,
+          userName,
         );
       },
       onCancel() {},
@@ -70,6 +72,7 @@ const ProblemModal = ({
           selectedProblemDate,
           submission,
           "",
+          userName,
         );
       },
       onCancel() {},
