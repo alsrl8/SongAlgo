@@ -7,7 +7,7 @@ import Loading from "./loading/loading.jsx";
 import Setting from "./setting/setting.jsx";
 
 function App() {
-  const [userId, setUserId] = useState("");
+  const [userName, setUserName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("");
   const [isProblemModalOpen, setIsProblemModalOpen] = useState(false);
@@ -29,13 +29,14 @@ function App() {
       <Loading isLoading={isLoading} loadingText={loadingText} />
       <div className="header-container">
         <Header
-          userId={userId}
+          userName={userName}
           setIsLoading={setIsLoading}
           setLoadingText={setLoadingText}
           setIsSettingModalOpen={setIsSettingModalOpen}
         />
       </div>
       <Body
+        userName={userName}
         setIsModalOpen={setIsProblemModalOpen}
         setIsLoading={setIsLoading}
         setLoadingText={setLoadingText}
@@ -53,7 +54,7 @@ function App() {
       <Setting
         isSettingModalOpen={isSettingModalOpen}
         onClose={handleCloseSettingModal}
-        setUserId={setUserId}
+        setUserId={setUserName}
       />
     </div>
   );
