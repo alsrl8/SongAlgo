@@ -44,12 +44,12 @@ func (app *App) NavigateToBjProblemWithCookie(url string) []selenium.SubmitHisto
 	return selenium.NavigateToBjProblemWithCookie(url)
 }
 
-func (app *App) UploadBjSourceToGithub(problemTitle string, problemDate string, submission selenium.SubmitHistory, sha string) {
-	selenium.UploadBjSourceToGithub(problemTitle, problemDate, submission, sha)
+func (app *App) UploadBjSourceToGithub(problemTitle string, problemDate string, submission selenium.SubmitHistory, sha string, userName string) {
+	selenium.UploadBjSourceToGithub(problemTitle, problemDate, submission, sha, userName)
 }
 
-func (app *App) GetGithubRepositoryBjSource(problemTitle string, problemDate string, bjId string, language string) github.FileResponse {
-	file, err := selenium.GetGithubRepositoryBjSource(problemTitle, problemDate, bjId, language)
+func (app *App) GetGithubRepositoryBjSource(problemTitle string, problemDate string, userName string, language string) github.FileResponse {
+	file, err := selenium.GetGithubRepositoryBjSource(problemTitle, problemDate, userName, language)
 	fileResponse := github.ConvertGithubRepositoryFileToFileResponse(file, err)
 	return fileResponse
 }

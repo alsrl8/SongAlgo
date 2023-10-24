@@ -47,6 +47,7 @@ function App() {
       <ProblemModal
         isOpen={isProblemModalOpen}
         onClose={handleCloseProblemModal}
+        userName={userName}
         selectedProblemTitle={selectedProblemTitle}
         selectedProblemDate={selectedProblemDate}
         submitHistories={submitHistories}

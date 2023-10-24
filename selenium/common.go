@@ -184,7 +184,7 @@ func AddProblem(username string, date string, problemUrl1 string, problemUrl2 st
 	}
 
 	params := github.GetParams{
-		Token:  os.Getenv("GITHUB_TOKEN"),
+		Token:  github.GetRepositoryToken(),
 		Owner:  github.GetRepositoryOwner(),
 		Repo:   github.GetRepositoryName(),
 		Branch: github.GetScheduleBranchName(),
@@ -210,7 +210,7 @@ func AddProblem(username string, date string, problemUrl1 string, problemUrl2 st
 	jsonData, _ := json.MarshalIndent(scheduleList, "", "    ")
 
 	uploadParams := github.UploadParams{
-		Token:     os.Getenv("GITHUB_TOKEN"),
+		Token:     github.GetRepositoryToken(),
 		Owner:     github.GetRepositoryOwner(),
 		Committer: github.GetRepositoryOwner(),
 		Repo:      github.GetRepositoryName(),

@@ -62,8 +62,8 @@ export function NavigateToPgLoginPage() {
   return window['go']['main']['App']['NavigateToPgLoginPage']();
 }
 
-export function UploadBjSourceToGithub(arg1, arg2, arg3, arg4) {
-  return window['go']['main']['App']['UploadBjSourceToGithub'](arg1, arg2, arg3, arg4);
+export function UploadBjSourceToGithub(arg1, arg2, arg3, arg4, arg5) {
+  return window['go']['main']['App']['UploadBjSourceToGithub'](arg1, arg2, arg3, arg4, arg5);
 }
 
 export function UploadPgSourceToGithub(arg1, arg2, arg3, arg4, arg5, arg6) {

@@ -15,6 +15,7 @@ import cdLogo from "../../assets/images/code_logo.png";
 import { Modal, Pagination } from "antd";
 
 function Schedule({
+  userName,
   setSelectedMenuItem,
   setIsModalOpen,
   setIsLoading,
@@ -224,7 +225,7 @@ function Schedule({
                                 GetGithubRepositoryPgSource(
                                   problem.name,
                                   item.date,
-                                  "alsrl8",
+                                  userName,
                                   pgSourceData.extension,
                                 ).then((fileResponse) => {
                                   setIsLoading(false);
@@ -232,7 +233,7 @@ function Schedule({
                                     showConfirmOverwriteCode(
                                       problem.name,
                                       item.date,
-                                      "alsrl8",
+                                      userName,
                                       pgSourceData.code,
                                       pgSourceData.extension,
                                       fileResponse.file.sha,
@@ -241,7 +242,7 @@ function Schedule({
                                     showConfirmSubmitPgCode(
                                       problem.name,
                                       item.date,
-                                      "alsrl8",
+                                      userName,
                                       pgSourceData.code,
                                       pgSourceData.extension,
                                     );
