@@ -961,6 +961,32 @@
                     "url": "https://www.acmicpc.net/problem/10830"
                 }
             ]
+        },
+        {
+            "date": "2023-11-01",
+            "problems": [
+                {
+                    "name": "카드 합체 놀이",
+                    "algorithmType": "",
+                    "difficulty": "S1",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/15903"
+                },
+                {
+                    "name": "세 용액",
+                    "algorithmType": "",
+                    "difficulty": "G3",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/2473"
+                },
+                {
+                    "name": "대표 선수",
+                    "algorithmType": "",
+                    "difficulty": "G1",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/2461"
+                }
+            ]
         }
     ]
 }
