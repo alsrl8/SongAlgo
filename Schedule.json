@@ -935,6 +935,32 @@
                     "url": "https://www.acmicpc.net/problem/2557"
                 }
             ]
+        },
+        {
+            "date": "2023-10-31",
+            "problems": [
+                {
+                    "name": "전쟁 - 전투",
+                    "algorithmType": "",
+                    "difficulty": "S1",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/1303"
+                },
+                {
+                    "name": "이분 그래프",
+                    "algorithmType": "",
+                    "difficulty": "G4",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/1707"
+                },
+                {
+                    "name": "행렬 제곱",
+                    "algorithmType": "",
+                    "difficulty": "G4",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/10830"
+                }
+            ]
         }
     ]
 }
