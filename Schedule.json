@@ -987,6 +987,32 @@
                     "url": "https://www.acmicpc.net/problem/2461"
                 }
             ]
+        },
+        {
+            "date": "2023-11-02",
+            "problems": [
+                {
+                    "name": "탑",
+                    "algorithmType": "",
+                    "difficulty": "G5",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/2493"
+                },
+                {
+                    "name": "돌 게임 6",
+                    "algorithmType": "",
+                    "difficulty": "G5",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/9660"
+                },
+                {
+                    "name": "돌 게임 7",
+                    "algorithmType": "",
+                    "difficulty": "G2",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/9661"
+                }
+            ]
         }
     ]
 }
