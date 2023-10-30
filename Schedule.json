@@ -1013,6 +1013,32 @@
                     "url": "https://www.acmicpc.net/problem/9661"
                 }
             ]
+        },
+        {
+            "date": "2023-11-03",
+            "problems": [
+                {
+                    "name": "최대공약수",
+                    "algorithmType": "",
+                    "difficulty": "S1",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/1850"
+                },
+                {
+                    "name": "평범한 배낭",
+                    "algorithmType": "",
+                    "difficulty": "G5",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/12865"
+                },
+                {
+                    "name": "앱",
+                    "algorithmType": "",
+                    "difficulty": "G3",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/7579"
+                }
+            ]
         }
     ]
 }
