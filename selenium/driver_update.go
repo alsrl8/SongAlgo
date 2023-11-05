@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 )
@@ -63,7 +64,7 @@ func GetAPIResponse() *APIResponse {
 func GetLatestStableDriverDownloadUrl(response *APIResponse, targetPlatform string) (string, error) {
 	channelName := "Stable"
 	if _, has := response.Channels[channelName]; !has {
-		errMsg := fmt.Sprintf("Expected api response to have `%s` channel, but it is missing in the reposne", channelName)
+		errMsg := fmt.Sprintf("Expected api response to have `%s` channel, but it is missing in the response", channelName)
 		log.Printf(errMsg)
 		return "", errors.New(errMsg)
 	}
@@ -71,7 +72,7 @@ func GetLatestStableDriverDownloadUrl(response *APIResponse, targetPlatform stri
 	stableChannel := response.Channels[channelName]
 	chromeDriverLabel := "chromedriver"
 	if _, has := stableChannel.Downloads[chromeDriverLabel]; !has {
-		errMsg := fmt.Sprintf("Expected api response to have `%s` url, but it is missing in the reposne", chromeDriverLabel)
+		errMsg := fmt.Sprintf("Expected api response to have `%s` url, but it is missing in the resposne", chromeDriverLabel)
 		log.Printf(errMsg)
 		return "", errors.New(errMsg)
 	}
@@ -178,4 +179,19 @@ func Unzip(src string, dest string) ([]string, error) {
 		}
 	}
 	return filenames, nil
+}
+
+func GetLocalDriverVersion(driverPath string) (string, error) {
+	cmd := exec.Command(driverPath, "--version")
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return "", err
+	}
+
+	versionOutput := strings.Split(string(output), " ")
+	if versionOutput[0] != "ChromeDriver" {
+		return "", errors.New("Failed to get local driver version")
+	}
+
+	return versionOutput[1], nil
 }

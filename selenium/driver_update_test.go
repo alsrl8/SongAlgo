@@ -54,3 +54,12 @@ func TestUnzip(t *testing.T) {
 	}
 	t.Logf("Unzipped file names: %+v", filenames)
 }
+
+func TestGetLocalDriverVersion(t *testing.T) {
+	driverPath := "./driver/chromedriver.exe"
+	version, err := GetLocalDriverVersion(driverPath)
+	if err != nil {
+		t.Fatalf("Failed to get local driver version: %+v", err)
+	}
+	t.Logf("Local driver version: %s", version)
+}
