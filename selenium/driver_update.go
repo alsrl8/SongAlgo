@@ -31,8 +31,12 @@ type DownloadUrl struct {
 	Url      string `json:"url"`
 }
 
+func getAPIUrl() string {
+	return "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json"
+}
+
 func GetAPIResponse() *APIResponse {
-	url := "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json"
+	url := getAPIUrl()
 	resp, err := http.Get(url)
 	if err != nil {
 		log.Printf("Failed to make GET request: %+v", err)
@@ -59,6 +63,17 @@ func GetAPIResponse() *APIResponse {
 	}
 
 	return &apiResponse
+}
+
+func GetLatestStableDriverVersion() (string, error) {
+	response := GetAPIResponse()
+	channelName := "Stable"
+	if _, has := response.Channels[channelName]; !has {
+		errMsg := fmt.Sprintf("Expected api response to have `%s` channel, but it is missing in the response", channelName)
+		log.Printf(errMsg)
+		return "", errors.New(errMsg)
+	}
+	return response.Channels["Stable"].Version, nil
 }
 
 func GetLatestStableDriverDownloadUrl(response *APIResponse, targetPlatform string) (string, error) {
@@ -194,4 +209,20 @@ func GetLocalDriverVersion(driverPath string) (string, error) {
 	}
 
 	return versionOutput[1], nil
+}
+
+func IsNeedUpdate(driverPath string) (bool, error) {
+	remoteVersion, err := GetLatestStableDriverVersion()
+	if err != nil {
+		return false, err
+	}
+
+	localVersion, err := GetLocalDriverVersion(driverPath)
+	if err != nil {
+		return false, err
+	}
+
+	remoteMainVersion := strings.Split(remoteVersion, ".")[0]
+	localMainVersion := strings.Split(localVersion, ".")[0]
+	return remoteMainVersion != localMainVersion, nil
 }

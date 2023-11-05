@@ -19,6 +19,14 @@ func TestGetAPIResponse(t *testing.T) {
 	}
 }
 
+func TestGetLatestStableDriverVersion(t *testing.T) {
+	version, err := GetLatestStableDriverVersion()
+	if err != nil {
+		t.Fatalf(err.Error())
+	}
+	t.Logf("Latest stable driver version: %s", version)
+}
+
 func TestGetLatestStableDriverDownloadUrl(t *testing.T) {
 	apiResponse := GetAPIResponse()
 	targetPlatform := "win64"
@@ -62,4 +70,18 @@ func TestGetLocalDriverVersion(t *testing.T) {
 		t.Fatalf("Failed to get local driver version: %+v", err)
 	}
 	t.Logf("Local driver version: %s", version)
+}
+
+func TestIsNeedUpdate(t *testing.T) {
+	driverPath := "./driver/chromedriver.exe"
+	ret, err := IsNeedUpdate(driverPath)
+	if err != nil {
+		t.Fatalf("Failed to compare chrome drivers' version: %+v", err)
+	}
+
+	if ret == true {
+		t.Logf("Driver needs to be updated")
+	} else {
+		t.Logf("Driver doesn't need to be updated")
+	}
 }
