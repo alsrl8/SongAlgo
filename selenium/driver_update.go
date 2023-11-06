@@ -196,6 +196,17 @@ func Unzip(src string, dest string) ([]string, error) {
 	return filenames, nil
 }
 
+func MoveChromeDriver(driverPath string, destPath string) {
+	srcPathCleaned := filepath.Clean(driverPath)
+	destPathCleaned := filepath.Clean(destPath)
+
+	err := os.Rename(srcPathCleaned, destPathCleaned)
+	if err != nil {
+		log.Fatalf("Failed to move file: %s", err)
+	}
+	log.Printf("File moved from %s to %s", srcPathCleaned, destPathCleaned)
+}
+
 func GetLocalDriverVersion(driverPath string) (string, error) {
 	cmd := exec.Command(driverPath, "--version")
 	output, err := cmd.CombinedOutput()
@@ -212,6 +223,10 @@ func GetLocalDriverVersion(driverPath string) (string, error) {
 }
 
 func IsNeedUpdate(driverPath string) (bool, error) {
+	if _, err := os.Stat(driverPath); err != nil {
+		return false, err
+	}
+
 	remoteVersion, err := GetLatestStableDriverVersion()
 	if err != nil {
 		return false, err
