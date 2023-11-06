@@ -18,7 +18,17 @@ import (
 // getChromeDriverPath Get Chrome web driver path.
 // It is only tested on Windows environment.
 func getChromeDriverPath() (chromeDriverPath string) {
-	chromeDriverPath = "./selenium/driver/chromedriver"
+	chromeDriverPath = "./selenium/driver/chromedriver.exe"
+	return
+}
+
+func getChromeDriverZipPath() (path string) {
+	path = "./selenium/driver/chromedriver.zip"
+	return
+}
+
+func getChromeDriverDirectoryPath() (path string) {
+	path = "./selenium/driver/"
 	return
 }
 
@@ -26,9 +36,27 @@ func getChromeDriverPath() (chromeDriverPath string) {
 func getChromeDriverService() (*selenium.Service, error) {
 	var opts []selenium.ServiceOption
 	chromeDriverPath := getChromeDriverPath()
+
+	needed, err := IsNeedUpdate(chromeDriverPath)
+	if err != nil {
+		log.Printf(err.Error())
+		return nil, nil
+	}
+
+	if needed {
+		targetPlatform := "win64"
+		log.Printf("Tries to download chromedriver")
+		err := UpdateChromeDriver(targetPlatform)
+		if err != nil {
+			log.Printf("Failed to update chrome driver: %+v", err)
+			return nil, nil
+		}
+	}
+
 	service, err := selenium.NewChromeDriverService(chromeDriverPath, 4444, opts...)
 	if err != nil {
 		log.Println(err)
+		return nil, nil
 	}
 	return service, nil
 }

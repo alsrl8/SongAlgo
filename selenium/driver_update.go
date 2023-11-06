@@ -224,7 +224,14 @@ func GetLocalDriverVersion(driverPath string) (string, error) {
 
 func IsNeedUpdate(driverPath string) (bool, error) {
 	if _, err := os.Stat(driverPath); err != nil {
-		return false, err
+		if os.IsNotExist(err) {
+			dirPath := filepath.Dir(driverPath)
+			err := os.MkdirAll(dirPath, os.ModePerm)
+			if err != nil {
+				return true, err
+			}
+		}
+		return true, nil
 	}
 
 	remoteVersion, err := GetLatestStableDriverVersion()
@@ -240,4 +247,39 @@ func IsNeedUpdate(driverPath string) (bool, error) {
 	remoteMainVersion := strings.Split(remoteVersion, ".")[0]
 	localMainVersion := strings.Split(localVersion, ".")[0]
 	return remoteMainVersion != localMainVersion, nil
+}
+
+func getUnzippedChromeDriverPath() string {
+	return "./selenium/driver/chromedriver-win64/chromedriver.exe"
+}
+
+func UpdateChromeDriver(targetPlatform string) error {
+	driverAPIResponse := GetAPIResponse()
+	zipPath := getChromeDriverZipPath()
+
+	downloadUrl, err := GetLatestStableDriverDownloadUrl(driverAPIResponse, targetPlatform)
+	if err != nil {
+		log.Printf("Expected to get stable driver download url, but failed")
+		return err
+	}
+
+	err = DownloadFile(zipPath, downloadUrl)
+	if err != nil {
+		log.Printf("Failed to download driver to filePath(%s) from given url(%s)", zipPath, downloadUrl)
+		return err
+	}
+
+	dirPath := getChromeDriverDirectoryPath()
+	filenames, err := Unzip(zipPath, dirPath)
+	if err != nil {
+		log.Printf("Failed to unzip zip file in path(%s)", zipPath)
+		return err
+	}
+	log.Printf("Unzipped file names: %+v", filenames)
+
+	srcPath := getUnzippedChromeDriverPath()
+	destPath := getChromeDriverPath()
+	MoveChromeDriver(srcPath, destPath)
+
+	return nil
 }
