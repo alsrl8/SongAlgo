@@ -1065,6 +1065,32 @@
                     "url": "https://www.acmicpc.net/problem/2109"
                 }
             ]
+        },
+        {
+            "date": "2023-11-08",
+            "problems": [
+                {
+                    "name": "블로그",
+                    "algorithmType": "",
+                    "difficulty": "S3",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/21921"
+                },
+                {
+                    "name": "N과 M (8)",
+                    "algorithmType": "",
+                    "difficulty": "S3",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/15657"
+                },
+                {
+                    "name": "회전 초밥",
+                    "algorithmType": "",
+                    "difficulty": "G4",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/15961"
+                }
+            ]
         }
     ]
 }
