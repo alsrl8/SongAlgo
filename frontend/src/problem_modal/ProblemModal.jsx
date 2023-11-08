@@ -27,7 +27,7 @@ const ProblemModal = ({
     GetGithubRepositoryBjSource(
       selectedProblemTitle,
       selectedProblemDate,
-      submission.ID,
+      userName,
       submission.Language,
     ).then(async (result) => {
       if (result.statusCode === "302") {
