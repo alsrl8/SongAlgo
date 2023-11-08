@@ -9,11 +9,27 @@ import (
 	"log"
 	"net/url"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"runtime"
 	"strings"
 	"time"
 )
+
+func KillChromeDriver() {
+	var cmd *exec.Cmd
+
+	if runtime.GOOS == "windows" {
+		cmd = exec.Command("taskkill", "/F", "/IM", "chromedriver.exe", "/T")
+	} else {
+		cmd = exec.Command("pkill", "chromedriver")
+	}
+
+	err := cmd.Run()
+	if err != nil {
+		fmt.Println("Error killing chromedriver:", err)
+	}
+}
 
 // getChromeDriverPath Get Chrome web driver path.
 // It is only tested on Windows environment.
