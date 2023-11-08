@@ -1013,6 +1013,32 @@
                     "url": "https://www.acmicpc.net/problem/7579"
                 }
             ]
+        },
+        {
+            "date": "2023-11-06",
+            "problems": [
+                {
+                    "name": "촌수계산",
+                    "algorithmType": "",
+                    "difficulty": "S2",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/2644"
+                },
+                {
+                    "name": "소수\u0026팰린드롬",
+                    "algorithmType": "",
+                    "difficulty": "S1",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/1747"
+                },
+                {
+                    "name": "괄호 추가하기",
+                    "algorithmType": "",
+                    "difficulty": "G3",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/16637"
+                }
+            ]
         }
     ]
 }
