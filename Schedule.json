@@ -1039,6 +1039,32 @@
                     "url": "https://www.acmicpc.net/problem/16637"
                 }
             ]
+        },
+        {
+            "date": "2023-11-07",
+            "problems": [
+                {
+                    "name": "도영이가 만든 맛있는 음식",
+                    "algorithmType": "",
+                    "difficulty": "S2",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/2961"
+                },
+                {
+                    "name": "접두사 찾기",
+                    "algorithmType": "",
+                    "difficulty": "S1",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/14426"
+                },
+                {
+                    "name": "순회강연",
+                    "algorithmType": "",
+                    "difficulty": "G3",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/2109"
+                }
+            ]
         }
     ]
 }
