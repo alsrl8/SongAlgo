@@ -1091,6 +1091,32 @@
                     "url": "https://www.acmicpc.net/problem/15961"
                 }
             ]
+        },
+        {
+            "date": "2023-11-14",
+            "problems": [
+                {
+                    "name": "사과 담기 게임",
+                    "algorithmType": "",
+                    "difficulty": "S5",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/2828"
+                },
+                {
+                    "name": "이장님 초대",
+                    "algorithmType": "",
+                    "difficulty": "S5",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/9237"
+                },
+                {
+                    "name": "도서관",
+                    "algorithmType": "",
+                    "difficulty": "G4",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/1461"
+                }
+            ]
         }
     ]
 }
