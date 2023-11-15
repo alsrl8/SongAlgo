@@ -1117,6 +1117,32 @@
                     "url": "https://www.acmicpc.net/problem/1461"
                 }
             ]
+        },
+        {
+            "date": "2023-11-16",
+            "problems": [
+                {
+                    "name": "단어 나누기",
+                    "algorithmType": "",
+                    "difficulty": "S5",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/1251"
+                },
+                {
+                    "name": "안테나",
+                    "algorithmType": "",
+                    "difficulty": "S3",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/18310"
+                },
+                {
+                    "name": "동전",
+                    "algorithmType": "",
+                    "difficulty": "G5",
+                    "platform": "baekjoon",
+                    "url": "https://www.acmicpc.net/problem/9084"
+                }
+            ]
         }
     ]
 }
